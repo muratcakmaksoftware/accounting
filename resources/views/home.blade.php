@@ -4,6 +4,6 @@
 
 @section('content')
     <div class="row">
-        Test
+
     </div>
 @endsection
