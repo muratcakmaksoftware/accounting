@@ -56,7 +56,5 @@ networks:
         - subnet: 172.20.0.0/16
 
 volumes:
-  accounting:
-    driver: local
   postgresql:
     driver: local

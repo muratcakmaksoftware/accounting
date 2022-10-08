@@ -2,11 +2,17 @@
 
 namespace App\Exceptions;
 
+use Flasher\Laravel\Facade\Flasher;
+use Flasher\Prime\FlasherInterface;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Validation\ValidationException;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
+    private FlasherInterface $flasher;
+
     /**
      * A list of exception types with their corresponding custom log levels.
      *
@@ -43,10 +49,15 @@ class Handler extends ExceptionHandler
      */
     public function report(Throwable $e)
     {
-        if(!is_null($e)){
-            dd($e);
+        $this->flasher = $this->container->make(FlasherInterface::class);
+        if ($e instanceof ValidationException) {
+            $this->flasher->addError($this->getValidationErrorMessages($e));
         }
-        return parent::report($e);
+
+        /*if(!is_null($e)){
+            dd($e);
+        }*/
+        parent::report($e);
     }
 
     /**
@@ -57,9 +68,22 @@ class Handler extends ExceptionHandler
     public function register()
     {
         $this->reportable(function (Throwable $e) {
-            if(!is_null($e)){
-                dd('ok');
-            }
+
         });
+    }
+
+    /**
+     * @param Throwable $e
+     * @return string
+     */
+    public function getValidationErrorMessages(Throwable $e): string
+    {
+        $html = '';
+        foreach ($e->validator->getMessageBag()->getMessages() as $key => $errorMessages) {
+            foreach ($errorMessages as $errorMessage) {
+                $html .= '<li>'.$key.': '.$errorMessage.'</li>';
+            }
+        }
+        return $html;
     }
 }

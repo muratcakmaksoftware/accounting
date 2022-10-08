@@ -3,11 +3,12 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>@section('title')Dashboard@endsection</title>
+    <title>@yield('title')</title>
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @yield('css')
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 <body class="hold-transition sidebar-mini">
@@ -159,18 +160,13 @@
         </div>
         <!-- /.content-header -->
 
-        @section('content')
         <!-- Main content -->
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-
-                </div>
-                <!-- /.row -->
+                @yield('content')
             </div><!-- /.container-fluid -->
         </div>
         <!-- /.content -->
-        @endsection
     </div>
     <!-- /.content-wrapper -->
 
@@ -181,6 +177,6 @@
     </footer>
 </div>
 <!-- ./wrapper -->
-
+@yield('javascript')
 </body>
 </html>
