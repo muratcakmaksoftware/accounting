@@ -7,7 +7,6 @@ use Flasher\Prime\FlasherInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends Controller
@@ -31,10 +30,9 @@ class AuthController extends Controller
     public function login(PostLoginRequest $request)
     {
         if (Auth::attempt($request->only([
-                'email', 'password'
+            'email', 'password'
         ]))) {
             $request->session()->regenerate();
-            $this->flasher->addSuccess('Başarıyla Giriş Yaptınız');
             return redirect()->intended('home');
         }
         return redirect()->back();
@@ -43,5 +41,6 @@ class AuthController extends Controller
     public function logout()
     {
         Auth::logout();
+        return redirect()->route('login');
     }
 }

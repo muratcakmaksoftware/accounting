@@ -195,6 +195,7 @@
                 <span></span>
                 Giriş Yap
             </a>
+            <input type="submit" style="display:none"/>
         </form>
     </div>
 </div>
