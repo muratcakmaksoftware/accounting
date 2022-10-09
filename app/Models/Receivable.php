@@ -1,11 +1,11 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class {{ class }} extends BaseModel
+class Receivable extends BaseModel
 {
     use HasFactory, SoftDeletes;
 
