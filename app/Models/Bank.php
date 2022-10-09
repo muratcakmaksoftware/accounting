@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Bank extends BaseModel
@@ -18,4 +19,9 @@ class Bank extends BaseModel
      * @var bool
      */
     public $timestamps = true;
+
+    public function getBankCurrencyTotals()
+    {
+        return $this->hasMany(BankCurrencyTotal::class);
+    }
 }

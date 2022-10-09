@@ -20,7 +20,7 @@ return new class extends Migration
             $table->foreignId('payment_method_type_id')->constrained();
             $table->decimal('price', '13', '2');
             $table->date('expires_at');
-            $table->string('description', 2500);
+            $table->string('description', 2500)->nullable(true);
             $table->softDeletes();
             $table->timestamps();
         });

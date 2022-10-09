@@ -15,14 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            CurrencyTypeSeeder::class,
+            CompanySeeder::class,
+            PaymentMethodTypeSeeder::class,
+            BankSeeder::class,
+            BankCurrencyTotalSeeder::class
         ]);
-
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
     }
 }
