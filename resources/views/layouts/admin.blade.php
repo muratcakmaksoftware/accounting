@@ -141,6 +141,36 @@
                     </li>
 
                     <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-cog"></i>
+                            <p>
+                                Ayarlar
+                                <i class="fas fa-angle-left right"></i>
+                            </p>
+                        </a>
+                        <ul class="nav nav-treeview">
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fas fa-building nav-icon"></i>
+                                    <p>Şirketler</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fas fa-money nav-icon"></i>
+                                    <p>Para Birimleri</p>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="" class="nav-link">
+                                    <i class="fa fa-google-wallet nav-icon"></i>
+                                    <p>Ödeme Metotları</p>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item">
                         <a href="{{ route('logout') }}" class="nav-link">
                             <i class="nav-icon fas fa-sign-out-alt"></i>
                             <p>

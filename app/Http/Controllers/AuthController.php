@@ -33,7 +33,7 @@ class AuthController extends Controller
             'email', 'password'
         ]))) {
             $request->session()->regenerate();
-            return redirect()->intended('home');
+            return redirect()->route('home');
         }
         return redirect()->back();
     }

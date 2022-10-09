@@ -4,7 +4,10 @@
 /* Bootstrap */
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
-/* adminlte*/
+/* adminlte */
 @import '../../node_modules/admin-lte/dist/css/adminlte.min.css';
 @import '../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css';
+
+/** FontAwesome */
+@import '../../node_modules/fontawesome-4.7/css/font-awesome.min.css';
 
