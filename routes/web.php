@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PayableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -24,5 +25,10 @@ Route::group(['prefix' => 'auth'], function () { //, 'namespace' => 'Auth', 'mid
 
 Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
     Route::get('/', [HomeController::class, 'index'])->name('home');
+
+    Route::group(['prefix' => '/payables'], function () {
+        Route::get('/', [PayableController::class, 'index'])->name('payables.index');
+        Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
+    });
 });
 

@@ -11,3 +11,6 @@
 /** FontAwesome */
 @import '../../node_modules/fontawesome-4.7/css/font-awesome.min.css';
 
+/** Datatables */
+@import '../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css';
+

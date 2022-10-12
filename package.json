@@ -16,6 +16,8 @@
     },
     "dependencies": {
         "admin-lte": "3.2",
-        "fontawesome-4.7": "^4.7.0"
+        "datatables.net-dt": "^1.12.1",
+        "fontawesome-4.7": "^4.7.0",
+        "jquery": "^3.6.1"
     }
 }

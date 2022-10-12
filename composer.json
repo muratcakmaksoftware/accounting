@@ -12,7 +12,8 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "php-flasher/flasher-laravel": "^1.7",
-        "yajra/laravel-datatables-oracle": "^10.0"
+        "yajra/laravel-datatables-oracle": "^10.0",
+        "ext-intl": "*"
     },
     "require-dev": {
         "fakerphp/faker": "^1.9.1",
