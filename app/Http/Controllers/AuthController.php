@@ -3,22 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostLoginRequest;
-use Flasher\Prime\FlasherInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Support\Facades\Auth;
 
-class AuthController extends Controller
+class AuthController extends BaseController
 {
-
-    private FlasherInterface $flasher;
-
-    public function __construct(FlasherInterface $flasher)
-    {
-        $this->flasher = $flasher;
-    }
-
     /**
      * @return Application|Factory|View
      */

@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use App\Interfaces\RepositoryInterfaces\{{ folder_path }}{{ class_name }}RepositoryInterface;
+
+class {{ class }} extends BaseService
+{
+    /**
+     * @var {{ class_name }}RepositoryInterface
+     */
+    private {{ class_name }}RepositoryInterface $repository;
+
+    /**
+     * @param {{ class_name }}RepositoryInterface $repository
+     */
+    public function __construct({{ class_name }}RepositoryInterface $repository)
+    {
+        $this->repository = $repository;
+    }
+}

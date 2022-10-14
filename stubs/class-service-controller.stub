@@ -1,0 +1,59 @@
+<?php
+
+namespace {{ namespace }};
+
+use {{ rootNamespace }}Http\Controllers\Controller;
+use Illuminate\Http\Request;
+use App\Services\{{ folder_path }}{{ class_name }}Service;
+use Illuminate\Http\JsonResponse;
+
+class {{ class }} extends BaseController
+{
+    /**
+     * @var {{ class_name }}Service
+     */
+    private {{ class_name }}Service $service;
+
+    /**
+     * @param {{ class_name }}Service $service
+     */
+    public function __construct({{ class_name }}Service $service)
+    {
+        $this->service = $service;
+    }
+
+    public function index()
+    {
+
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+
+    public function show($id)
+    {
+
+    }
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
+    }
+}

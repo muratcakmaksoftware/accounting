@@ -14,6 +14,8 @@
                 <th>Vade</th>
                 <th>Açıklama</th>
                 <th>O.Tarihi</th>
+                <th width="10%">Düzenle</th>
+                <th>Sil</th>
             </thead>
         </table>
     </div>
@@ -33,6 +35,8 @@
                     {data: 'expires_at'},
                     {data: 'description'},
                     {data: 'created_at'},
+                    {data: 'edit', orderable: false, searchable: false, width: "5%"},
+                    {data: 'delete', orderable: false, searchable: false, width: "5%"},
                 ],
                 lengthMenu: [
                     [100, 300, 500, -1],

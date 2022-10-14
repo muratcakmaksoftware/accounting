@@ -28,6 +28,8 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => '/payables'], function () {
         Route::get('/', [PayableController::class, 'index'])->name('payables.index');
+        Route::get('/{id}/edit', [PayableController::class, 'edit'])->name('payables.edit');
+        Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
     });
 });
