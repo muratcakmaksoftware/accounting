@@ -2,48 +2,69 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Payable;
-use Yajra\DataTables\Facades\DataTables;
+use App\Services\PayableService;
+use Exception;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class PayableController extends Controller
+class PayableController extends BaseController
 {
+    /**
+     * @var PayableService
+     */
+    private PayableService $service;
 
-    public function index()
+    /**
+     * @param PayableService $service
+     */
+    public function __construct(PayableService $service)
+    {
+        $this->service = $service;
+    }
+
+    public function index(): Factory|View|Application
     {
         return view('payable.index');
     }
 
-    public function datatables()
+    /**
+     * @throws Exception
+     */
+    public function datatables(): JsonResponse
     {
-        $payables = Payable::with(['company' => function ($query) {
-            $query->select(['id', 'name']);
-        }, 'currencyType' => function ($query) {
-            $query->select(['id', 'name']);
-        }, 'paymentMethodType' => function ($query) {
-            $query->select(['id', 'name']);
-        }])->orderByDesc('id')->get();
-        return Datatables::of($payables)
-            ->addIndexColumn()
-            ->addColumn('company_name', function ($row) {
-                return $row->company->name;
-            })
-            ->addColumn('currency_type', function ($row) {
-                return $row->currencyType->name;
-            })
-            ->addColumn('payment_method_type', function ($row) {
-                return $row->paymentMethodType->name;
-            })
-            ->editColumn('price', function ($row) {
-                return $row->price_format_try;
-            })
-            ->editColumn('expires_at', function ($row) {
-                return $row->expires_at_format;
-            })
-            ->editColumn('created_at', function ($row) {
-                return $row->created_at_format;
-            })
-            ->only(['DT_RowIndex', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at',
-                'description', 'created_at'])
-            ->toJson();
+        return $this->service->datatables();
+    }
+
+    public function create()
+    {
+
+    }
+
+    public function store(Request $request)
+    {
+
+    }
+
+    public function show($id)
+    {
+
+    }
+
+    public function edit($id)
+    {
+
+    }
+
+    public function update(Request $request, $id)
+    {
+
+    }
+
+    public function destroy($id)
+    {
+
     }
 }
