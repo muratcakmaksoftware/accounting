@@ -4,12 +4,14 @@ namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterfaces\BaseRepositoryInterface;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
 class BaseRepository implements BaseRepositoryInterface
 {
     /**
-     * @var Model
+     * @var Builder|Model|SoftDeletes
      */
     protected $model;
 
@@ -25,7 +27,6 @@ class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param array $attributes
-     *
      * @return Model
      */
     public function store(array $attributes): Model
@@ -40,8 +41,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function update(array $attributes, $id): bool
     {
-        $model = $this->getById($id); //for observe event
-        return $model->update($attributes);
+        return $this->model->where('id', $id)->update($attributes);
     }
 
     /**
@@ -50,8 +50,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function destroy($id): bool
     {
-        $model = $this->getById($id, ['id']); //for observe event
-        return $model->delete();
+        return $this->model->where('id', $id)->delete();
     }
 
     /**
@@ -60,8 +59,7 @@ class BaseRepository implements BaseRepositoryInterface
      */
     public function restore($id): ?bool
     {
-        $model = $this->getById($id, ['id'], true); //for observe event
-        return $model->restore();
+        return $this->model->onlyTrashed()->where('id', $id)->restore();
     }
 
     /**

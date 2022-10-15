@@ -2,13 +2,13 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\Controller;
+use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Facades\DataTables;
 
-class PayableService extends Controller
+class PayableService extends BaseController
 {
     /**
      * @var PayableRepositoryInterface
@@ -21,6 +21,15 @@ class PayableService extends Controller
     public function __construct(PayableRepositoryInterface $repository)
     {
         $this->repository = $repository;
+    }
+
+    /**
+     * @param array $attributes
+     * @return void
+     */
+    public function store(array $attributes)
+    {
+        $this->repository->store($attributes);
     }
 
     /**
@@ -50,10 +59,10 @@ class PayableService extends Controller
                 return $row->created_at_format;
             })
             ->addColumn('edit', function ($row) {
-                return '<a href="'.route('payables.edit', ['id' => $row->id]).'" class="btn btn-block btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
+                return '<a href="' . route('payables.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
             })
             ->addColumn('delete', function ($row) {
-                return '<a href="'.route('payables.destroy', ['id' => $row->id]).'" class="btn btn-block btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a href="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
             ->rawColumns(['edit', 'delete'])
             ->only(['DT_RowIndex', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at',

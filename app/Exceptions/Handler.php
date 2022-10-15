@@ -4,8 +4,10 @@ namespace App\Exceptions;
 
 use Flasher\Laravel\Facade\Flasher;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -44,20 +46,18 @@ class Handler extends ExceptionHandler
 
     /**
      * @param Throwable $e
-     * @return void
+     * @return RedirectResponse|void
      * @throws Throwable
+     * @throws BindingResolutionException
      */
     public function report(Throwable $e)
     {
+        parent::report($e);
         $this->flasher = $this->container->make(FlasherInterface::class);
         if ($e instanceof ValidationException) {
             $this->flasher->addError($this->getValidationErrorMessages($e));
+            return redirect()->back();
         }
-
-        /*if(!is_null($e)){
-            dd($e);
-        }*/
-        parent::report($e);
     }
 
     /**

@@ -3,7 +3,7 @@
 namespace {{ namespace }};
 
 use App\Interfaces\RepositoryInterfaces\{{ folder_path }}{{ class_name }}RepositoryInterface;
-use App\Models\{{ class_name }}
+use App\Models\{{ class_name }};
 
 class {{ class }} extends BaseRepository implements {{ class_name }}RepositoryInterface
 {

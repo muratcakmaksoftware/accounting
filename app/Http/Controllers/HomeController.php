@@ -10,11 +10,6 @@ use Illuminate\Contracts\View\View;
 class HomeController extends BaseController
 {
     /**
-     * @var HomeService
-     */
-    private HomeService $service;
-
-    /**
      * @param HomeService $service
      */
     public function __construct(HomeService $service)

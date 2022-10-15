@@ -5,18 +5,6 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayableController;
 use Illuminate\Support\Facades\Route;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
-
 Route::group(['prefix' => 'auth'], function () { //, 'namespace' => 'Auth', 'middleware' => 'auth'
     Route::get('/login', [AuthController::class, 'loginView'])->name('login');
     Route::post('/login', [AuthController::class, 'login'])->name('login.post');
@@ -28,6 +16,8 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
 
     Route::group(['prefix' => '/payables'], function () {
         Route::get('/', [PayableController::class, 'index'])->name('payables.index');
+        Route::get('/create', [PayableController::class, 'create'])->name('payables.create');
+        Route::post('/', [PayableController::class, 'store'])->name('payables.store');
         Route::get('/{id}/edit', [PayableController::class, 'edit'])->name('payables.edit');
         Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');

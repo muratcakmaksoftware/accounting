@@ -1,18 +1,18 @@
 <?php
 
-namespace {{ namespace }};
+namespace App\Http\Controllers;
 
-use {{ rootNamespace }}Http\Controllers\Controller;
-use Illuminate\Http\Request;
-use App\Services\{{ folder_path }}{{ class_name }}Service;
+use App\Http\Controllers\Controller;
+use App\Services\PaymentMethodTypeService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 
-class {{ class }} extends BaseController
+class PaymentMethodTypeController extends BaseController
 {
     /**
-     * @param {{ class_name }}Service $service
+     * @param PaymentMethodTypeService $service
      */
-    public function __construct({{ class_name }}Service $service)
+    public function __construct(PaymentMethodTypeService $service)
     {
         $this->service = $service;
     }

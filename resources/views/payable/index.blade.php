@@ -3,6 +3,8 @@
 @section('title', 'Ödemelerim')
 
 @section('content')
+    <a style="position: fixed;right: 20px; bottom: 75px;padding:10px 20px 10px 20px" href="{{route('payables.create')}}" class="btn btn-success right"><i class="fa fa-plus"></i></a>
+
     <div class="row">
         <table id="payable-table" class="table table-bordered table-hover">
             <thead>
@@ -14,7 +16,7 @@
                 <th>Vade</th>
                 <th>Açıklama</th>
                 <th>O.Tarihi</th>
-                <th width="10%">Düzenle</th>
+                <th>Düzenle</th>
                 <th>Sil</th>
             </thead>
         </table>

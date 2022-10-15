@@ -26,6 +26,18 @@ DataTable(window, window.$);
 })(jQuery, jQuery.fn.dataTable);
 
 /**
+ * Select2
+ */
+import select2 from '../../node_modules/admin-lte/plugins/select2/js/select2.full.min'; /** select2 */
+select2(window, window.$);
+
+/**
+ * inputmask
+ */
+import inputmask from '../../node_modules/admin-lte/plugins/inputmask/jquery.inputmask.min';
+inputmask(window, window.$);
+
+/**
  * We'll load the axios HTTP library which allows us to easily issue requests
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
