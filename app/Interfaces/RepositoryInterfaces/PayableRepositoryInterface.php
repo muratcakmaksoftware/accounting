@@ -2,7 +2,7 @@
 
 namespace App\Interfaces\RepositoryInterfaces;
 
-use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Collection;
 
 interface PayableRepositoryInterface extends BaseRepositoryInterface
 {

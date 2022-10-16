@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayableController;
 use Illuminate\Support\Facades\Route;
@@ -21,6 +22,10 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/{id}/edit', [PayableController::class, 'edit'])->name('payables.edit');
         Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
+    });
+
+    Route::group(['prefix' => '/company'], function () {
+        Route::get('/select2Ajax', [CompanyController::class, 'select2Ajax'])->name('companies.select2Ajax');
     });
 });
 

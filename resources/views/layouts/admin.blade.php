@@ -10,8 +10,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    @vite(['resources/css/fonts.css', 'resources/css/app.css', 'resources/css/main.css'])
     @yield('css')
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @yield('javascript-head')
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -220,7 +221,14 @@
         <strong>Copyright &copy; 2021-{{ date('Y') }} Murat Çakmak</strong> All rights reserved.
     </footer>
 </div>
-<!-- ./wrapper -->
-@yield('javascript')
+@vite(['resources/js/app.js', 'resources/js/main.js'])
+@yield('javascript-footer')
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        @yield('init_js')
+    });
+</script>
+
 </body>
 </html>

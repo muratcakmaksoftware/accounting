@@ -1,0 +1,6 @@
+/* Fonts */
+@import url('https://fonts.googleapis.com/css?family=Nunito');
+
+/** FontAwesome */
+@import '../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css';
+@import '../../node_modules/fontawesome-4.7/css/font-awesome.min.css';

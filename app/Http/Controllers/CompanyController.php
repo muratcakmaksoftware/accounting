@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\QueryCompanyRequest;
 use App\Services\CompanyService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 
 class CompanyController extends BaseController
 {
@@ -15,6 +17,15 @@ class CompanyController extends BaseController
     public function __construct(CompanyService $service)
     {
         $this->service = $service;
+    }
+
+    /**
+     * @param QueryCompanyRequest $request
+     * @return Collection
+     */
+    public function select2Ajax(QueryCompanyRequest $request): Collection
+    {
+        return $this->service->getSelect2Ajax($request->get('name'));
     }
 
     public function index()

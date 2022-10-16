@@ -2,13 +2,21 @@
 
 @section('title', 'Ödeme Ekle')
 
+@section('css')
+    @vite(['resources/css/select2.css'])
+@endsection
+
+@section('javascript-footer')
+    @vite(['resources/js/select2.js', 'resources/js/inputmask.js'])
+@endsection
+
 @section('content')
     <form action="{{ route('payables.store') }}" method="POST">
         @csrf
         <div class="card-body">
             <div class="form-group">
                 <label>Şirket</label>
-                <select class="form-control select2bs4" style="width: 100%;" name="company_id">
+                <select class="form-control select2" style="width: 100%;" name="company_id">
                     @foreach($companies as $company)
                         <option value="{{ $company->id }}" @if(old('company_id') == $company->id) selected @endif>{{ $company->name }}</option>
                     @endforeach
@@ -17,7 +25,7 @@
 
             <div class="form-group">
                 <label>Para Birimi</label>
-                <select class="form-control select2bs4" style="width: 100%;" name="currency_type_id">
+                <select class="form-control select2" style="width: 100%;" name="currency_type_id">
                     @foreach($currencyTypes as $currencyType)
                         <option value="{{ $currencyType->id }}" @if(old('currency_type_id') == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
                     @endforeach
@@ -61,12 +69,20 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", function () {
-            $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
-
-            $('.select2bs4').select2({
-                theme: 'bootstrap4',
-                minimumResultsForSearch: Infinity
+            //$('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+            $('.select2').select2({
+                ajax: {
+                    url: '{{ route('companies.select2Ajax') }}',
+                    dataType: 'json',
+                    data: function (params) {
+                        return {
+                            name: params.term
+                        };
+                    },
+                    delay: 250
+                }
             });
+            console.log('ok');
         });
     </script>
 @endsection

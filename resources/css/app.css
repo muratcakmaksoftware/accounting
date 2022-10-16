@@ -1,17 +1,5 @@
-/* Fonts */
-@import url('https://fonts.googleapis.com/css?family=Nunito');
-
 /* Bootstrap */
 @import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 
 /* adminlte */
 @import '../../node_modules/admin-lte/dist/css/adminlte.min.css';
-@import '../../node_modules/admin-lte/plugins/fontawesome-free/css/all.min.css';
-@import '../../node_modules/admin-lte/plugins/select2/css/select2.min.css';
-@import '../../node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css';
-
-/** FontAwesome */
-@import '../../node_modules/fontawesome-4.7/css/font-awesome.min.css';
-
-/** Datatables */
-@import '../../node_modules/datatables.net-dt/css/jquery.dataTables.min.css';

@@ -3,8 +3,7 @@
 @section('title', 'Ödemelerim')
 
 @section('content')
-    <a style="position: fixed;right: 20px; bottom: 75px;padding:10px 20px 10px 20px" href="{{route('payables.create')}}" class="btn btn-success right"><i class="fa fa-plus"></i></a>
-
+    <a href="{{ route('payables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
     <div class="row">
         <table id="payable-table" class="table table-bordered table-hover">
             <thead>
@@ -16,8 +15,8 @@
                 <th>Vade</th>
                 <th>Açıklama</th>
                 <th>O.Tarihi</th>
-                <th>Düzenle</th>
-                <th>Sil</th>
+                <th style="text-align: center;">Düzenle</th>
+                <th style="text-align: center;">Sil</th>
             </thead>
         </table>
     </div>
@@ -26,7 +25,7 @@
         document.addEventListener("DOMContentLoaded", function () {
             $('#payable-table').DataTable({
                 processing: true,
-                serverSide: false,
+                serverSide: true,
                 ajax: '{{ route('payables.datatables') }}',
                 columns: [
                     {data: 'DT_RowIndex', orderable: true, searchable: false },
@@ -34,11 +33,11 @@
                     {data: 'currency_type'},
                     {data: 'payment_method_type'},
                     {data: 'price'},
-                    {data: 'expires_at'},
+                    {data: 'expires_at', className: "text-center", width: "5%"},
                     {data: 'description'},
-                    {data: 'created_at'},
-                    {data: 'edit', orderable: false, searchable: false, width: "5%"},
-                    {data: 'delete', orderable: false, searchable: false, width: "5%"},
+                    {data: 'created_at', className: "text-center", width: "5%"},
+                    {data: 'edit', orderable: false, searchable: false, width: "5%", align: "center", className: "text-center"},
+                    {data: 'delete', orderable: false, searchable: false, width: "5%", align: "center", className: "text-center"},
                 ],
                 lengthMenu: [
                     [100, 300, 500, -1],
@@ -47,4 +46,8 @@
             });
         });
     </script>
+@endsection
+
+@section('javascript-footer')
+    @vite(['resources/js/datatables.js'])
 @endsection
