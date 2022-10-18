@@ -1,0 +1,11 @@
+{
+    "success": "Başarıyla Gerçekleşti",
+    "store": "Başarıyla Kaydedildi",
+    "update": "Başarıyla Güncellendi",
+    "destroy": "Başarıyla Silindi",
+    "restore": "Başarıyla Kurtarıldı",
+    "badRequest": "Kötü İstek",
+    "unauthorized": "Yetkisiz Erişim",
+    "notFound": "Bulunamadı",
+    "internalServerError": "İç Sunucu Hatası"
+}

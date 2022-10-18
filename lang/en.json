@@ -1,0 +1,11 @@
+{
+    "success": "Successfully Done",
+    "store": "Successfully Saved",
+    "update": "Successfully Updated",
+    "destroy": "Successfully Deleted",
+    "restore": "Successfully Restored",
+    "badRequest": "Bad Request",
+    "unauthorized": "Unauthorized",
+    "notFound": "Not Found",
+    "internalServerError": "Internal Server Error"
+}

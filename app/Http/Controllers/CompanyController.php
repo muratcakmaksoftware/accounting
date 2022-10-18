@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\QueryCompanyRequest;
 use App\Services\CompanyService;
@@ -21,11 +22,11 @@ class CompanyController extends BaseController
 
     /**
      * @param QueryCompanyRequest $request
-     * @return Collection
+     * @return JsonResponse
      */
-    public function select2Ajax(QueryCompanyRequest $request): Collection
+    public function select2Ajax(QueryCompanyRequest $request): JsonResponse
     {
-        return $this->service->getSelect2Ajax($request->get('name'));
+        return ResponseHelper::success($this->service->getSelect2Ajax($request->get('name')));
     }
 
     public function index()

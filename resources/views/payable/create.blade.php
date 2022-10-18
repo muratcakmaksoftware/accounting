@@ -79,6 +79,13 @@
                             name: params.term
                         };
                     },
+                    processResults: function (data, params) {
+                        return {
+                            results: data.data
+                        };
+                    },
+                    placeholder: 'Lütfen bir şeyler yazın',
+                    minimumInputLength: 1,
                     delay: 250
                 }
             });

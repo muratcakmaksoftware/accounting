@@ -6,6 +6,7 @@ use App\Http\Requests\PostLoginRequest;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
@@ -18,7 +19,11 @@ class AuthController extends BaseController
         return view('auth.login');
     }
 
-    public function login(PostLoginRequest $request)
+    /**
+     * @param PostLoginRequest $request
+     * @return RedirectResponse
+     */
+    public function login(PostLoginRequest $request): RedirectResponse
     {
         if (Auth::attempt($request->only([
             'email', 'password'
@@ -29,7 +34,10 @@ class AuthController extends BaseController
         return redirect()->back();
     }
 
-    public function logout()
+    /**
+     * @return RedirectResponse
+     */
+    public function logout(): RedirectResponse
     {
         Auth::logout();
         return redirect()->route('login');
