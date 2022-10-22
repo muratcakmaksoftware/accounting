@@ -9,17 +9,17 @@ export default defineConfig({
                  * Packages
                  */
                 'resources/css/app.css', 'resources/js/app.js',
-                'resources/css/select2.css', 'resources/js/select2.js',
+                'resources/js/select2.js', 'resources/js/datatables.js',
 
                 /**
-                 * CSS
+                 * Custom CSS
                  */
                 'resources/css/main.css', 'resources/css/fonts.css',
 
                 /**
-                 * JS
+                 * Custom JS
                  */
-                'resources/js/main.js', 'resources/js/datatables.js', 'resources/js/inputmask.js'
+                'resources/js/main.js', 'resources/js/inputmask.js'
             ],
             refresh: true,
         }),

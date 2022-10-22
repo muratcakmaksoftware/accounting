@@ -5,5 +5,3 @@ import './bootstrap';
  */
 import '../../node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.min';
 import '../../node_modules/admin-lte/dist/js/adminlte.min';
-
-import '../../node_modules/admin-lte/plugins/moment/moment.min';

@@ -5,14 +5,38 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>@yield('title')</title>
 
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    @vite(['resources/css/fonts.css', 'resources/css/app.css', 'resources/css/main.css'])
+    <!-- GLOBAL CSS -->
+    <link rel="stylesheet" href="{{ asset('resources/admin-lte/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/bootstrap/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/all.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/font-awesome-4-7.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/datatables/css/dataTables.bootstrap4.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/select2/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/datepicker/css/daterangepicker.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/custom/css/main.css') }}">
+
+    <!-- GLOBAL JS -->
+    <script src="{{ asset('resources/jquery/js/jquery.min.js') }}"></script>
+    <script src="{{ asset('resources/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('resources/admin-lte/js/adminlte.min.js') }}"></script>
+    <script src="{{ asset('resources/datatables/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('resources/datatables/js/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('resources/select2/js/select2.full.min.js') }}"></script>
+    <script src="{{ asset('resources/moment/js/moment.min.js') }}"></script>
+    <script src="{{ asset('resources/moment/js/locales.min.js') }}"></script>
+    <script src="{{ asset('resources/inputmask/js/jquery.inputmask.min.js') }}"></script>
+    <script src="{{ asset('resources/datepicker/js/daterangepicker.js') }}"></script>
     @yield('css')
     @yield('javascript-head')
+
+    {{-- @vite(['resources/css/fonts.css', 'resources/css/app.css', 'resources/css/main.css']) --}}
+    {{-- @vite(['resources/js/app.js']) --}}
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
@@ -114,6 +138,7 @@
                         </a>
                     </li>
 
+                    <li class="nav-header">ÖDEMELERİM</li>
                     <li class="nav-item">
                         <a href=" {{ route('payables.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-credit-card"></i>
@@ -122,7 +147,16 @@
                             </p>
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a href="{{ route('payables.create') }}" class="nav-link">
+                            <i class="nav-icon fas fa-plus"></i>
+                            <p>
+                                Ödeme Ekle
+                            </p>
+                        </a>
+                    </li>
 
+                    <li class="nav-header">ALACAKLARIM</li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cash-register"></i>
@@ -131,6 +165,17 @@
                             </p>
                         </a>
                     </li>
+
+                    <li class="nav-item">
+                        <a href="#" class="nav-link">
+                            <i class="nav-icon fas fa-plus"></i>
+                            <p>
+                                Alacak Ekle
+                            </p>
+                        </a>
+                    </li>
+
+                    <hr class="nav-hr"/>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -221,14 +266,8 @@
         <strong>Copyright &copy; 2021-{{ date('Y') }} Murat Çakmak</strong> All rights reserved.
     </footer>
 </div>
-@vite(['resources/js/app.js', 'resources/js/main.js'])
 @yield('javascript-footer')
-
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        @yield('init_js')
-    });
-</script>
-
+<script src="{{ asset('resources/custom/js/main.js') }}"></script>
+{{-- @vite(['resources/js/main.js']) --}}
 </body>
 </html>

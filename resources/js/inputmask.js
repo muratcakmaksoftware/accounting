@@ -1,2 +1,2 @@
-import inputmask from '../../node_modules/admin-lte/plugins/inputmask/jquery.inputmask.min';
+import inputmask from 'inputmask/dist/jquery.inputmask.min';
 inputmask(window, window.$);

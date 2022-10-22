@@ -2,6 +2,10 @@
 
 @section('title', 'Ödemelerim')
 
+@section('javascript-footer')
+    {{-- @vite(['resources/js/datatables.js']) --}}
+@endsection
+
 @section('content')
     <a href="{{ route('payables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
     <div class="row">
@@ -46,8 +50,4 @@
             });
         });
     </script>
-@endsection
-
-@section('javascript-footer')
-    @vite(['resources/js/datatables.js'])
 @endsection
