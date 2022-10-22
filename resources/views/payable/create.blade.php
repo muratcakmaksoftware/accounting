@@ -35,7 +35,7 @@
 
             <div class="form-group">
                 <label>Fiyat</label>
-                <input type="text" class="form-control money-format-mask" placeholder="Fiyat" name="price" value="{{ old('price') }}">
+                <input type="text" class="form-control money-format-mask" name="price" value="{{ old('price') }}">
             </div>
 
             <div class="form-group">

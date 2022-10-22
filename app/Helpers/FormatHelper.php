@@ -19,8 +19,25 @@ class FormatHelper
         return $fmt->formatCurrency($price, $currency);
     }
 
+    /**
+     * @param $date
+     * @return string
+     */
     public static function getTRDateFormat($date): string
     {
         return Carbon::parse($date)->format('d.m.Y');
+    }
+
+    /**
+     * @param string $price
+     * @return float
+     */
+    public static function getCurrencyFormInputFix(string $price): float
+    {
+        $str = preg_replace('/[^0-9.]+/', '', $price);
+        if (($pos = strpos($str, '.')) !== false) {
+            $price = substr($str, 0, $pos+1).str_replace('.', '', substr($str, $pos+1));
+        }
+        return $price;
     }
 }

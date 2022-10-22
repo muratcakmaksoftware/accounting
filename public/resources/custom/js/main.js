@@ -1,6 +1,4 @@
-moment.locale('tr');
-$(".money-format-mask").inputmask({ alias : "currency", prefix: '₺ ' });
-$('.select2').select2();
+moment.locale('tr'); /* datepicker dil ayarlamasi */
 
 $('.single-datepicker').daterangepicker({
     singleDatePicker: true,
@@ -8,6 +6,20 @@ $('.single-datepicker').daterangepicker({
     //showDropdowns: true,
 });
 
+/* InputMask ayarlari */
+$(".money-format-mask").inputmask({ alias : "currency",
+    prefix: '₺ ',
+    autoUnmask: true,
+    digits: 2,
+    allowMinus: false,
+    numericInput: true
+});
+
+/* Select2 Ayarlari */
+$('.select2').select2();
+
+
+/* Datatable Ayarlari */
 $.extend($.fn.dataTable.defaults, {
     language: {
         url: "languages/datatables/tr.json"
