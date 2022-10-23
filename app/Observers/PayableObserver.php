@@ -8,6 +8,17 @@ use Carbon\Carbon;
 class PayableObserver
 {
     /**
+     * Handle the Payable "retrieved" event.
+     *
+     * @param Payable $payable
+     * @return void
+     */
+    public function retrieved(Payable $payable)
+    {
+
+    }
+
+    /**
      * Handle the Payable "creating" event.
      *
      * @param Payable $payable
@@ -27,6 +38,18 @@ class PayableObserver
     public function created(Payable $payable)
     {
         //
+    }
+
+
+    /**
+     * Handle the Payable "creating" event.
+     *
+     * @param Payable $payable
+     * @return void
+     */
+    public function updating(Payable $payable)
+    {
+        $payable->expires_at = Carbon::parse($payable->expires_at)->format('Y-m-d');
     }
 
     /**

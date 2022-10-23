@@ -20,6 +20,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/create', [PayableController::class, 'create'])->name('payables.create');
         Route::post('/', [PayableController::class, 'store'])->name('payables.store');
         Route::get('/{id}/edit', [PayableController::class, 'edit'])->name('payables.edit');
+        Route::put('/{id}', [PayableController::class, 'update'])->name('payables.update');
         Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
     });

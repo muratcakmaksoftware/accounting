@@ -3,8 +3,12 @@
 namespace App\Services;
 
 use App\Http\Controllers\BaseController;
+use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
+use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
+use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
 use Exception;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Facades\DataTables;
 
@@ -24,12 +28,50 @@ class PayableService extends BaseController
     }
 
     /**
+     * @return array
+     * @throws BindingResolutionException
+     */
+    public function create(): array
+    {
+        return [
+            'companies' => app()->make(CompanyRepositoryInterface::class)->all(['id', 'name']),
+            'currencyTypes' => app()->make(CurrencyTypeRepositoryInterface::class)->all(['id', 'name']),
+            'paymentMethodTypes' => app()->make(PaymentMethodTypeRepositoryInterface::class)->all(['id', 'name'])
+        ];
+    }
+
+    /**
      * @param array $attributes
      * @return void
      */
     public function store(array $attributes)
     {
         $this->repository->store($attributes);
+    }
+
+    /**
+     * @param $id
+     * @return array
+     * @throws BindingResolutionException
+     */
+    public function edit($id): array
+    {
+        return [
+            'payable' => $this->repository->getById($id),
+            'companies' => app()->make(CompanyRepositoryInterface::class)->all(['id', 'name']),
+            'currencyTypes' => app()->make(CurrencyTypeRepositoryInterface::class)->all(['id', 'name']),
+            'paymentMethodTypes' => app()->make(PaymentMethodTypeRepositoryInterface::class)->all(['id', 'name'])
+        ];
+    }
+
+    /**
+     * @param array $attributes
+     * @param $id
+     * @return void
+     */
+    public function update(array $attributes, $id)
+    {
+        $this->repository->update($attributes, $id);
     }
 
     /**

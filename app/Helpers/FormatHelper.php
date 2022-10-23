@@ -21,11 +21,12 @@ class FormatHelper
 
     /**
      * @param $date
+     * @param $format
      * @return string
      */
-    public static function getTRDateFormat($date): string
+    public static function getDateFormat($date, string $format = 'd.m.Y'): string
     {
-        return Carbon::parse($date)->format('d.m.Y');
+        return Carbon::parse($date)->format($format);
     }
 
     /**

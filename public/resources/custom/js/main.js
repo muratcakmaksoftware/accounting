@@ -12,7 +12,8 @@ $(".money-format-mask").inputmask({ alias : "currency",
     autoUnmask: true,
     digits: 2,
     allowMinus: false,
-    numericInput: true
+    numericInput: true,
+    removeMaskOnSubmit: true,
 });
 
 /* Select2 Ayarlari */

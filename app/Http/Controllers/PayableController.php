@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePayableRequest;
+use App\Http\Requests\UpdatePayableRequest;
 use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
+use App\Models\Payable;
 use App\Services\PayableService;
 use Exception;
 use Flasher\Prime\FlasherInterface;
@@ -43,15 +45,7 @@ class PayableController extends BaseController
      */
     public function create(): Factory|View|Application
     {
-        $companies = app()->make(CompanyRepositoryInterface::class)->all(['id', 'name']);
-        $currencyTypes = app()->make(CurrencyTypeRepositoryInterface::class)->all(['id', 'name']);
-        $paymentMethodTypes = app()->make(PaymentMethodTypeRepositoryInterface::class)->all(['id', 'name']);
-
-        return view('payable.create', [
-            'companies' => $companies,
-            'currencyTypes' => $currencyTypes,
-            'paymentMethodTypes' => $paymentMethodTypes
-        ]);
+        return view('payable.create', $this->service->create());
     }
 
     /**
@@ -61,7 +55,7 @@ class PayableController extends BaseController
     public function store(StorePayableRequest $request): RedirectResponse
     {
         $this->service->store($request->all());
-        $this->flasher->addSuccess('Başarıyla Kaydedildi');
+        $this->flasher->addSuccess(__('success'), __('success_title'));
         return redirect()->route('payables.create');
     }
 
@@ -73,19 +67,30 @@ class PayableController extends BaseController
         return view('payable.show');
     }
 
-    public function edit($id)
+    /**
+     * @param $id
+     * @return Application|Factory|View
+     * @throws BindingResolutionException
+     */
+    public function edit($id): View|Factory|Application
     {
-
+        return view('payable.edit', $this->service->edit($id));
     }
 
-    public function update(Request $request, $id)
+    /**
+     * @param UpdatePayableRequest $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function update(UpdatePayableRequest $request, $id): RedirectResponse
     {
-
+        $this->service->update($request->onlyRuleData(), $id);
+        $this->flasher->addSuccess(__('update'), __('success_title'));
+        return redirect()->route('payables.edit', ['id' => $id]);
     }
 
     public function destroy($id)
     {
-
     }
 
     /**

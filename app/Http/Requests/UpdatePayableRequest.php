@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StorePayableRequest extends BaseRequest
+class UpdatePayableRequest extends BaseRequest
 {
     /**
      * @return string[]

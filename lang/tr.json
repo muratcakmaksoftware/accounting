@@ -7,5 +7,7 @@
     "badRequest": "Kötü İstek",
     "unauthorized": "Yetkisiz Erişim",
     "notFound": "Bulunamadı",
-    "internalServerError": "İç Sunucu Hatası"
+    "internalServerError": "İç Sunucu Hatası",
+    "success_title": "Başarılı",
+    "error_title": "Hata"
 }

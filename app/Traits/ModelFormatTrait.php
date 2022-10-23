@@ -19,7 +19,7 @@ trait ModelFormatTrait
      */
     public function getExpiresAtFormatAttribute(): string
     {
-        return FormatHelper::getTRDateFormat($this->expires_at);
+        return FormatHelper::getDateFormat($this->expires_at);
     }
 
     /**
@@ -27,7 +27,7 @@ trait ModelFormatTrait
      */
     public function getCreatedAtFormatAttribute(): string
     {
-        return FormatHelper::getTRDateFormat($this->created_at);
+        return FormatHelper::getDateFormat($this->created_at);
     }
 
     /**
@@ -35,7 +35,7 @@ trait ModelFormatTrait
      */
     public function getUpdatedAtFormatAttribute(): string
     {
-        return FormatHelper::getTRDateFormat($this->updated_at);
+        return FormatHelper::getDateFormat($this->updated_at);
     }
 
     /**
@@ -43,6 +43,6 @@ trait ModelFormatTrait
      */
     public function getDeletedAtFormatAttribute(): string
     {
-        return FormatHelper::getTRDateFormat($this->deleted_at);
+        return FormatHelper::getDateFormat($this->deleted_at);
     }
 }

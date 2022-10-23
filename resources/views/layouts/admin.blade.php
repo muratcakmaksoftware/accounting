@@ -12,7 +12,6 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <!-- GLOBAL CSS -->
-    <link rel="stylesheet" href="{{ asset('resources/admin-lte/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/all.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/font-awesome-4-7.min.css') }}">
@@ -20,6 +19,7 @@
     <link rel="stylesheet" href="{{ asset('resources/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/datepicker/css/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/custom/css/main.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/admin-lte/css/adminlte.min.css') }}">
 
     <!-- GLOBAL JS -->
     <script src="{{ asset('resources/jquery/js/jquery.min.js') }}"></script>
@@ -251,11 +251,11 @@
         <!-- /.content-header -->
 
         <!-- Main content -->
-        <div class="content">
+        <section class="content">
             <div class="container-fluid">
                 @yield('content')
             </div><!-- /.container-fluid -->
-        </div>
+        </section>
         <!-- /.content -->
     </div>
     <!-- /.content-wrapper -->

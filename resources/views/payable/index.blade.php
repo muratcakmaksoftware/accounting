@@ -8,25 +8,34 @@
 
 @section('content')
     <a href="{{ route('payables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
+
     <div class="row">
-        <table id="payable-table" class="table table-bordered table-hover">
-            <thead>
-                <th>Sıra</th>
-                <th>Şirket Adı</th>
-                <th>Para Birimi</th>
-                <th>Ödeme Yönetimi</th>
-                <th>Fiyat</th>
-                <th>Vade</th>
-                <th>Açıklama</th>
-                <th>O.Tarihi</th>
-                <th style="text-align: center;">Düzenle</th>
-                <th style="text-align: center;">Sil</th>
-            </thead>
-        </table>
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <table id="payable-table" class="table table-bordered table-hover" style="width: 100%!important;">
+                        <thead>
+                        <th>Sıra</th>
+                        <th>Şirket Adı</th>
+                        <th>Para Birimi</th>
+                        <th>Ödeme Yönetimi</th>
+                        <th>Fiyat</th>
+                        <th>Vade</th>
+                        <th>Açıklama</th>
+                        <th>O.Tarihi</th>
+                        <th style="text-align: center;">Düzenle</th>
+                        <th style="text-align: center;">Sil</th>
+                        </thead>
+                    </table>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
     </div>
 
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        $(document).ready(function() {
             $('#payable-table').DataTable({
                 processing: true,
                 serverSide: true,

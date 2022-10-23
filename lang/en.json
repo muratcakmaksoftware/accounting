@@ -7,5 +7,7 @@
     "badRequest": "Bad Request",
     "unauthorized": "Unauthorized",
     "notFound": "Not Found",
-    "internalServerError": "Internal Server Error"
+    "internalServerError": "Internal Server Error",
+    "success_title": "Success",
+    "error_title": "Error"
 }
