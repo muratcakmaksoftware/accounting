@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="{{ asset('resources/datepicker/css/daterangepicker.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/custom/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/admin-lte/css/adminlte.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/sweetalert2/css/sweetalert2.min.css') }}">
 
     <!-- GLOBAL JS -->
     <script src="{{ asset('resources/jquery/js/jquery.min.js') }}"></script>
@@ -32,6 +33,7 @@
     <script src="{{ asset('resources/moment/js/locales.min.js') }}"></script>
     <script src="{{ asset('resources/inputmask/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('resources/datepicker/js/daterangepicker.js') }}"></script>
+    <script src="{{ asset('resources/sweetalert2/js/sweetalert2.min.js') }}"></script>
     @yield('css')
     @yield('javascript-head')
 

@@ -22,6 +22,16 @@ class Payable extends BaseModel
     public $timestamps = true;
 
     /**
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d';
+
+    /**
+     * @var string[]
+     */
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'expires_at'];
+
+    /**
      * @return BelongsTo
      */
     public function company(): BelongsTo

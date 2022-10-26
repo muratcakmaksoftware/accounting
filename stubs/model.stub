@@ -18,4 +18,14 @@ class {{ class }} extends BaseModel
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d';
+
+    /**
+     * @var string[]
+     */
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 }

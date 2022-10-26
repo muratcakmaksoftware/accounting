@@ -37,3 +37,7 @@
 .nav-hr{
     margin:0 2px 0 2px;padding:0;background-color:#1e2125!important;
 }
+
+.select2 {
+    width:100% !important;
+}

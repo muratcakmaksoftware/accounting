@@ -75,12 +75,24 @@ class PayableService extends BaseController
     }
 
     /**
+     * @param $id
+     * @return void
+     */
+    public function destroy($id)
+    {
+        $this->repository->destroy($id);
+    }
+
+    /**
      * @return JsonResponse
      * @throws Exception
      */
     public function datatables(): JsonResponse
     {
         return Datatables::of($this->repository->datatables())
+            ->setRowId(function ($row) {
+                return 'payable-id-' . $row->id;
+            })
             ->addIndexColumn()
             ->addColumn('company_name', function ($row) {
                 return $row->company->name;
@@ -104,7 +116,7 @@ class PayableService extends BaseController
                 return '<a href="' . route('payables.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
             })
             ->addColumn('delete', function ($row) {
-                return '<a href="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="deletePayable(this)" data-url="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
             ->rawColumns(['edit', 'delete'])
             ->only(['DT_RowIndex', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at',

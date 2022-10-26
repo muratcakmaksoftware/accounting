@@ -35,13 +35,13 @@
     </div>
 
     <script>
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('#payable-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('payables.datatables') }}',
                 columns: [
-                    {data: 'DT_RowIndex', orderable: true, searchable: false },
+                    {data: 'DT_RowIndex', orderable: true, searchable: false},
                     {data: 'company_name'},
                     {data: 'currency_type'},
                     {data: 'payment_method_type'},
@@ -49,8 +49,22 @@
                     {data: 'expires_at', className: "text-center", width: "5%"},
                     {data: 'description'},
                     {data: 'created_at', className: "text-center", width: "5%"},
-                    {data: 'edit', orderable: false, searchable: false, width: "5%", align: "center", className: "text-center"},
-                    {data: 'delete', orderable: false, searchable: false, width: "5%", align: "center", className: "text-center"},
+                    {
+                        data: 'edit',
+                        orderable: false,
+                        searchable: false,
+                        width: "5%",
+                        align: "center",
+                        className: "text-center"
+                    },
+                    {
+                        data: 'delete',
+                        orderable: false,
+                        searchable: false,
+                        width: "5%",
+                        align: "center",
+                        className: "text-center"
+                    },
                 ],
                 lengthMenu: [
                     [100, 300, 500, -1],
@@ -58,5 +72,39 @@
                 ],
             });
         });
+
+        function deletePayable(el) {
+            let url = $(el).data('url');
+            let rowId = '#' + $(el).closest("tr").attr('id')
+
+            swalQuestionDeleteFire({
+                then: function (result) {
+                    if (result.isConfirmed) {
+                        sendAjaxJson({
+                            url: url,
+                            type: 'DELETE',
+                            data: null,
+                            success: function (data) {
+                                $(rowId).remove();
+                                Toast.fire({
+                                    icon: 'success',
+                                    title: 'Başarılı',
+                                    html: data.message,
+                                });
+                            },
+                            error: function (xhr) {
+                                let data = xhr.responseJSON;
+                                Toast.fire({
+                                    icon: 'error',
+                                    title: 'Hata',
+                                    html: data.message
+                                });
+                            }
+                        });
+                    }
+                }
+            });
+        }
+
     </script>
 @endsection

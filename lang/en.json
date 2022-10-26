@@ -8,6 +8,6 @@
     "unauthorized": "Unauthorized",
     "notFound": "Not Found",
     "internalServerError": "Internal Server Error",
-    "success_title": "Success",
-    "error_title": "Error"
+    "successTitle": "Success",
+    "errorTitle": "Error"
 }

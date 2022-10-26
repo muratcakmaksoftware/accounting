@@ -26,7 +26,7 @@ class PayableObserver
      */
     public function creating(Payable $payable)
     {
-        $payable->expires_at = Carbon::parse($payable->expires_at)->format('Y-m-d');
+        //
     }
 
     /**
@@ -49,7 +49,7 @@ class PayableObserver
      */
     public function updating(Payable $payable)
     {
-        $payable->expires_at = Carbon::parse($payable->expires_at)->format('Y-m-d');
+        //
     }
 
     /**

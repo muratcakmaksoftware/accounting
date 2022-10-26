@@ -2,12 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ResponseHelper;
 use App\Http\Requests\StorePayableRequest;
 use App\Http\Requests\UpdatePayableRequest;
-use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
-use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
-use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
-use App\Models\Payable;
 use App\Services\PayableService;
 use Exception;
 use Flasher\Prime\FlasherInterface;
@@ -17,7 +14,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 
 class PayableController extends BaseController
 {
@@ -55,7 +51,7 @@ class PayableController extends BaseController
     public function store(StorePayableRequest $request): RedirectResponse
     {
         $this->service->store($request->all());
-        $this->flasher->addSuccess(__('success'), __('success_title'));
+        $this->addFlashSuccess();
         return redirect()->route('payables.create');
     }
 
@@ -85,12 +81,18 @@ class PayableController extends BaseController
     public function update(UpdatePayableRequest $request, $id): RedirectResponse
     {
         $this->service->update($request->onlyRuleData(), $id);
-        $this->flasher->addSuccess(__('update'), __('success_title'));
+        $this->addFlashSuccess(__('update'));
         return redirect()->route('payables.edit', ['id' => $id]);
     }
 
-    public function destroy($id)
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function destroy($id): JsonResponse
     {
+        $this->service->destroy($id);
+        return ResponseHelper::destroy();
     }
 
     /**

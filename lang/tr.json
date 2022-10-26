@@ -8,6 +8,6 @@
     "unauthorized": "Yetkisiz Erişim",
     "notFound": "Bulunamadı",
     "internalServerError": "İç Sunucu Hatası",
-    "success_title": "Başarılı",
-    "error_title": "Hata"
+    "successTitle": "Başarılı",
+    "errorTitle": "Hata"
 }

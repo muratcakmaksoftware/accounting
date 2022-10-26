@@ -53,9 +53,11 @@ class Handler extends ExceptionHandler
     public function report(Throwable $e)
     {
         parent::report($e);
+        //TODO: Ajax exception ayrimi yapilacak
+
         $this->flasher = $this->container->make(FlasherInterface::class);
         if ($e instanceof ValidationException) {
-            $this->flasher->addError($this->getValidationErrorMessages($e));
+            $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
             return redirect()->back();
         }
     }
