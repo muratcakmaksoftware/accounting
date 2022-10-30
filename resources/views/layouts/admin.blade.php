@@ -142,7 +142,7 @@
 
                     <li class="nav-header">ÖDEMELERİM</li>
                     <li class="nav-item">
-                        <a href=" {{ route('payables.index') }}" class="nav-link">
+                        <a href="{{ route('payables.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-credit-card"></i>
                             <p>
                                 Ödemelerim
@@ -160,7 +160,7 @@
 
                     <li class="nav-header">ALACAKLARIM</li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('receivables.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-cash-register"></i>
                             <p>
                                 Alacaklarım
@@ -169,7 +169,7 @@
                     </li>
 
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('receivables.create') }}" class="nav-link">
                             <i class="nav-icon fas fa-plus"></i>
                             <p>
                                 Alacak Ekle

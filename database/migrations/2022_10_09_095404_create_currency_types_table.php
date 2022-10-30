@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('currency_types', function (Blueprint $table) {
             $table->id();
             $table->string('name')->index()->fulltext();
+            $table->string('code')->index()->fulltext();
             $table->string('sembol');
             $table->softDeletes();
             $table->timestamps();

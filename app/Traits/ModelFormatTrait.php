@@ -7,11 +7,12 @@ use App\Helpers\FormatHelper;
 trait ModelFormatTrait
 {
     /**
+     * @param string $currency
      * @return string
      */
-    public function getPriceFormatTRYAttribute(): string
+    public function getPriceFormat(string $currency): string
     {
-        return FormatHelper::getCurrencyFormat($this->price);
+        return FormatHelper::getCurrencyFormat($this->price, $currency);
     }
 
     /**

@@ -13,7 +13,7 @@ class FormatHelper
      * @param string $currency
      * @return string
      */
-    public static function getCurrencyFormat(float $price, string $locale = 'tr_TR', string $currency = 'TRY'): string
+    public static function getCurrencyFormat(float $price, string $currency = 'TRY', string $locale = 'tr_TR'): string
     {
         $fmt = new NumberFormatter($locale, NumberFormatter::CURRENCY);
         return $fmt->formatCurrency($price, $currency);

@@ -1,15 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Ödemelerim')
+@section('title', 'Alacaklarım')
 
 @section('content')
-    <a href="{{ route('payables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
+    <a href="{{ route('receivables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
 
     <div class="row">
         <div class="col-12">
             <div class="card">
                 <div class="card-body">
-                    <table id="payable-table" class="table table-bordered table-hover" style="width: 100%!important;">
+                    <table id="receivable-table" class="table table-bordered table-hover" style="width: 100%!important;">
                         <thead>
                         <th>Sıra</th>
                         <th>Şirket Adı</th>
@@ -30,10 +30,10 @@
 
     <script>
         $(document).ready(function () {
-            $('#payable-table').DataTable({
+            $('#receivable-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('payables.datatables') }}',
+                ajax: '{{ route('receivables.datatables') }}',
                 columns: [
                     {data: 'DT_RowIndex'},
                     {data: 'company_name'},
@@ -67,7 +67,7 @@
             });
         });
 
-        function deletePayable(el) {
+        function deleteReceivable(el) {
             let url = $(el).data('url');
             let rowId = '#' + $(el).closest("tr").attr('id')
 

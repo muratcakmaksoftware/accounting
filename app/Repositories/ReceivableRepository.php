@@ -2,16 +2,16 @@
 
 namespace App\Repositories;
 
-use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
-use App\Models\Payable;
+use App\Interfaces\RepositoryInterfaces\ReceivableRepositoryInterface;
+use App\Models\Receivable;
 use Illuminate\Database\Eloquent\Collection;
 
-class PayableRepository extends BaseRepository implements PayableRepositoryInterface
+class ReceivableRepository extends BaseRepository implements ReceivableRepositoryInterface
 {
     /**
-     * @param Payable $model
+     * @param Receivable $model
      */
-    public function __construct(Payable $model)
+    public function __construct(Receivable $model)
     {
         parent::__construct($model);
     }

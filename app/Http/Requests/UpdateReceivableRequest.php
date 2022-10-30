@@ -2,7 +2,7 @@
 
 namespace App\Http\Requests;
 
-class StorePayableRequest extends BaseRequest
+class UpdateReceivableRequest extends BaseRequest
 {
     /**
      * @return string[]
@@ -15,7 +15,7 @@ class StorePayableRequest extends BaseRequest
             'payment_method_type_id' => 'required|integer',
             'price' => 'required|numeric',
             'expires_at' => 'required|date',
-            'description' => 'string|nullable',
+            'description' => 'string',
         ];
     }
 }

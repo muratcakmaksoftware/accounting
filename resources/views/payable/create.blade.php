@@ -20,19 +20,19 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Para Birimi</label>
-                            <select class="form-control select2" name="currency_type_id">
-                                @foreach($currencyTypes as $currencyType)
-                                    <option value="{{ $currencyType->id }}" @if(old('currency_type_id') == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
+                            <label>Ödeme Yöntemi</label>
+                            <select class="form-control select2" name="payment_method_type_id">
+                                @foreach($paymentMethodTypes as $paymentMethodType)
+                                    <option value="{{ $paymentMethodType->id }}" @if(old('payment_method_type_id') == $paymentMethodType->id) selected @endif>{{ $paymentMethodType->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Ödeme Yöntemi</label>
-                            <select class="form-control select2" name="payment_method_type_id">
-                                @foreach($paymentMethodTypes as $paymentMethodType)
-                                    <option value="{{ $paymentMethodType->id }}" @if(old('payment_method_type_id') == $paymentMethodType->id) selected @endif>{{ $paymentMethodType->name }}</option>
+                            <label>Para Birimi</label>
+                            <select class="form-control select2" name="currency_type_id">
+                                @foreach($currencyTypes as $currencyType)
+                                    <option value="{{ $currencyType->id }}" @if(old('currency_type_id') == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
                                 @endforeach
                             </select>
                         </div>

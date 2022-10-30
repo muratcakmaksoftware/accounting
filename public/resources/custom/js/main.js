@@ -7,8 +7,9 @@ $('.single-datepicker').daterangepicker({
 });
 
 /* InputMask ayarlari */
-$(".money-format-mask").inputmask({ alias : "currency",
-    prefix: '₺ ',
+$(".money-format-mask").inputmask({
+    alias: "currency",
+    //prefix: '₺ ',
     autoUnmask: true,
     digits: 2,
     allowMinus: false,
@@ -18,7 +19,6 @@ $(".money-format-mask").inputmask({ alias : "currency",
 
 /* Select2 Ayarlari */
 $('.select2').select2();
-
 
 /* Datatable Ayarlari */
 $.extend($.fn.dataTable.defaults, {
@@ -40,8 +40,7 @@ const Toast = Swal.mixin({
     }
 })
 
-function sendAjaxJson(params)
-{
+function sendAjaxJson(params) {
     $.ajax({
         url: params.url,
         dataType: "json",
@@ -59,8 +58,7 @@ function sendAjaxJson(params)
     });
 }
 
-function swalQuestionDeleteFire(params)
-{
+function swalQuestionDeleteFire(params) {
     Swal.fire({
         title: 'Silmek istediğinize emin misiniz ?',
         icon: 'question',
