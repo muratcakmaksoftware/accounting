@@ -2,6 +2,10 @@
 
 @section('title', 'Alacaklarım')
 
+@section('breadcrumb')
+    <li class="breadcrumb-item">Alacaklarım</li>
+@endsection
+
 @section('content')
     <a href="{{ route('receivables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
 

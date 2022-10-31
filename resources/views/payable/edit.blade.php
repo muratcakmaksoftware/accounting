@@ -2,6 +2,11 @@
 
 @section('title', 'Ödeme Düzenle '.'#'.$payable->id)
 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('payables.index') }}">Ödemelerim</a></li>
+    <li class="breadcrumb-item active">Ödeme Düzenle</li>
+@endsection
+
 @section('content')
 
     <div class="row">

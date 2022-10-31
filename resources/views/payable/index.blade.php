@@ -2,6 +2,10 @@
 
 @section('title', 'Ödemelerim')
 
+@section('breadcrumb')
+    <li class="breadcrumb-item active">Ödemelerim</li>
+@endsection
+
 @section('content')
     <a href="{{ route('payables.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
 

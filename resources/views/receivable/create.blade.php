@@ -2,6 +2,11 @@
 
 @section('title', 'Alacak Ekle')
 
+@section('breadcrumb')
+    <li class="breadcrumb-item"><a href="{{ route('receivables.index') }}">Alacaklarım</a></li>
+    <li class="breadcrumb-item active">Alacak Ekle</li>
+@endsection
+
 @section('content')
 
     <div class="row">
