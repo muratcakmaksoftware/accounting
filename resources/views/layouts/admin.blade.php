@@ -198,7 +198,7 @@
                         </a>
                         <ul class="nav nav-treeview">
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ route('companies.index') }}" class="nav-link">
                                     <i class="fas fa-building nav-icon"></i>
                                     <p>Şirketler</p>
                                 </a>

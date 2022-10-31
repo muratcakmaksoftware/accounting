@@ -36,6 +36,16 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/datatables', [ReceivableController::class, 'datatables'])->name('receivables.datatables');
     });
 
+    Route::group(['prefix' => '/companies'], function () {
+        Route::get('/', [CompanyController::class, 'index'])->name('companies.index');
+        Route::get('/create', [CompanyController::class, 'create'])->name('companies.create');
+        Route::post('/', [CompanyController::class, 'store'])->name('companies.store');
+        Route::get('/{id}/edit', [CompanyController::class, 'edit'])->name('companies.edit');
+        Route::put('/{id}', [CompanyController::class, 'update'])->name('companies.update');
+        Route::delete('/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
+        Route::get('/datatables', [CompanyController::class, 'datatables'])->name('companies.datatables');
+    });
+
     Route::group(['prefix' => '/company'], function () {
         Route::get('/select2Ajax', [CompanyController::class, 'select2Ajax'])->name('companies.select2Ajax');
     });

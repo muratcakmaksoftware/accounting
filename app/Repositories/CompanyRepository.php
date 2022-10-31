@@ -14,6 +14,14 @@ class CompanyRepository extends BaseRepository implements CompanyRepositoryInter
     }
 
     /**
+     * @return Collection
+     */
+    public function datatables(): Collection
+    {
+        return $this->model::orderByDesc('id')->get();
+    }
+
+    /**
      * @param string $name
      * @return Collection
      */

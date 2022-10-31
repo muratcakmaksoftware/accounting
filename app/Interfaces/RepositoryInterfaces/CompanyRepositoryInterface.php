@@ -7,6 +7,11 @@ use Illuminate\Support\Collection;
 interface CompanyRepositoryInterface extends BaseRepositoryInterface
 {
     /**
+     * @return Collection
+     */
+    public function datatables(): Collection;
+
+    /**
      * @param string $name
      * @return mixed
      */

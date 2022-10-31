@@ -96,6 +96,7 @@ class PayableController extends BaseController
     }
 
     /**
+     * @return JsonResponse
      * @throws Exception
      */
     public function datatables(): JsonResponse

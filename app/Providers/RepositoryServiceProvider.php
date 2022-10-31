@@ -8,7 +8,6 @@ use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\ReceivableRepositoryInterface;
-use App\Models\PaymentMethodType;
 use App\Repositories\BaseRepository;
 use App\Repositories\CompanyRepository;
 use App\Repositories\CurrencyTypeRepository;
@@ -32,6 +31,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CurrencyTypeRepositoryInterface::class, CurrencyTypeRepository::class);
         $this->app->bind(PaymentMethodTypeRepositoryInterface::class, PaymentMethodTypeRepository::class);
         $this->app->bind(ReceivableRepositoryInterface::class, ReceivableRepository::class);
+        $this->app->bind(CompanyRepositoryInterface::class, CompanyRepository::class);
     }
 
     /**

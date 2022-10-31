@@ -3,21 +3,103 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\QueryCompanyRequest;
+use App\Http\Requests\StoreCompanyRequest;
+use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\CompanyService;
+use Exception;
+use Flasher\Prime\FlasherInterface;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Contracts\View\View;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
+use Illuminate\Http\RedirectResponse;
 
 class CompanyController extends BaseController
 {
     /**
      * @param CompanyService $service
+     * @param FlasherInterface $flasher
      */
-    public function __construct(CompanyService $service)
+    public function __construct(CompanyService $service, FlasherInterface $flasher)
     {
         $this->service = $service;
+        $this->flasher = $flasher;
+    }
+
+    /**
+     * @return Factory|View|Application
+     */
+    public function index(): Factory|View|Application
+    {
+        return view('company.index');
+    }
+
+    /**
+     * @return Factory|View|Application
+     */
+    public function create(): Factory|View|Application
+    {
+        return view('company.create');
+    }
+
+    /**
+     * @param StoreCompanyRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StoreCompanyRequest $request): RedirectResponse
+    {
+        $this->service->store($request->all());
+        $this->addFlashSuccess();
+        return redirect()->route('companies.create');
+    }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function show(): View|Factory|Application
+    {
+        return view('company.show');
+    }
+
+    /**
+     * @param $id
+     * @return Application|Factory|View
+     */
+    public function edit($id): View|Factory|Application
+    {
+        return view('company.edit', $this->service->edit($id));
+    }
+
+    /**
+     * @param UpdateCompanyRequest $request
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function update(UpdateCompanyRequest $request, $id): RedirectResponse
+    {
+        $this->service->update($request->onlyRuleData(), $id);
+        $this->addFlashSuccess(__('update'));
+        return redirect()->route('companies.edit', ['id' => $id]);
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function destroy($id): JsonResponse
+    {
+        $this->service->destroy($id);
+        return ResponseHelper::destroy();
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function datatables(): JsonResponse
+    {
+        return $this->service->datatables();
     }
 
     /**
@@ -27,40 +109,5 @@ class CompanyController extends BaseController
     public function select2Ajax(QueryCompanyRequest $request): JsonResponse
     {
         return ResponseHelper::success($this->service->getSelect2Ajax($request->get('name')));
-    }
-
-    public function index()
-    {
-
-    }
-
-    public function create()
-    {
-
-    }
-
-    public function store(Request $request)
-    {
-
-    }
-
-    public function show($id)
-    {
-
-    }
-
-    public function edit($id)
-    {
-
-    }
-
-    public function update(Request $request, $id)
-    {
-
-    }
-
-    public function destroy($id)
-    {
-
     }
 }

@@ -96,6 +96,7 @@ class ReceivableController extends BaseController
     }
 
     /**
+     * @return JsonResponse
      * @throws Exception
      */
     public function datatables(): JsonResponse
