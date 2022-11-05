@@ -2,12 +2,12 @@
 
 namespace App\Providers;
 
-use App\Models\Payable;
-use App\Observers\PayableObserver;
+use App\Models\Company;
+use App\Observers\CompanyObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
-use Illuminate\Support\Facades\Event;
+
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -29,7 +29,7 @@ class EventServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Payable::observe(PayableObserver::class);
+        Company::observe(CompanyObserver::class);
     }
 
     /**

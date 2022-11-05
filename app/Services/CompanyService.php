@@ -6,6 +6,7 @@ use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\Facades\DataTables;
 
 class CompanyService extends BaseService
@@ -59,7 +60,9 @@ class CompanyService extends BaseService
      */
     public function destroy($id)
     {
-        $this->repository->destroy($id);
+        DB::transaction(function () use ($id){
+            $this->repository->destroy($id);
+        });
     }
 
     /**
@@ -70,7 +73,7 @@ class CompanyService extends BaseService
     {
         return Datatables::of($this->repository->datatables())
             ->setRowId(function ($row) {
-                return 'company-id-' . $row->id;
+                return 'row-id-' . $row->id;
             })
             ->addIndexColumn()
             ->editColumn('created_at', function ($row) {
@@ -79,12 +82,60 @@ class CompanyService extends BaseService
             ->addColumn('edit', function ($row) {
                 return '<a href="' . route('companies.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
             })
-            ->addColumn('delete', function ($row) {
-                return '<a onclick="deleteCompany(this)" data-url="' . route('companies.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+            ->addColumn('trashed', function ($row) {
+                return '<a onclick="trashed(this)" data-url="' . route('companies.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
-            ->rawColumns(['edit', 'delete'])
-            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'edit', 'delete'])
+            ->rawColumns(['edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'edit', 'trashed'])
             ->toJson();
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function trashedDatatables(): JsonResponse
+    {
+        return Datatables::of($this->repository->trashedDatatables())
+            ->setRowId(function ($row) {
+                return 'row-id-' . $row->id;
+            })
+            ->addIndexColumn()
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at_format;
+            })
+            ->editColumn('deleted_at', function ($row) {
+                return $row->deleted_at_format;
+            })
+            ->addColumn('restore', function ($row) {
+                return '<a onclick="restore(this)" data-url="' . route('companies.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+            })
+            ->addColumn('force_delete', function ($row) {
+                return '<a onclick="forceDelete(this)" data-url="' . route('companies.force.delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+            })
+            ->rawColumns(['restore', 'force_delete'])
+            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'deleted_at', 'restore', 'force_delete'])
+            ->toJson();
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function restore($id)
+    {
+        DB::transaction(function () use ($id){
+            $this->repository->restore($id);
+        });
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function forceDelete($id)
+    {
+        $this->repository->forceDelete($id);
     }
 
     /**

@@ -22,6 +22,14 @@ class CompanyRepository extends BaseRepository implements CompanyRepositoryInter
     }
 
     /**
+     * @return Collection
+     */
+    public function trashedDatatables(): Collection
+    {
+        return $this->model::onlyTrashed()->orderByDesc('id')->get();
+    }
+
+    /**
      * @param string $name
      * @return Collection
      */

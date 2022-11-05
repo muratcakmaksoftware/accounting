@@ -49,7 +49,7 @@ class CompanyController extends BaseController
      */
     public function store(StoreCompanyRequest $request): RedirectResponse
     {
-        $this->service->store($request->all());
+        $this->service->store($request->onlyRuleData());
         $this->addFlashSuccess();
         return redirect()->route('companies.create');
     }
@@ -101,6 +101,44 @@ class CompanyController extends BaseController
     {
         return $this->service->datatables();
     }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function trashed(): View|Factory|Application
+    {
+        return view('company.trashed');
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function trashedDatatables(): JsonResponse
+    {
+        return $this->service->trashedDatatables();
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function restore($id): JsonResponse
+    {
+        $this->service->restore($id);
+        return ResponseHelper::restore();
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function forceDelete($id): JsonResponse
+    {
+        $this->service->forceDelete($id);
+        return ResponseHelper::forceDelete();
+    }
+
 
     /**
      * @param QueryCompanyRequest $request

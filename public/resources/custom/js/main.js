@@ -23,7 +23,7 @@ $('.select2').select2();
 /* Datatable Ayarlari */
 $.extend($.fn.dataTable.defaults, {
     language: {
-        url: "languages/datatables/tr.json"
+        url: window.location.origin+"/languages/datatables/tr.json"
     }
 });
 

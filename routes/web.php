@@ -44,6 +44,10 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::put('/{id}', [CompanyController::class, 'update'])->name('companies.update');
         Route::delete('/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
         Route::get('/datatables', [CompanyController::class, 'datatables'])->name('companies.datatables');
+        Route::get('/trashed', [CompanyController::class, 'trashed'])->name('companies.trashed');
+        Route::get('/trashed-datatables', [CompanyController::class, 'trashedDatatables'])->name('companies.trashed.datatables');
+        Route::post('/{id}/restore', [CompanyController::class, 'restore'])->name('companies.restore');
+        Route::delete('/{id}/force-delete', [CompanyController::class, 'forceDelete'])->name('companies.force.delete');
     });
 
     Route::group(['prefix' => '/company'], function () {

@@ -44,4 +44,10 @@ interface BaseRepositoryInterface
      * @return Collection
      */
     public function all(array $columns = ['*']): Collection;
+
+    /**
+     * @param $id
+     * @return bool|null
+     */
+    public function forceDelete($id): ?bool;
 }

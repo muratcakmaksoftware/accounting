@@ -25,6 +25,7 @@ class AuthController extends BaseController
      */
     public function login(PostLoginRequest $request): RedirectResponse
     {
+
         if (Auth::attempt($request->only([
             'email', 'password'
         ]))) {

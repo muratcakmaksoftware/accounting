@@ -15,9 +15,9 @@ return new class extends Migration
     {
         Schema::create('receivables', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained()->onDelete('cascade');
-            $table->foreignId('currency_type_id')->constrained();
-            $table->foreignId('payment_method_type_id')->constrained();
+            $table->foreignId('company_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('currency_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('payment_method_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->decimal('price', '13', '2');
             $table->date('expires_at');
             $table->string('description', 2500)->nullable(true);

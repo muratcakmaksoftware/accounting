@@ -24,7 +24,7 @@ class Payable extends BaseModel
     /**
      * @var string
      */
-    protected $dateFormat = 'Y-m-d';
+    protected $dateFormat = 'Y-m-d H:i:s';
 
     /**
      * @var string[]

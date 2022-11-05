@@ -50,7 +50,7 @@ class ReceivableController extends BaseController
      */
     public function store(StoreReceivableRequest $request): RedirectResponse
     {
-        $this->service->store($request->all());
+        $this->service->store($request->onlyRuleData());
         $this->addFlashSuccess();
         return redirect()->route('receivables.create');
     }

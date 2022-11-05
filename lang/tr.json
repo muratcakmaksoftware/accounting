@@ -4,6 +4,7 @@
     "update": "Başarıyla Güncellendi",
     "destroy": "Başarıyla Silindi",
     "restore": "Başarıyla Kurtarıldı",
+    "forceDelete": "Başarıyla Çöp Kutusundan Silindi",
     "badRequest": "Kötü İstek",
     "unauthorized": "Yetkisiz Erişim",
     "notFound": "Bulunamadı",

@@ -4,6 +4,7 @@
     "update": "Successfully Updated",
     "destroy": "Successfully Deleted",
     "restore": "Successfully Restored",
+    "forceDelete": "Successfully Deleted From Trash",
     "badRequest": "Bad Request",
     "unauthorized": "Unauthorized",
     "notFound": "Not Found",

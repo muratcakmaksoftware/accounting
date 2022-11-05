@@ -12,6 +12,11 @@ interface CompanyRepositoryInterface extends BaseRepositoryInterface
     public function datatables(): Collection;
 
     /**
+     * @return Collection
+     */
+    public function trashedDatatables(): Collection;
+
+    /**
      * @param string $name
      * @return mixed
      */

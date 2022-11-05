@@ -93,4 +93,13 @@ class BaseRepository implements BaseRepositoryInterface
     {
         return $this->model->insert($attributes);
     }
+
+    /**
+     * @param $id
+     * @return bool|null
+     */
+    public function forceDelete($id): ?bool
+    {
+        return $this->getById($id, ['id'], true)->forceDelete();
+    }
 }

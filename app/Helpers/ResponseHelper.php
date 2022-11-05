@@ -62,6 +62,16 @@ class ResponseHelper
      * @param string|null $message
      * @return JsonResponse
      */
+    public static function forceDelete($attributes = null, string $message = null): JsonResponse
+    {
+        return self::response(Response::HTTP_OK, $attributes, $message ?? __("forceDelete"));
+    }
+
+    /**
+     * @param $attributes
+     * @param string|null $message
+     * @return JsonResponse
+     */
     public static function badRequest($attributes = null, string $message = null): JsonResponse
     {
         return self::response(Response::HTTP_BAD_REQUEST, $attributes, $message ?? __("badRequest"));
