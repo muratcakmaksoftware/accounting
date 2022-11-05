@@ -7,57 +7,103 @@ use {{ namespacedModel }};
 class {{ class }}
 {
     /**
-     * Handle the {{ model }} "created" event.
-     *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function creating({{ model }} ${{ modelVariable }})
+    {
+
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
      * @return void
      */
     public function created({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
-     * Handle the {{ model }} "updated" event.
-     *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function updating({{ model }} ${{ modelVariable }})
+    {
+
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
      * @return void
      */
     public function updated({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
-     * Handle the {{ model }} "deleted" event.
-     *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function saving({{ model }} ${{ modelVariable }})
+    {
+
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function saved({{ model }} ${{ modelVariable }})
+    {
+
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function deleting({{ model }} ${{ modelVariable }})
+    {
+        if(${{ modelVariable }}->isForceDeleting()) {
+
+        }
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
      * @return void
      */
     public function deleted({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
-     * Handle the {{ model }} "restored" event.
-     *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param {{ model }} ${{ modelVariable }}
+     * @return void
+     */
+    public function restoring({{ model }} ${{ modelVariable }})
+    {
+
+    }
+
+    /**
+     * @param {{ model }} ${{ modelVariable }}
      * @return void
      */
     public function restored({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 
     /**
-     * Handle the {{ model }} "force deleted" event.
-     *
-     * @param  \{{ namespacedModel }}  ${{ modelVariable }}
+     * @param {{ model }} ${{ modelVariable }}
      * @return void
      */
     public function forceDeleted({{ model }} ${{ modelVariable }})
     {
-        //
+
     }
 }
