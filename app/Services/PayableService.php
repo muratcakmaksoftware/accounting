@@ -91,7 +91,7 @@ class PayableService extends BaseController
     {
         return Datatables::of($this->repository->datatables())
             ->setRowId(function ($row) {
-                return 'payable-id-' . $row->id;
+                return 'row-id-' . $row->id;
             })
             ->addIndexColumn()
             ->addColumn('company_name', function ($row) {
@@ -115,12 +115,73 @@ class PayableService extends BaseController
             ->addColumn('edit', function ($row) {
                 return '<a href="' . route('payables.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
             })
-            ->addColumn('delete', function ($row) {
-                return '<a onclick="deletePayable(this)" data-url="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+            ->addColumn('trashed', function ($row) {
+                return '<a onclick="trashed(this)" data-url="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
-            ->rawColumns(['edit', 'delete'])
+            ->rawColumns(['edit', 'trashed'])
             ->only(['DT_RowIndex', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at',
-                'description', 'created_at', 'edit', 'delete'])
+                'description', 'created_at', 'edit', 'trashed'])
             ->toJson();
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function trashedDatatables(): JsonResponse
+    {
+        return Datatables::of($this->repository->trashedDatatables())
+            ->setRowId(function ($row) {
+                return 'row-id-' . $row->id;
+            })
+            ->addIndexColumn()
+            ->addColumn('company_name', function ($row) {
+                return $row->company->name;
+            })
+            ->editColumn('currency_type', function ($row) {
+                return $row->currencyType->name;
+            })
+            ->editColumn('payment_method_type', function ($row) {
+                return $row->paymentMethodType->name;
+            })
+            ->editColumn('price', function ($row) {
+                return $row->getPriceFormat($row->currencyType->code);
+            })
+            ->editColumn('expires_at', function ($row) {
+                return $row->expires_at_format;
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at_format;
+            })
+            ->editColumn('deleted_at', function ($row) {
+                return $row->deleted_at_format;
+            })
+            ->addColumn('restore', function ($row) {
+                return '<a onclick="restore(this)" data-url="' . route('payables.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+            })
+            ->addColumn('force_delete', function ($row) {
+                return '<a onclick="forceDelete(this)" data-url="' . route('payables.force.delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+            })
+            ->rawColumns(['restore', 'force_delete'])
+            ->only(['DT_RowIndex', 'name', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at', 'created_at', 'deleted_at', 'restore', 'force_delete'])
+            ->toJson();
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function restore($id)
+    {
+        $this->repository->restore($id);
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function forceDelete($id)
+    {
+        $this->repository->forceDelete($id);
     }
 }

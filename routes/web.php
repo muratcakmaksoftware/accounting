@@ -24,6 +24,10 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::put('/{id}', [PayableController::class, 'update'])->name('payables.update');
         Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
+        Route::get('/trashed', [PayableController::class, 'trashed'])->name('payables.trashed');
+        Route::get('/trashed-datatables', [PayableController::class, 'trashedDatatables'])->name('payables.trashed.datatables');
+        Route::post('/{id}/restore', [PayableController::class, 'restore'])->name('payables.restore');
+        Route::delete('/{id}/force-delete', [PayableController::class, 'forceDelete'])->name('payables.force.delete');
     });
 
     Route::group(['prefix' => '/receivables'], function () {

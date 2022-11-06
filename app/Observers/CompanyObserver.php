@@ -12,8 +12,10 @@ class CompanyObserver
      */
     public function deleting(Company $company)
     {
-        $company->payables()->delete();
-        $company->receivables()->delete();
+        if (!$company->isForceDeleting()) {
+            $company->payables()->delete();
+            $company->receivables()->delete();
+        }
     }
 
     /**

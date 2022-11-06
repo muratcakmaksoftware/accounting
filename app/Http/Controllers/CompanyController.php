@@ -139,7 +139,6 @@ class CompanyController extends BaseController
         return ResponseHelper::forceDelete();
     }
 
-
     /**
      * @param QueryCompanyRequest $request
      * @return JsonResponse

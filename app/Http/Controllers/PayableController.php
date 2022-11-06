@@ -103,4 +103,41 @@ class PayableController extends BaseController
     {
         return $this->service->datatables();
     }
+
+    /**
+     * @return Application|Factory|View
+     */
+    public function trashed(): View|Factory|Application
+    {
+        return view('payable.trashed');
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function trashedDatatables(): JsonResponse
+    {
+        return $this->service->trashedDatatables();
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function restore($id): JsonResponse
+    {
+        $this->service->restore($id);
+        return ResponseHelper::restore();
+    }
+
+    /**
+     * @param $id
+     * @return JsonResponse
+     */
+    public function forceDelete($id): JsonResponse
+    {
+        $this->service->forceDelete($id);
+        return ResponseHelper::forceDelete();
+    }
 }
