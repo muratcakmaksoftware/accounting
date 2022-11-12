@@ -49,12 +49,18 @@ function sendAjaxJson(params) {
         headers: {
             'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content'),
         },
+        beforeSend: function () {
+            openSpinner();
+        },
         success: function (data, status, xhr) {
             params.success(data, status, xhr)
         },
         error: function (xhr, status, error) {
             params.error(xhr, status, error);
-        }
+        },
+        complete: function () {
+            closeSpinner();
+        },
     });
 }
 
@@ -71,4 +77,12 @@ function swalQuestionDeleteFire(params) {
     }).then((result) => {
         params.then(result);
     })
+}
+
+function openSpinner() {
+    $('#spinner').css('display', 'block');
+}
+
+function closeSpinner() {
+    $('#spinner').css('display', 'none');
 }

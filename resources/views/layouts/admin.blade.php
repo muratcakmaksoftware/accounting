@@ -177,7 +177,7 @@
                         </a>
                     </li>
 
-                    <hr class="nav-hr"/>
+                    <li class="nav-hr"></li>
 
                     <li class="nav-item">
                         <a href="#" class="nav-link">
@@ -267,6 +267,17 @@
         <!-- Default to the left -->
         <strong>Copyright &copy; 2021-{{ date('Y') }} Murat Çakmak</strong> All rights reserved.
     </footer>
+
+    <div id="spinner">
+        <div id="spinner-content">
+            <div class="lds-ring">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
 </div>
 @yield('javascript-footer')
 <script src="{{ asset('resources/custom/js/main.js') }}"></script>
