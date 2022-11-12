@@ -29,4 +29,21 @@ class ReceivableRepository extends BaseRepository implements ReceivableRepositor
             $query->select(['id', 'name']);
         }])->orderByDesc('id')->get();
     }
+
+    /**
+     * @return Collection
+     */
+    public function trashedDatatables(): Collection
+    {
+        return $this->model::onlyTrashed()
+            ->withWhereHas('company', function ($query) {
+                $query->select(['id', 'name']);
+            })
+            ->withWhereHas('currencyType', function ($query) {
+                $query->select(['id', 'name', 'code']);
+            })
+            ->withWhereHas('paymentMethodType', function ($query) {
+                $query->select(['id', 'name']);
+            })->orderByDesc('id')->get();
+    }
 }

@@ -10,4 +10,9 @@ interface ReceivableRepositoryInterface extends BaseRepositoryInterface
      * @return Collection
      */
     public function datatables(): Collection;
+
+    /**
+     * @return Collection
+     */
+    public function trashedDatatables(): Collection;
 }

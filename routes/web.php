@@ -38,6 +38,10 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::put('/{id}', [ReceivableController::class, 'update'])->name('receivables.update');
         Route::delete('/{id}', [ReceivableController::class, 'destroy'])->name('receivables.destroy');
         Route::get('/datatables', [ReceivableController::class, 'datatables'])->name('receivables.datatables');
+        Route::get('/trashed', [ReceivableController::class, 'trashed'])->name('receivables.trashed');
+        Route::get('/trashed-datatables', [ReceivableController::class, 'trashedDatatables'])->name('receivables.trashed.datatables');
+        Route::post('/{id}/restore', [ReceivableController::class, 'restore'])->name('receivables.restore');
+        Route::delete('/{id}/force-delete', [ReceivableController::class, 'forceDelete'])->name('receivables.force.delete');
     });
 
     Route::group(['prefix' => '/companies'], function () {

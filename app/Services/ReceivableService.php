@@ -123,4 +123,66 @@ class ReceivableService extends BaseController
                 'description', 'created_at', 'edit', 'delete'])
             ->toJson();
     }
+
+
+    /**
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function trashedDatatables(): JsonResponse
+    {
+        return Datatables::of($this->repository->trashedDatatables())
+            ->setRowId(function ($row) {
+                return 'row-id-' . $row->id;
+            })
+            ->addIndexColumn()
+            ->addColumn('company_name', function ($row) {
+                return $row->company->name;
+            })
+            ->editColumn('currency_type', function ($row) {
+                return $row->currencyType->name;
+            })
+            ->editColumn('payment_method_type', function ($row) {
+                return $row->paymentMethodType->name;
+            })
+            ->editColumn('price', function ($row) {
+                return $row->getPriceFormat($row->currencyType->code);
+            })
+            ->editColumn('expires_at', function ($row) {
+                return $row->expires_at_format;
+            })
+            ->editColumn('created_at', function ($row) {
+                return $row->created_at_format;
+            })
+            ->editColumn('deleted_at', function ($row) {
+                return $row->deleted_at_format;
+            })
+            ->addColumn('restore', function ($row) {
+                return '<a onclick="restore(this)" data-url="' . route('receivables.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+            })
+            ->addColumn('force_delete', function ($row) {
+                return '<a onclick="forceDelete(this)" data-url="' . route('receivables.force.delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+            })
+            ->rawColumns(['restore', 'force_delete'])
+            ->only(['DT_RowIndex', 'name', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at', 'created_at', 'deleted_at', 'restore', 'force_delete'])
+            ->toJson();
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function restore($id)
+    {
+        $this->repository->restore($id);
+    }
+
+    /**
+     * @param $id
+     * @return void
+     */
+    public function forceDelete($id)
+    {
+        $this->repository->forceDelete($id);
+    }
 }
