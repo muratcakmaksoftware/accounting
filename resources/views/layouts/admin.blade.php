@@ -204,7 +204,7 @@
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a href="{{ route('currency_types.index') }}" class="nav-link">
                                     <i class="fas fa-money nav-icon"></i>
                                     <p>Para Birimleri</p>
                                 </a>

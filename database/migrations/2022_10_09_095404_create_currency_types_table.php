@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('name')->index()->fulltext();
             $table->string('code')->index()->fulltext();
-            $table->string('sembol');
+            $table->char('sembol', 1);
             $table->softDeletes();
             $table->timestamps();
         });

@@ -161,7 +161,7 @@ class ReceivableService extends BaseController
                 return '<a onclick="restore(this)" data-url="' . route('receivables.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
             })
             ->addColumn('force_delete', function ($row) {
-                return '<a onclick="forceDelete(this)" data-url="' . route('receivables.force.delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="forceDelete(this)" data-url="' . route('receivables.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
             ->only(['DT_RowIndex', 'name', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at', 'created_at', 'deleted_at', 'restore', 'force_delete'])

@@ -55,14 +55,6 @@ class CompanyController extends BaseController
     }
 
     /**
-     * @return Application|Factory|View
-     */
-    public function show(): View|Factory|Application
-    {
-        return view('company.show');
-    }
-
-    /**
      * @param $id
      * @return Application|Factory|View
      */

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Şirketler Çöp Kutusu')
+@section('title', 'Para Birimleri Çöp Kutusu')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Şirketler</a></li>
-    <li class="breadcrumb-item active">Şirketler Çöp Kutusu</li>
+    <li class="breadcrumb-item"><a href="{{ route('currency_types.index') }}">Para Birimleri</a></li>
+    <li class="breadcrumb-item active">Para Birimleri Çöp Kutusu</li>
 @endsection
 
 @section('content')
@@ -16,8 +16,9 @@
                         <thead>
                         <tr>
                             <th>Sıra</th>
-                            <th>Şirket Adı</th>
-                            <th>Açıklama</th>
+                            <th>İsim</th>
+                            <th>Kodu</th>
+                            <th>Sembol</th>
                             <th>O.Tarihi</th>
                             <th>D.Tarihi</th>
                             <th style="text-align: center;">Geri Al</th>
@@ -35,11 +36,12 @@
             $('#main-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('companies.trashed_datatables') }}',
+                ajax: '{{ route('currency_types.trashed_datatables') }}',
                 columns: [
                     {data: 'DT_RowIndex', width: "5%",},
                     {data: 'name'},
-                    {data: 'description'},
+                    {data: 'code'},
+                    {data: 'sembol'},
                     {data: 'created_at', className: "text-center", width: "5%"},
                     {data: 'deleted_at', className: "text-center", width: "5%"},
                     {

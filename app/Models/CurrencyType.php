@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use App\Traits\ModelFormatTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 class CurrencyType extends BaseModel
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, ModelFormatTrait;
 
     /**
      * @var array
@@ -18,4 +20,38 @@ class CurrencyType extends BaseModel
      * @var bool
      */
     public $timestamps = true;
+
+    /**
+     * @var string
+     */
+    protected $dateFormat = 'Y-m-d H:i:s';
+
+    /**
+     * @var string[]
+     */
+    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+
+    /**
+     * @return HasMany
+     */
+    public function payables(): HasMany
+    {
+        return $this->hasMany(Payable::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function receivables(): HasMany
+    {
+        return $this->hasMany(Receivable::class);
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function bankCurrencyTotals(): HasMany
+    {
+        return $this->hasMany(BankCurrencyTotal::class);
+    }
 }

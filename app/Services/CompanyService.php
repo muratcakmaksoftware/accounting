@@ -111,7 +111,7 @@ class CompanyService extends BaseService
                 return '<a onclick="restore(this)" data-url="' . route('companies.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
             })
             ->addColumn('force_delete', function ($row) {
-                return '<a onclick="forceDelete(this)" data-url="' . route('companies.force.delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="forceDelete(this)" data-url="' . route('companies.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
             ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'deleted_at', 'restore', 'force_delete'])

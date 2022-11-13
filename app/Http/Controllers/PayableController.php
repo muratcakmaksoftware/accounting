@@ -56,14 +56,6 @@ class PayableController extends BaseController
     }
 
     /**
-     * @return Application|Factory|View
-     */
-    public function show(): View|Factory|Application
-    {
-        return view('payable.show');
-    }
-
-    /**
      * @param $id
      * @return Application|Factory|View
      * @throws BindingResolutionException

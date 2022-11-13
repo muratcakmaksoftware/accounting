@@ -38,7 +38,7 @@
             $('#main-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('receivables.trashed.datatables') }}',
+                ajax: '{{ route('receivables.trashed_datatables') }}',
                 columns: [
                     {data: 'DT_RowIndex'},
                     {data: 'company_name'},

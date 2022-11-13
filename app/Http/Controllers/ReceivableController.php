@@ -56,14 +56,6 @@ class ReceivableController extends BaseController
     }
 
     /**
-     * @return Application|Factory|View
-     */
-    public function show(): View|Factory|Application
-    {
-        return view('receivable.show');
-    }
-
-    /**
      * @param $id
      * @return Application|Factory|View
      * @throws BindingResolutionException

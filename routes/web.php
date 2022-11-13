@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CompanyController;
+use App\Http\Controllers\CurrencyTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayableController;
 use App\Http\Controllers\ReceivableController;
@@ -25,9 +26,9 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::delete('/{id}', [PayableController::class, 'destroy'])->name('payables.destroy');
         Route::get('/datatables', [PayableController::class, 'datatables'])->name('payables.datatables');
         Route::get('/trashed', [PayableController::class, 'trashed'])->name('payables.trashed');
-        Route::get('/trashed-datatables', [PayableController::class, 'trashedDatatables'])->name('payables.trashed.datatables');
+        Route::get('/trashed-datatables', [PayableController::class, 'trashedDatatables'])->name('payables.trashed_datatables');
         Route::post('/{id}/restore', [PayableController::class, 'restore'])->name('payables.restore');
-        Route::delete('/{id}/force-delete', [PayableController::class, 'forceDelete'])->name('payables.force.delete');
+        Route::delete('/{id}/force-delete', [PayableController::class, 'forceDelete'])->name('payables.force_delete');
     });
 
     Route::group(['prefix' => '/receivables'], function () {
@@ -39,9 +40,9 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::delete('/{id}', [ReceivableController::class, 'destroy'])->name('receivables.destroy');
         Route::get('/datatables', [ReceivableController::class, 'datatables'])->name('receivables.datatables');
         Route::get('/trashed', [ReceivableController::class, 'trashed'])->name('receivables.trashed');
-        Route::get('/trashed-datatables', [ReceivableController::class, 'trashedDatatables'])->name('receivables.trashed.datatables');
+        Route::get('/trashed-datatables', [ReceivableController::class, 'trashedDatatables'])->name('receivables.trashed_datatables');
         Route::post('/{id}/restore', [ReceivableController::class, 'restore'])->name('receivables.restore');
-        Route::delete('/{id}/force-delete', [ReceivableController::class, 'forceDelete'])->name('receivables.force.delete');
+        Route::delete('/{id}/force-delete', [ReceivableController::class, 'forceDelete'])->name('receivables.force_delete');
     });
 
     Route::group(['prefix' => '/companies'], function () {
@@ -53,12 +54,24 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::delete('/{id}', [CompanyController::class, 'destroy'])->name('companies.destroy');
         Route::get('/datatables', [CompanyController::class, 'datatables'])->name('companies.datatables');
         Route::get('/trashed', [CompanyController::class, 'trashed'])->name('companies.trashed');
-        Route::get('/trashed-datatables', [CompanyController::class, 'trashedDatatables'])->name('companies.trashed.datatables');
+        Route::get('/trashed-datatables', [CompanyController::class, 'trashedDatatables'])->name('companies.trashed_datatables');
         Route::post('/{id}/restore', [CompanyController::class, 'restore'])->name('companies.restore');
-        Route::delete('/{id}/force-delete', [CompanyController::class, 'forceDelete'])->name('companies.force.delete');
+        Route::delete('/{id}/force-delete', [CompanyController::class, 'forceDelete'])->name('companies.force_delete');
+        //Route::get('/select2Ajax', [CompanyController::class, 'select2Ajax'])->name('companies.select2Ajax');
     });
 
-    Route::group(['prefix' => '/company'], function () {
-        Route::get('/select2Ajax', [CompanyController::class, 'select2Ajax'])->name('companies.select2Ajax');
+    Route::group(['prefix' => '/currency-types'], function () {
+        Route::get('/', [CurrencyTypeController::class, 'index'])->name('currency_types.index');
+        Route::get('/create', [CurrencyTypeController::class, 'create'])->name('currency_types.create');
+        Route::post('/', [CurrencyTypeController::class, 'store'])->name('currency_types.store');
+        Route::get('/{id}/edit', [CurrencyTypeController::class, 'edit'])->name('currency_types.edit');
+        Route::put('/{id}', [CurrencyTypeController::class, 'update'])->name('currency_types.update');
+        Route::delete('/{id}', [CurrencyTypeController::class, 'destroy'])->name('currency_types.destroy');
+        Route::get('/datatables', [CurrencyTypeController::class, 'datatables'])->name('currency_types.datatables');
+        Route::get('/trashed', [CurrencyTypeController::class, 'trashed'])->name('currency_types.trashed');
+        Route::get('/trashed-datatables', [CurrencyTypeController::class, 'trashedDatatables'])->name('currency_types.trashed_datatables');
+        Route::post('/{id}/restore', [CurrencyTypeController::class, 'restore'])->name('currency_types.restore');
+        Route::delete('/{id}/force-delete', [CurrencyTypeController::class, 'forceDelete'])->name('currency_types.force_delete');
     });
+
 });

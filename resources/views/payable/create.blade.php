@@ -71,12 +71,12 @@
         </div>
     </div>
 
-    <script>
+    <!--script>
 
-        $(document).ready(function() {
+        //$(document).ready(function() {
             /*$('.select2').select2({
                 ajax: {
-                    url: '{{ route('companies.select2Ajax') }}',
+                    url: '{{-- route('companies.select2Ajax') --}}',
                     dataType: 'json',
                     data: function (params) {
                         return {
@@ -93,6 +93,6 @@
                     delay: 250
                 }
             });*/
-        });
-    </script>
+        //});
+    </script-->
 @endsection
