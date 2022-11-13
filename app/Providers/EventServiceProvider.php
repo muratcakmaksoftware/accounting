@@ -4,8 +4,10 @@ namespace App\Providers;
 
 use App\Models\Company;
 use App\Models\CurrencyType;
+use App\Models\PaymentMethodType;
 use App\Observers\CompanyObserver;
 use App\Observers\CurrencyTypeObserver;
+use App\Observers\PaymentMethodTypeObserver;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Auth\Listeners\SendEmailVerificationNotification;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
@@ -33,6 +35,7 @@ class EventServiceProvider extends ServiceProvider
     {
         Company::observe(CompanyObserver::class);
         CurrencyType::observe(CurrencyTypeObserver::class);
+        PaymentMethodType::observe(PaymentMethodTypeObserver::class);
     }
 
     /**

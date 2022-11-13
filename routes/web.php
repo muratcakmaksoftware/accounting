@@ -5,6 +5,7 @@ use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CurrencyTypeController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayableController;
+use App\Http\Controllers\PaymentMethodTypeController;
 use App\Http\Controllers\ReceivableController;
 use Illuminate\Support\Facades\Route;
 
@@ -72,6 +73,20 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/trashed-datatables', [CurrencyTypeController::class, 'trashedDatatables'])->name('currency_types.trashed_datatables');
         Route::post('/{id}/restore', [CurrencyTypeController::class, 'restore'])->name('currency_types.restore');
         Route::delete('/{id}/force-delete', [CurrencyTypeController::class, 'forceDelete'])->name('currency_types.force_delete');
+    });
+
+    Route::group(['prefix' => '/payment-method-types'], function () {
+        Route::get('/', [PaymentMethodTypeController::class, 'index'])->name('payment_method_types.index');
+        Route::get('/create', [PaymentMethodTypeController::class, 'create'])->name('payment_method_types.create');
+        Route::post('/', [PaymentMethodTypeController::class, 'store'])->name('payment_method_types.store');
+        Route::get('/{id}/edit', [PaymentMethodTypeController::class, 'edit'])->name('payment_method_types.edit');
+        Route::put('/{id}', [PaymentMethodTypeController::class, 'update'])->name('payment_method_types.update');
+        Route::delete('/{id}', [PaymentMethodTypeController::class, 'destroy'])->name('payment_method_types.destroy');
+        Route::get('/datatables', [PaymentMethodTypeController::class, 'datatables'])->name('payment_method_types.datatables');
+        Route::get('/trashed', [PaymentMethodTypeController::class, 'trashed'])->name('payment_method_types.trashed');
+        Route::get('/trashed-datatables', [PaymentMethodTypeController::class, 'trashedDatatables'])->name('payment_method_types.trashed_datatables');
+        Route::post('/{id}/restore', [PaymentMethodTypeController::class, 'restore'])->name('payment_method_types.restore');
+        Route::delete('/{id}/force-delete', [PaymentMethodTypeController::class, 'forceDelete'])->name('payment_method_types.force_delete');
     });
 
 });
