@@ -177,17 +177,27 @@
                         </a>
                     </li>
 
-                    <li class="nav-hr"></li>
-
+                    <li class="nav-header">BANKALAR</li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link">
+                        <a href="{{ route('banks.index') }}" class="nav-link">
                             <i class="nav-icon fas fa-university"></i>
                             <p>
-                                Banka
+                                Bankalar
                             </p>
                         </a>
                     </li>
 
+                    <li class="nav-item">
+                        <a href="{{ route('banks.create') }}" class="nav-link">
+                            <i class="nav-icon fas fa-plus"></i>
+                            <p>
+                                Banka Ekle
+                            </p>
+                        </a>
+                    </li>
+
+
+                    <li class="nav-hr"></li>
                     <li class="nav-item">
                         <a href="#" class="nav-link">
                             <i class="nav-icon fas fa-cog"></i>
