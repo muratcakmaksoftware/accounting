@@ -105,3 +105,8 @@
         transform: rotate(360deg);
     }
 }
+
+.btn-primary {
+    background-color: purple !important;
+    border-color: purple !important;
+}

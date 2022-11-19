@@ -25,10 +25,10 @@ class BankCurrencyTotalSeeder extends Seeder
             foreach ($currencyTypes as $currencyType) {
                 $bankCurrencyTotals[] = [
                     'currency_type_id' => $currencyType->id,
-                    'total' => CalculationHelper::randomDecimal(1000, 50000)
+                    'balance' => CalculationHelper::randomDecimal(1000, 50000)
                 ];
             }
-            $bank->bankCurrencyTotals()->createMany($bankCurrencyTotals);
+            $bank->bankAccounts()->createMany($bankCurrencyTotals);
         }
     }
 }

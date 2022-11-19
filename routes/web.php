@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CurrencyTypeController;
@@ -102,6 +103,19 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/trashed-datatables', [BankController::class, 'trashedDatatables'])->name('banks.trashed_datatables');
         Route::post('/{id}/restore', [BankController::class, 'restore'])->name('banks.restore');
         Route::delete('/{id}/force-delete', [BankController::class, 'forceDelete'])->name('banks.force_delete');
-    });
 
+        Route::group(['prefix' => '{bankId}/accounts'], function () {
+            Route::get('/', [BankAccountController::class, 'index'])->name('bank_accounts.index');
+            Route::get('/create', [BankAccountController::class, 'create'])->name('bank_accounts.create');
+            Route::post('/', [BankAccountController::class, 'store'])->name('bank_accounts.store');
+            Route::get('/{id}/edit', [BankAccountController::class, 'edit'])->name('bank_accounts.edit');
+            Route::put('/{id}', [BankAccountController::class, 'update'])->name('bank_accounts.update');
+            Route::delete('/{id}', [BankAccountController::class, 'destroy'])->name('bank_accounts.destroy');
+            Route::get('/datatables', [BankAccountController::class, 'datatables'])->name('bank_accounts.datatables');
+            Route::get('/trashed', [BankAccountController::class, 'trashed'])->name('bank_accounts.trashed');
+            Route::get('/trashed-datatables', [BankAccountController::class, 'trashedDatatables'])->name('bank_accounts.trashed_datatables');
+            Route::post('/{id}/restore', [BankAccountController::class, 'restore'])->name('bank_accounts.restore');
+            Route::delete('/{id}/force-delete', [BankAccountController::class, 'forceDelete'])->name('bank_accounts.force_delete');
+        });
+    });
 });

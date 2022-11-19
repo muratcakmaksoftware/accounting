@@ -13,7 +13,7 @@ class BankObserver
     public function deleting(Bank $bank)
     {
         if (!$bank->isForceDeleting()) {
-            $bank->bankCurrencyTotals()->delete();
+            $bank->bankAccounts()->delete();
         }
     }
 
@@ -23,6 +23,6 @@ class BankObserver
      */
     public function restoring(Bank $bank)
     {
-        $bank->bankCurrencyTotals()->onlyTrashed()->restore();
+        $bank->bankAccounts()->onlyTrashed()->restore();
     }
 }

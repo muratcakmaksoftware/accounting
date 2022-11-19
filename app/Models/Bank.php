@@ -34,8 +34,8 @@ class Bank extends BaseModel
     /**
      * @return HasMany
      */
-    public function bankCurrencyTotals(): HasMany
+    public function bankAccounts(): HasMany
     {
-        return $this->hasMany(BankCurrencyTotal::class);
+        return $this->hasMany(BankAccount::class);
     }
 }

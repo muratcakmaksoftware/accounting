@@ -4,10 +4,11 @@ namespace App\Models;
 
 use App\Traits\ModelFormatTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CurrencyType extends BaseModel
+class BankAccount extends BaseModel
 {
     use HasFactory, SoftDeletes, ModelFormatTrait;
 
@@ -32,26 +33,26 @@ class CurrencyType extends BaseModel
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * @return HasMany
+     * @return BelongsTo
      */
-    public function payables(): HasMany
+    public function bank(): BelongsTo
     {
-        return $this->hasMany(Payable::class);
+        return $this->belongsTo(Bank::class);
+    }
+
+    /**
+     * @return BelongsTo
+     */
+    public function currencyType(): BelongsTo
+    {
+        return $this->belongsTo(CurrencyType::class);
     }
 
     /**
      * @return HasMany
      */
-    public function receivables(): HasMany
+    public function bankAccountHistory(): HasMany
     {
-        return $this->hasMany(Receivable::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function bankAccounts(): HasMany
-    {
-        return $this->hasMany(BankAccount::class);
+        return $this->hasMany(BankAccountHistory::class);
     }
 }

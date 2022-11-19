@@ -1,13 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', 'Bankalar')
+@section('title', $bank->name.' Hesaplar')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item active">Bankalar</li>
+    <li class="breadcrumb-item"><a href="{{ route('banks.index') }}">Bankalar</a></li>
+    <li class="breadcrumb-item active">{{ $bank->name }} Hesaplar</li>
 @endsection
 
 @section('content')
-    <a href="{{ route('banks.create') }}" class="button-floating"><i class="fa fa-plus"></i></a>
+    <a href="{{ route('bank_accounts.create', ['bankId' => $bank->id]) }}" class="button-floating"><i
+            class="fa fa-plus"></i></a>
 
     <div class="row">
         <div class="col-12">
@@ -15,7 +17,8 @@
                 <div class="card-body">
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
-                            <a style="float:right;" class="btn btn-danger" href="{{ route('banks.trashed') }}"
+                            <a style="float:right;" class="btn btn-danger"
+                               href="{{ route('bank_accounts.trashed', ['bankId' => $bank->id]) }}"
                                role="button"><i class="fa fa-trash-o"></i> Çöp Kutusu</a>
                         </div>
                     </div>
@@ -24,9 +27,10 @@
                         <tr>
                             <th>Sıra</th>
                             <th>Bank Adı</th>
-                            <th>Açıklama</th>
+                            <th>Hesap Adı</th>
+                            <th>Para Birimi</th>
+                            <th>Bakiye</th>
                             <th>O.Tarihi</th>
-                            <th>Hesaplar</th>
                             <th style="text-align: center;">Düzenle</th>
                             <th style="text-align: center;">Sil</th>
                         </tr>
@@ -42,13 +46,14 @@
             $('#main-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('banks.datatables') }}',
+                ajax: '{{ route('bank_accounts.datatables', ['bankId' => $bank->id]) }}',
                 columns: [
                     {data: 'DT_RowIndex'},
+                    {data: 'bank_name'},
                     {data: 'name'},
-                    {data: 'description'},
+                    {data: 'currency_type_name'},
+                    {data: 'balance'},
                     {data: 'created_at', className: "text-center", width: "5%"},
-                    {data: 'bank_accounts', className: "text-center", width: "5%"},
                     {
                         data: 'edit',
                         orderable: false,
@@ -69,7 +74,7 @@
                 lengthMenu: [
                     [100, 300, 500, -1],
                     [100, 300, 500, 'Hepsi'],
-                ],
+                ]
             });
         });
 

@@ -76,14 +76,17 @@ class BankService extends BaseController
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
+            ->addColumn('bank_accounts', function ($row) {
+                return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary"><i class="material-icons">wallet</i></a>';
+            })
             ->addColumn('edit', function ($row) {
                 return '<a href="' . route('banks.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
                 return '<a onclick="trashed(this)" data-url="' . route('banks.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
             })
-            ->rawColumns(['edit', 'trashed'])
-            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'edit', 'trashed'])
+            ->rawColumns(['bank_accounts', 'edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'bank_accounts', 'edit', 'trashed'])
             ->toJson();
     }
 

@@ -15,7 +15,7 @@ class CurrencyTypeObserver
         if (!$currencyType->isForceDeleting()) {
             $currencyType->payables()->delete();
             $currencyType->receivables()->delete();
-            $currencyType->bankCurrencyTotals()->delete();
+            $currencyType->bankAccounts()->delete();
         }
     }
 
@@ -27,6 +27,6 @@ class CurrencyTypeObserver
     {
         $currencyType->payables()->onlyTrashed()->restore();
         $currencyType->receivables()->onlyTrashed()->restore();
-        $currencyType->bankCurrencyTotals()->onlyTrashed()->restore();
+        $currencyType->bankAccounts()->onlyTrashed()->restore();
     }
 }

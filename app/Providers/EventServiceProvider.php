@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
+use App\Models\BankAccount;
 use App\Models\Company;
 use App\Models\CurrencyType;
 use App\Models\PaymentMethodType;
+use App\Observers\BankAccountObserver;
 use App\Observers\CompanyObserver;
 use App\Observers\CurrencyTypeObserver;
 use App\Observers\PaymentMethodTypeObserver;
@@ -36,6 +38,7 @@ class EventServiceProvider extends ServiceProvider
         Company::observe(CompanyObserver::class);
         CurrencyType::observe(CurrencyTypeObserver::class);
         PaymentMethodType::observe(PaymentMethodTypeObserver::class);
+        BankAccount::observe(BankAccountObserver::class);
     }
 
     /**

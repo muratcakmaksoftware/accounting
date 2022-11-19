@@ -4,10 +4,10 @@ namespace App\Models;
 
 use App\Traits\ModelFormatTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class BankCurrencyTotal extends BaseModel
+class BankAccountHistory extends BaseModel
 {
     use HasFactory, SoftDeletes, ModelFormatTrait;
 
@@ -32,10 +32,10 @@ class BankCurrencyTotal extends BaseModel
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
-     * @return BelongsToMany
+     * @return BelongsTo
      */
-    public function bank(): BelongsToMany
+    public function bankAccount(): BelongsTo
     {
-        return $this->belongsToMany(Bank::class);
+        return $this->belongsTo(Bank::class);
     }
 }
