@@ -26,7 +26,7 @@
 
                         <div class="form-group">
                             <label>IBAN</label>
-                            <input type="text" class="form-control" name="iban" value="{{ $bankAccount->name }}"
+                            <input type="text" class="form-control" name="iban" value="{{ $bankAccount->iban }}"
                                    maxlength="34">
                         </div>
 
@@ -35,7 +35,7 @@
                             <select class="form-control select2" name="currency_type_id">
                                 @foreach($currencyTypes as $currencyType)
                                     <option value="{{ $currencyType->id }}"
-                                            @if(old('currency_type_id') == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
+                                            @if($bankAccount->currency_type_id == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
                                 @endforeach
                             </select>
                         </div>

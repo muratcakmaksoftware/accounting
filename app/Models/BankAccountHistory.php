@@ -36,6 +36,6 @@ class BankAccountHistory extends BaseModel
      */
     public function bankAccount(): BelongsTo
     {
-        return $this->belongsTo(Bank::class);
+        return $this->belongsTo(BankAccount::class);
     }
 }

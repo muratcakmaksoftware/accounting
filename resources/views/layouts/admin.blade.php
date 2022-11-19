@@ -7,7 +7,6 @@
 
     <link rel="stylesheet"
           href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="icon" type="image/x-icon" href="{{ asset('images/favicon.ico') }}">
 
     <!-- CSRF Token -->
@@ -15,8 +14,7 @@
 
     <!-- GLOBAL CSS -->
     <link rel="stylesheet" href="{{ asset('resources/bootstrap/css/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/all.min.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/font-awesome-4-7.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/fontawesome/css/all-6.2.1.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/datatables/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/datepicker/css/daterangepicker.css') }}">
@@ -217,13 +215,13 @@
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('currency_types.index') }}" class="nav-link">
-                                    <i class="fas fa-money nav-icon"></i>
+                                    <i class="fa-solid fa-turkish-lira-sign nav-icon"></i>
                                     <p>Para Birimleri</p>
                                 </a>
                             </li>
                             <li class="nav-item">
                                 <a href="{{ route('payment_method_types.index') }}" class="nav-link">
-                                    <i class="fa fa-google-wallet nav-icon"></i>
+                                    <i class="fa-brands fa-paypal nav-icon"></i>
                                     <p>Ödeme Metotları</p>
                                 </a>
                             </li>

@@ -19,15 +19,15 @@
                         <div class="col-md-12">
                             <a style="float:right;" class="btn btn-danger"
                                href="{{ route('bank_accounts.trashed', ['bankId' => $bank->id]) }}"
-                               role="button"><i class="fa fa-trash-o"></i> Çöp Kutusu</a>
+                               role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
                         <thead>
                         <tr>
                             <th>Sıra</th>
-                            <th>Bank Adı</th>
                             <th>Hesap Adı</th>
+                            <th>IBAN</th>
                             <th>Para Birimi</th>
                             <th>Bakiye</th>
                             <th>O.Tarihi</th>
@@ -49,8 +49,8 @@
                 ajax: '{{ route('bank_accounts.datatables', ['bankId' => $bank->id]) }}',
                 columns: [
                     {data: 'DT_RowIndex'},
-                    {data: 'bank_name'},
                     {data: 'name'},
+                    {data: 'iban'},
                     {data: 'currency_type_name'},
                     {data: 'balance'},
                     {data: 'created_at', className: "text-center", width: "5%"},

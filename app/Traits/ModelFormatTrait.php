@@ -8,11 +8,12 @@ trait ModelFormatTrait
 {
     /**
      * @param string $currency
+     * @param $property
      * @return string
      */
-    public function getPriceFormat(string $currency): string
+    public function getPriceFormat(string $currency, $property = null): string
     {
-        return FormatHelper::getCurrencyFormat($this->price, $currency);
+        return FormatHelper::getCurrencyFormat($this->{$property ?? 'price'}, $currency);
     }
 
     /**

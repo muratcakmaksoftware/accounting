@@ -33,6 +33,14 @@ class BankAccount extends BaseModel
     protected $dates = ['created_at', 'updated_at', 'deleted_at'];
 
     /**
+     * @return HasMany
+     */
+    public function bankAccountHistory(): HasMany
+    {
+        return $this->hasMany(BankAccountHistory::class);
+    }
+
+    /**
      * @return BelongsTo
      */
     public function bank(): BelongsTo
@@ -46,13 +54,5 @@ class BankAccount extends BaseModel
     public function currencyType(): BelongsTo
     {
         return $this->belongsTo(CurrencyType::class);
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function bankAccountHistory(): HasMany
-    {
-        return $this->hasMany(BankAccountHistory::class);
     }
 }

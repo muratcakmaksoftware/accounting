@@ -17,28 +17,25 @@ class BankAccountRepository extends BaseRepository implements BankAccountReposit
     }
 
     /**
+     * @param $bankId
      * @return Collection
      */
-    public function datatables(): Collection
+    public function datatables($bankId): Collection
     {
-        return $this->model::with(['bank' => function ($query) {
-            $query->select(['id', 'name']);
-        }, 'currencyType' => function ($query) {
+        return $this->model::with(['currencyType' => function ($query) {
             $query->select(['id', 'name', 'code']);
-        }])->orderByDesc('id')->get();
+        }])->where('bank_id', $bankId)->orderByDesc('id')->get();
     }
 
     /**
+     * @param $bankId
      * @return Collection
      */
-    public function trashedDatatables(): Collection
+    public function trashedDatatables($bankId): Collection
     {
         return $this->model::onlyTrashed()
-            ->withWhereHas('bank', function ($query) {
-                $query->select(['id', 'name']);
-            })
             ->withWhereHas('currencyType', function ($query) {
                 $query->select(['id', 'name', 'code']);
-            })->orderByDesc('id')->get();
+            })->where('bank_id', $bankId)->orderByDesc('id')->get();
     }
 }

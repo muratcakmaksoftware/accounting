@@ -113,10 +113,10 @@ class PayableService extends BaseController
                 return $row->created_at_format;
             })
             ->addColumn('edit', function ($row) {
-                return '<a href="' . route('payables.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
+                return '<a href="' . route('payables.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
-                return '<a onclick="trashed(this)" data-url="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="trashed(this)" data-url="' . route('payables.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['edit', 'trashed'])
             ->only(['DT_RowIndex', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at',
@@ -157,10 +157,10 @@ class PayableService extends BaseController
                 return $row->deleted_at_format;
             })
             ->addColumn('restore', function ($row) {
-                return '<a onclick="restore(this)" data-url="' . route('payables.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+                return '<a onclick="restore(this)" data-url="' . route('payables.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-rotate-left"></i></a>';
             })
             ->addColumn('force_delete', function ($row) {
-                return '<a onclick="forceDelete(this)" data-url="' . route('payables.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="forceDelete(this)" data-url="' . route('payables.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
             ->only(['DT_RowIndex', 'name', 'company_name', 'currency_type', 'payment_method_type', 'price', 'expires_at', 'created_at', 'deleted_at', 'restore', 'force_delete'])

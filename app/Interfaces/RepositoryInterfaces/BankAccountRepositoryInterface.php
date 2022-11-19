@@ -7,12 +7,14 @@ use Illuminate\Support\Collection;
 interface BankAccountRepositoryInterface extends BaseRepositoryInterface
 {
     /**
+     * @param $bankId
      * @return Collection
      */
-    public function datatables(): Collection;
+    public function datatables($bankId): Collection;
 
     /**
+     * @param $bankId
      * @return Collection
      */
-    public function trashedDatatables(): Collection;
+    public function trashedDatatables($bankId): Collection;
 }

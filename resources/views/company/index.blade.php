@@ -14,18 +14,19 @@
             <div class="card">
                 <div class="card-body">
                     <div class="row" style="margin-bottom: 10px;">
-                        <div class="col-md-12" >
-                            <a style="float:right;" class="btn btn-danger" href="{{ route('companies.trashed') }}" role="button"><i class="fa fa-trash-o"></i> Çöp Kutusu</a>
+                        <div class="col-md-12">
+                            <a style="float:right;" class="btn btn-danger" href="{{ route('companies.trashed') }}"
+                               role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
                         <thead>
-                            <th>Sıra</th>
-                            <th>Şirket Adı</th>
-                            <th>Açıklama</th>
-                            <th>O.Tarihi</th>
-                            <th style="text-align: center;">Düzenle</th>
-                            <th style="text-align: center;">Sil</th>
+                        <th>Sıra</th>
+                        <th>Şirket Adı</th>
+                        <th>Açıklama</th>
+                        <th>O.Tarihi</th>
+                        <th style="text-align: center;">Düzenle</th>
+                        <th style="text-align: center;">Sil</th>
                         </thead>
                     </table>
                 </div>

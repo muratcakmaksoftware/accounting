@@ -95,29 +95,33 @@ class BankAccountController extends BaseController
     }
 
     /**
+     * @param $bankId
      * @return JsonResponse
      * @throws Exception
      */
-    public function datatables(): JsonResponse
+    public function datatables($bankId): JsonResponse
     {
-        return $this->service->datatables();
+        return $this->service->datatables($bankId);
     }
 
     /**
-     * @return Application|Factory|View
+     * @param $bankId
+     * @return View|Factory|Application
+     * @throws BindingResolutionException
      */
-    public function trashed(): View|Factory|Application
+    public function trashed($bankId): View|Factory|Application
     {
-        return view('bank-account.trashed');
+        return view('bank-account.trashed', $this->service->trashed($bankId));
     }
 
     /**
+     * @param $bankId
      * @return JsonResponse
      * @throws Exception
      */
-    public function trashedDatatables(): JsonResponse
+    public function trashedDatatables($bankId): JsonResponse
     {
-        return $this->service->trashedDatatables();
+        return $this->service->trashedDatatables($bankId);
     }
 
     /**

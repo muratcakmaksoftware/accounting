@@ -16,7 +16,7 @@
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
                             <a style="float:right;" class="btn btn-danger" href="{{ route('currency_types.trashed') }}"
-                               role="button"><i class="fa fa-trash-o"></i> Çöp Kutusu</a>
+                               role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">

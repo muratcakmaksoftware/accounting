@@ -16,7 +16,7 @@
                     <div class="row" style="margin-bottom: 10px;">
                         <div class="col-md-12">
                             <a style="float:right;" class="btn btn-danger" href="{{ route('banks.trashed') }}"
-                               role="button"><i class="fa fa-trash-o"></i> Çöp Kutusu</a>
+                               role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
@@ -48,7 +48,14 @@
                     {data: 'name'},
                     {data: 'description'},
                     {data: 'created_at', className: "text-center", width: "5%"},
-                    {data: 'bank_accounts', className: "text-center", width: "5%"},
+                    {
+                        data: 'bank_accounts',
+                        orderable: false,
+                        searchable: false,
+                        width: "5%",
+                        align: "center",
+                        className: "text-center"
+                    },
                     {
                         data: 'edit',
                         orderable: false,

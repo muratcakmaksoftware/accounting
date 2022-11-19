@@ -38,6 +38,8 @@
 .nav-hr {
     padding: 1px;
     background-color: #1e2125 !important;
+    margin-top: 2px;
+    margin-bottom: 2px;
 }
 
 .select2 {

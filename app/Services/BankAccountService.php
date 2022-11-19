@@ -99,52 +99,66 @@ class BankAccountService extends BaseController
     }
 
     /**
+     * @param $bankId
      * @return JsonResponse
      * @throws Exception
      */
-    public function datatables(): JsonResponse
+    public function datatables($bankId): JsonResponse
     {
-        return Datatables::of($this->repository->datatables())
+        return Datatables::of($this->repository->datatables($bankId))
             ->setRowId(function ($row) {
                 return 'row-id-' . $row->id;
             })
             ->addIndexColumn()
-            ->editColumn('bank_name', function ($row) {
-                return $row->bank->name;
+            ->addColumn('currency_type_name', function ($row) {
+                return $row->currencyType->name;
             })
-            ->editColumn('currency_type_name', function ($row) {
-                return $row->currency_type->name;
+            ->editColumn('balance', function ($row) {
+                return $row->getPriceFormat($row->currencyType->code, 'balance');
             })
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
             ->addColumn('edit', function ($row) {
-                return '<a href="' . route('bank_accounts.edit', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
+                return '<a href="' . route('bank_accounts.edit', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
-                return '<a onclick="trashed(this)" data-url="' . route('bank_accounts.destroy', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="trashed(this)" data-url="' . route('bank_accounts.destroy', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['edit', 'trashed'])
-            ->only(['DT_RowIndex', 'bank_name', 'name', 'balance', 'currency_type_name', 'created_at', 'edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'iban', 'currency_type_name', 'balance', 'created_at', 'edit', 'trashed'])
             ->toJson();
     }
 
     /**
+     * @param $bankId
+     * @return array
+     * @throws BindingResolutionException
+     */
+    public function trashed($bankId): array
+    {
+        return [
+            'bank' => app()->make(BankRepositoryInterface::class)->getById(['id' => $bankId, ['id', 'name']])
+        ];
+    }
+
+    /**
+     * @param $bankId
      * @return JsonResponse
      * @throws Exception
      */
-    public function trashedDatatables(): JsonResponse
+    public function trashedDatatables($bankId): JsonResponse
     {
-        return Datatables::of($this->repository->trashedDatatables())
+        return Datatables::of($this->repository->trashedDatatables($bankId))
             ->setRowId(function ($row) {
                 return 'row-id-' . $row->id;
             })
             ->addIndexColumn()
-            ->editColumn('bank_name', function ($row) {
-                return $row->bank->name;
-            })
             ->editColumn('currency_type_name', function ($row) {
                 return $row->currency_type->name;
+            })
+            ->editColumn('balance', function ($row) {
+                return $row->getPriceFormat($row->currencyType->code, 'balance');
             })
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
@@ -153,13 +167,13 @@ class BankAccountService extends BaseController
                 return $row->deleted_at_format;
             })
             ->addColumn('restore', function ($row) {
-                return '<a onclick="restore(this)" data-url="' . route('bank_accounts.restore', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+                return '<a onclick="restore(this)" data-url="' . route('bank_accounts.restore', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-rotate-left"></i></a>';
             })
             ->addColumn('force_delete', function ($row) {
-                return '<a onclick="forceDelete(this)" data-url="' . route('bank_accounts.force_delete', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="forceDelete(this)" data-url="' . route('bank_accounts.force_delete', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
-            ->only(['DT_RowIndex', 'bank_name', 'name', 'balance', 'currency_type_name', 'created_at', 'deleted_at', 'restore', 'force_delete'])
+            ->only(['DT_RowIndex', 'name', 'currency_type_name', 'balance', 'created_at', 'deleted_at', 'restore', 'force_delete'])
             ->toJson();
     }
 

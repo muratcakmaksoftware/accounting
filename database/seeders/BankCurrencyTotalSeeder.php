@@ -24,6 +24,7 @@ class BankCurrencyTotalSeeder extends Seeder
             $bankCurrencyTotals = [];
             foreach ($currencyTypes as $currencyType) {
                 $bankCurrencyTotals[] = [
+                    'name' => $currencyType->name,
                     'currency_type_id' => $currencyType->id,
                     'balance' => CalculationHelper::randomDecimal(1000, 50000)
                 ];

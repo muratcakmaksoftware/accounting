@@ -77,13 +77,13 @@ class BankService extends BaseController
                 return $row->created_at_format;
             })
             ->addColumn('bank_accounts', function ($row) {
-                return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary"><i class="material-icons">wallet</i></a>';
+                return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary"><i class="fa-solid fa-wallet"></i></a>';
             })
             ->addColumn('edit', function ($row) {
-                return '<a href="' . route('banks.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa-pencil-square-o"></i></a>';
+                return '<a href="' . route('banks.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
-                return '<a onclick="trashed(this)" data-url="' . route('banks.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="trashed(this)" data-url="' . route('banks.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['bank_accounts', 'edit', 'trashed'])
             ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'bank_accounts', 'edit', 'trashed'])
@@ -108,10 +108,10 @@ class BankService extends BaseController
                 return $row->deleted_at_format;
             })
             ->addColumn('restore', function ($row) {
-                return '<a onclick="restore(this)" data-url="' . route('banks.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa fa fa-undo"></i></a>';
+                return '<a onclick="restore(this)" data-url="' . route('banks.restore', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-rotate-left"></i></a>';
             })
             ->addColumn('force_delete', function ($row) {
-                return '<a onclick="forceDelete(this)" data-url="' . route('banks.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa fa-trash-o"></i></a>';
+                return '<a onclick="forceDelete(this)" data-url="' . route('banks.force_delete', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
             ->only(['DT_RowIndex', 'name', 'created_at', 'deleted_at', 'restore', 'force_delete'])
