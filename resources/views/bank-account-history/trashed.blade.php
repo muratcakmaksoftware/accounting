@@ -1,12 +1,15 @@
 @extends('layouts.admin')
 
-@section('title', $bank->name.' Hesaplar Çöp Kutusu')
+@section('title', $bankAccount->name.' Hesap Ekstresi Çöp Kutusu')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('banks.index') }}">Bankalar</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('bank_accounts.index', ['bankId' => $bank->id]) }}">{{$bank->name}}
+    <li class="breadcrumb-item"><a href="{{ route('bank_accounts.index', ['bankId' => $bank->id]) }}"> {{$bank->name}}
             Hesaplar</a></li>
-    <li class="breadcrumb-item active">{{$bank->name}} Hesaplar Çöp Kutusu</li>
+    <li class="breadcrumb-item"><a
+            href="{{ route('bank_account_history.index', ['bankId' => $bank->id, 'bankAccountId' => $bankAccount->id]) }}"> {{ $bankAccount->name }}
+            Hesap Ekstresi</a></li>
+    <li class="breadcrumb-item active">{{ $bankAccount->name }} Hesap Ekstresi Çöp Kutusu</li>
 @endsection
 
 @section('content')
@@ -18,9 +21,9 @@
                         <thead>
                         <tr>
                             <th>Sıra</th>
-                            <th>Hesap Adı</th>
-                            <th>Para Birimi</th>
-                            <th>Bakiye</th>
+                            <th>İşlem</th>
+                            <th>Açıklama</th>
+                            <th>Toplam</th>
                             <th>O.Tarihi</th>
                             <th>D.Tarihi</th>
                             <th style="text-align: center;">Geri Al</th>
@@ -38,12 +41,12 @@
             $('#main-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('bank_accounts.trashed_datatables', ['bankId' => $bank->id]) }}',
+                ajax: '{{ route('bank_account_history.trashed_datatables', ['bankId' => $bank->id, 'bankAccountId' => $bankAccount->id]) }}',
                 columns: [
                     {data: 'DT_RowIndex'},
-                    {data: 'name'},
-                    {data: 'currency_type_name'},
-                    {data: 'balance'},
+                    {data: 'title'},
+                    {data: 'description'},
+                    {data: 'total'},
                     {data: 'created_at', className: "text-center", width: "5%"},
                     {data: 'deleted_at', className: "text-center", width: "5%"},
                     {

@@ -31,6 +31,7 @@
                             <th>Para Birimi</th>
                             <th>Bakiye</th>
                             <th>O.Tarihi</th>
+                            <th>Ekstre</th>
                             <th style="text-align: center;">Düzenle</th>
                             <th style="text-align: center;">Sil</th>
                         </tr>
@@ -54,6 +55,14 @@
                     {data: 'currency_type_name'},
                     {data: 'balance'},
                     {data: 'created_at', className: "text-center", width: "5%"},
+                    {
+                        data: 'extract',
+                        orderable: false,
+                        searchable: false,
+                        width: "5%",
+                        align: "center",
+                        className: "text-center"
+                    },
                     {
                         data: 'edit',
                         orderable: false,

@@ -12,6 +12,11 @@ class BankAccountHistory extends BaseModel
     use HasFactory, SoftDeletes, ModelFormatTrait;
 
     /**
+     * @var string
+     */
+    protected $table = 'bank_account_history';
+
+    /**
      * @var array
      */
     protected $guarded = [];

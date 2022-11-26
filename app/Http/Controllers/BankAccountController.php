@@ -85,10 +85,11 @@ class BankAccountController extends BaseController
     }
 
     /**
+     * @param $bankId
      * @param $id
      * @return JsonResponse
      */
-    public function destroy($id): JsonResponse
+    public function destroy($bankId, $id): JsonResponse
     {
         $this->service->destroy($id);
         return ResponseHelper::destroy();
@@ -125,20 +126,22 @@ class BankAccountController extends BaseController
     }
 
     /**
+     * @param $bankId
      * @param $id
      * @return JsonResponse
      */
-    public function restore($id): JsonResponse
+    public function restore($bankId, $id): JsonResponse
     {
         $this->service->restore($id);
         return ResponseHelper::restore();
     }
 
     /**
+     * @param $bankId
      * @param $id
      * @return JsonResponse
      */
-    public function forceDelete($id): JsonResponse
+    public function forceDelete($bankId, $id): JsonResponse
     {
         $this->service->forceDelete($id);
         return ResponseHelper::forceDelete();

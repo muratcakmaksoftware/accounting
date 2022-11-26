@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Interfaces\RepositoryInterfaces\BankAccountHistoryRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankAccountRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BaseRepositoryInterface;
@@ -10,6 +11,7 @@ use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\ReceivableRepositoryInterface;
+use App\Repositories\BankAccountHistoryRepository;
 use App\Repositories\BankAccountRepository;
 use App\Repositories\BankRepository;
 use App\Repositories\BaseRepository;
@@ -37,6 +39,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ReceivableRepositoryInterface::class, ReceivableRepository::class);
         $this->app->bind(BankRepositoryInterface::class, BankRepository::class);
         $this->app->bind(BankAccountRepositoryInterface::class, BankAccountRepository::class);
+        $this->app->bind(BankAccountHistoryRepositoryInterface::class, BankAccountHistoryRepository::class);
     }
 
     /**

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankAccountController;
+use App\Http\Controllers\BankAccountHistoryController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CurrencyTypeController;
@@ -116,6 +117,20 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
             Route::get('/trashed-datatables', [BankAccountController::class, 'trashedDatatables'])->name('bank_accounts.trashed_datatables');
             Route::post('/{id}/restore', [BankAccountController::class, 'restore'])->name('bank_accounts.restore');
             Route::delete('/{id}/force-delete', [BankAccountController::class, 'forceDelete'])->name('bank_accounts.force_delete');
+
+            Route::group(['prefix' => '{bankAccountId}/history'], function () {
+                Route::get('/', [BankAccountHistoryController::class, 'index'])->name('bank_account_history.index');
+                Route::get('/create', [BankAccountHistoryController::class, 'create'])->name('bank_account_history.create');
+                Route::post('/', [BankAccountHistoryController::class, 'store'])->name('bank_account_history.store');
+                Route::get('/{id}/edit', [BankAccountHistoryController::class, 'edit'])->name('bank_account_history.edit');
+                Route::put('/{id}', [BankAccountHistoryController::class, 'update'])->name('bank_account_history.update');
+                Route::delete('/{id}', [BankAccountHistoryController::class, 'destroy'])->name('bank_account_history.destroy');
+                Route::get('/datatables', [BankAccountHistoryController::class, 'datatables'])->name('bank_account_history.datatables');
+                Route::get('/trashed', [BankAccountHistoryController::class, 'trashed'])->name('bank_account_history.trashed');
+                Route::get('/trashed-datatables', [BankAccountHistoryController::class, 'trashedDatatables'])->name('bank_account_history.trashed_datatables');
+                Route::post('/{id}/restore', [BankAccountHistoryController::class, 'restore'])->name('bank_account_history.restore');
+                Route::delete('/{id}/force-delete', [BankAccountHistoryController::class, 'forceDelete'])->name('bank_account_history.force_delete');
+            });
         });
     });
 });

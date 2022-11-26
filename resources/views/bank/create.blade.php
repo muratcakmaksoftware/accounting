@@ -3,7 +3,6 @@
 @section('title', 'Banka Ekle')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('bank.index') }}">Bankalar</a></li>
     <li class="breadcrumb-item"><a href="{{ route('banks.index') }}">Bankalar</a></li>
     <li class="breadcrumb-item active">Banka Ekle</li>
 @endsection

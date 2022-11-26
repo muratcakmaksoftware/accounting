@@ -11,7 +11,7 @@ class UpdateBankRequest extends BaseRequest
     {
         return [
             'name' => 'required|string',
-            'description' => 'string'
+            'description' => 'string|nullable'
         ];
     }
 }

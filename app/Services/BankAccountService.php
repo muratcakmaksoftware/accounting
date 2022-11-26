@@ -119,14 +119,17 @@ class BankAccountService extends BaseController
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
+            ->addColumn('extract', function ($row) {
+                return '<a href="' . route('bank_account_history.index', ['bankId' => $row->bank->id, 'bankAccountId' => $row->id]) . '" class="btn btn-primary"><i class="fa-solid fa-receipt"></i></a>';
+            })
             ->addColumn('edit', function ($row) {
                 return '<a href="' . route('bank_accounts.edit', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
                 return '<a onclick="trashed(this)" data-url="' . route('bank_accounts.destroy', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
-            ->rawColumns(['edit', 'trashed'])
-            ->only(['DT_RowIndex', 'name', 'iban', 'currency_type_name', 'balance', 'created_at', 'edit', 'trashed'])
+            ->rawColumns(['extract', 'edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'iban', 'currency_type_name', 'balance', 'created_at', 'extract', 'edit', 'trashed'])
             ->toJson();
     }
 
@@ -155,7 +158,7 @@ class BankAccountService extends BaseController
             })
             ->addIndexColumn()
             ->editColumn('currency_type_name', function ($row) {
-                return $row->currency_type->name;
+                return $row->currencyType->name;
             })
             ->editColumn('balance', function ($row) {
                 return $row->getPriceFormat($row->currencyType->code, 'balance');
