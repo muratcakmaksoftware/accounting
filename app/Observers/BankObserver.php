@@ -13,7 +13,9 @@ class BankObserver
     public function deleting(Bank $bank)
     {
         if (!$bank->isForceDeleting()) {
-            $bank->bankAccounts()->delete();
+            foreach ($bank->bankAccounts()->get() as $bankAccount) {
+                $bankAccount->delete();
+            }
         }
     }
 
@@ -23,6 +25,8 @@ class BankObserver
      */
     public function restoring(Bank $bank)
     {
-        $bank->bankAccounts()->onlyTrashed()->restore();
+        foreach ($bank->bankAccounts()->onlyTrashed()->get() as $bankAccount) {
+            $bankAccount->restore();
+        }
     }
 }
