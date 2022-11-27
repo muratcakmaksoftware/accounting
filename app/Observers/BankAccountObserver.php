@@ -13,7 +13,7 @@ class BankAccountObserver
     public function deleting(BankAccount $bankAccount)
     {
         if (!$bankAccount->isForceDeleting()) {
-            //$bank->bankAccounts()->delete();
+            $bankAccount->bankAccountHistory()->delete();
         }
     }
 
@@ -23,6 +23,6 @@ class BankAccountObserver
      */
     public function restoring(BankAccount $bankAccount)
     {
-        //$bank->bankAccounts()->onlyTrashed()->restore();
+        $bankAccount->bankAccountHistory()->onlyTrashed()->restore();
     }
 }

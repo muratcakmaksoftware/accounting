@@ -101,7 +101,7 @@ class BankAccountHistoryService extends BaseController
      */
     public function destroy($id)
     {
-        $this->repository->destroy($id);
+        $this->repository->destroy($id, ['id', 'bank_account_id', 'total']);
     }
 
     /**
@@ -139,6 +139,7 @@ class BankAccountHistoryService extends BaseController
 
     /**
      * @param $bankId
+     * @param $bankAccountId
      * @return array
      * @throws BindingResolutionException
      */
@@ -191,7 +192,7 @@ class BankAccountHistoryService extends BaseController
      */
     public function restore($id)
     {
-        $this->repository->restore($id);
+        $this->repository->restore($id, ['id', 'bank_account_id', 'total']);
     }
 
     /**

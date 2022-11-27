@@ -3,12 +3,10 @@
 namespace App\Repositories;
 
 use App\Interfaces\RepositoryInterfaces\BaseRepositoryInterface;
-use App\Models\Payable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
-use Symfony\Contracts\EventDispatcher\Event;
 
 class BaseRepository implements BaseRepositoryInterface
 {
@@ -48,20 +46,22 @@ class BaseRepository implements BaseRepositoryInterface
 
     /**
      * @param $id
+     * @param array $columns
      * @return bool
      */
-    public function destroy($id): bool
+    public function destroy($id, array $columns = ['id']): bool
     {
-        return $this->getById($id, ['id'])->delete();
+        return $this->getById($id, $columns)->delete();
     }
 
     /**
      * @param $id
+     * @param array $columns
      * @return bool|null
      */
-    public function restore($id): ?bool
+    public function restore($id, array $columns = ['id']): ?bool
     {
-        return $this->getById($id, ['id'], true)->restore();
+        return $this->getById($id, $columns, true)->restore();
     }
 
     /**

@@ -22,15 +22,17 @@ interface BaseRepositoryInterface
 
     /**
      * @param $id
+     * @param array $columns
      * @return bool
      */
-    public function destroy($id): bool;
+    public function destroy($id, array $columns = ['id']): bool;
 
     /**
      * @param $id
+     * @param array $columns
      * @return bool|null
      */
-    public function restore($id): ?bool;
+    public function restore($id, array $columns = ['id']): ?bool;
 
     /**
      * @param $id
