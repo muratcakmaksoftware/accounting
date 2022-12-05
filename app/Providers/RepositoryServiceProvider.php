@@ -12,6 +12,7 @@ use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PayableRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\ReceivableRepositoryInterface;
+use App\Interfaces\RepositoryInterfaces\TCMBCurrencyRepositoryInterface;
 use App\Repositories\BankAccountHistoryRepository;
 use App\Repositories\BankAccountRepository;
 use App\Repositories\BankCheckRepository;
@@ -22,6 +23,7 @@ use App\Repositories\CurrencyTypeRepository;
 use App\Repositories\PayableRepository;
 use App\Repositories\PaymentMethodTypeRepository;
 use App\Repositories\ReceivableRepository;
+use App\Repositories\TCMBCurrencyRepository;
 use Illuminate\Support\ServiceProvider;
 
 class RepositoryServiceProvider extends ServiceProvider
@@ -43,6 +45,7 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(BankAccountRepositoryInterface::class, BankAccountRepository::class);
         $this->app->bind(BankAccountHistoryRepositoryInterface::class, BankAccountHistoryRepository::class);
         $this->app->bind(BankCheckRepositoryInterface::class, BankCheckRepository::class);
+        $this->app->bind(TCMBCurrencyRepositoryInterface::class, TCMBCurrencyRepository::class);
     }
 
     /**

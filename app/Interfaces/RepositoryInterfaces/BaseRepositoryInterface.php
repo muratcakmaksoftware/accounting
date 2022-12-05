@@ -3,10 +3,17 @@
 namespace App\Interfaces\RepositoryInterfaces;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Support\Collection;
 
 interface BaseRepositoryInterface
 {
+    /**
+     * @return Model|SoftDeletes|Builder
+     */
+    public function getModel(): Model|SoftDeletes|Builder;
+
     /**
      * @param array $attributes
      * @return Model
@@ -52,4 +59,11 @@ interface BaseRepositoryInterface
      * @return bool|null
      */
     public function forceDelete($id): ?bool;
+
+    /**
+     * @param array $columns
+     * @param string $latestColumn
+     * @return Model|Builder|null
+     */
+    public function latestFirst(array $columns = ['*'], string $latestColumn = 'id'): Model|Builder|null;
 }

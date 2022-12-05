@@ -11,6 +11,7 @@ use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PayableController;
 use App\Http\Controllers\PaymentMethodTypeController;
 use App\Http\Controllers\ReceivableController;
+use App\Http\Controllers\TCMBCurrencyController;
 use Illuminate\Support\Facades\Route;
 
 Route::group(['prefix' => 'auth'], function () { //, 'namespace' => 'Auth', 'middleware' => 'auth'
@@ -147,5 +148,11 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
             Route::post('/{id}/restore', [BankCheckController::class, 'restore'])->name('bank_checks.restore');
             Route::delete('/{id}/force-delete', [BankCheckController::class, 'forceDelete'])->name('bank_checks.force_delete');
         });
+    });
+
+    Route::group(['prefix' => '/tcmb-currencies'], function () {
+        Route::get('/', [TCMBCurrencyController::class, 'index'])->name('payment_method_types.index');
+        Route::delete('/{id}', [TCMBCurrencyController::class, 'destroy'])->name('payment_method_types.destroy');
+        Route::get('/datatables', [TCMBCurrencyController::class, 'datatables'])->name('payment_method_types.datatables');
     });
 });

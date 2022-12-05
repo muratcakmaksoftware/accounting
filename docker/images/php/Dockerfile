@@ -24,8 +24,6 @@ RUN apk update \
     icu-dev \
     postgresql-libs \
     postgresql-dev \
-    nodejs=16.16.0-r0 \
-    npm=8.10.0-r0 \
     ${PHPIZE_DEPS} \
     && pecl install \
     redis \

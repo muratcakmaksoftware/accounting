@@ -1,60 +1,79 @@
 version: "3.9"
 
 services:
-  php:
-    restart: always
-    container_name: ac-php
-    build:
-      context: ./docker/images/php
-      dockerfile: Dockerfile
-    working_dir: /var/www/html
-    expose:
-      - ${PHP_INTERNAL_PORT:-9000}
-    volumes:
-      - ./:/var/www/html
-    networks:
-      default:
-        ipv4_address: 172.20.0.10
+    php:
+        restart: always
+        container_name: ac-php
+        build:
+            context: ./docker/images/php
+            dockerfile: Dockerfile
+        working_dir: /var/www/html
+        expose:
+            - ${PHP_INTERNAL_PORT:-9000}
+        volumes:
+            - ./:/var/www/html
+        networks:
+            default:
+                ipv4_address: 172.20.0.10
 
-  web:
-    restart: always
-    container_name: ac-nginx
-    build:
-      context: ./docker/images/nginx
-      dockerfile: Dockerfile
-    volumes:
-      - ./:/var/www/html
-    ports:
-      - "80:80"
-    networks:
-      default:
-        ipv4_address: 172.20.0.20
+    web:
+        restart: always
+        container_name: ac-nginx
+        build:
+            context: ./docker/images/nginx
+            dockerfile: Dockerfile
+        volumes:
+            - ./:/var/www/html
+        ports:
+            - "80:80"
+        networks:
+            default:
+                ipv4_address: 172.20.0.20
 
-  #PHP > Dockerfile göre gerekli kütüphaneleri ayarlanması gerekir. Default olarak postgresql alınmıştır.
-  postgresql:
-    restart: always
-    container_name: ac-postgresql
-    image: postgres:14.4-alpine
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-db_name}
-      POSTGRES_USER: ${POSTGRES_USER:-root}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
-    ports:
-      - '5432:5432'
-    volumes:
-      - postgresql:/var/lib/postgresql/data
-    networks:
-      default:
-        ipv4_address: 172.20.0.30
+    #PHP > Dockerfile göre gerekli kütüphaneleri ayarlanması gerekir. Default olarak postgresql alınmıştır.
+    postgresql:
+        restart: always
+        container_name: ac-postgresql
+        image: postgres:14.4-alpine
+        environment:
+            POSTGRES_DB: ${POSTGRES_DB:-db_name}
+            POSTGRES_USER: ${POSTGRES_USER:-root}
+            POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-123456}
+        ports:
+            - '5432:5432'
+        volumes:
+            - postgresql:/var/lib/postgresql/data
+        networks:
+            default:
+                ipv4_address: 172.20.0.30
+
+    rabbitmq:
+        restart: always
+        container_name: app-rabbitmq
+        image: rabbitmq:3.9.26-management-alpine
+        ports:
+            - "5672:5672"
+            - "15672:15672"
+        volumes:
+            - rabbitmq:/var/lib/rabbitmq
+        environment:
+            RABBITMQ_DEFAULT_USER: ${RABBITMQ_USER:-guest}
+            RABBITMQ_DEFAULT_PASS: ${RABBITMQ_PASSWORD:-guest}
+            RABBITMQ_DEFAULT_VHOST: ${RABBITMQ_VHOST:-/}
+        networks:
+            default:
+                ipv4_address: 172.20.0.40
 
 networks:
-  default:
-    driver: bridge
-    name: default_network
-    ipam:
-      config:
-        - subnet: 172.20.0.0/16
+    default:
+        driver: bridge
+        name: default_network
+        ipam:
+            config:
+                -   subnet: 172.20.0.0/16
 
 volumes:
-  postgresql:
-    driver: local
+    postgresql:
+        driver: local
+    rabbitmq:
+        driver: local

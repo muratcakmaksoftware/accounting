@@ -26,6 +26,14 @@ class BaseRepository implements BaseRepositoryInterface
     }
 
     /**
+     * @return Model|SoftDeletes|Builder
+     */
+    public function getModel(): Model|SoftDeletes|Builder
+    {
+        return $this->model;
+    }
+
+    /**
      * @param array $attributes
      * @return Model
      */
@@ -101,5 +109,15 @@ class BaseRepository implements BaseRepositoryInterface
     public function forceDelete($id): ?bool
     {
         return $this->getById($id, ['id'], true)->forceDelete();
+    }
+
+    /**
+     * @param array $columns
+     * @param string $latestColumn
+     * @return Model|Builder|null
+     */
+    public function latestFirst(array $columns = ['*'], string $latestColumn = 'id'): Model|Builder|null
+    {
+        return $this->model->latest($latestColumn)->first($columns);
     }
 }
