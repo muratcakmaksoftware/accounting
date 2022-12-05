@@ -79,14 +79,17 @@ class BankService extends BaseController
             ->addColumn('bank_accounts', function ($row) {
                 return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary"><i class="fa-solid fa-wallet"></i></a>';
             })
+            ->addColumn('bank_checks', function ($row) {
+                return '<a href="' . route('bank_checks.index', ['bankId' => $row->id]) . '" class="btn btn-info"><i class="fa-solid fa-money-check"></i></a>';
+            })
             ->addColumn('edit', function ($row) {
                 return '<a href="' . route('banks.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
             })
             ->addColumn('trashed', function ($row) {
                 return '<a onclick="trashed(this)" data-url="' . route('banks.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
-            ->rawColumns(['bank_accounts', 'edit', 'trashed'])
-            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'bank_accounts', 'edit', 'trashed'])
+            ->rawColumns(['bank_accounts', 'bank_checks', 'edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'bank_accounts', 'bank_checks', 'edit', 'trashed'])
             ->toJson();
     }
 

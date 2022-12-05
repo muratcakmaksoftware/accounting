@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', $bank->name.' Hesap Ekle')
+@section('title', $bank->name.' Çek Ekle')
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('banks.index') }}">Bankalar</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('bank_accounts.index', ['bankId' => $bank->id]) }}">{{$bank->name}}
-            Hesaplar</a></li>
-    <li class="breadcrumb-item active">{{$bank->name}} Hesap Ekle</li>
+    <li class="breadcrumb-item"><a href="{{ route('bank_checks.index', ['bankId' => $bank->id]) }}">{{$bank->name}}
+            Çekler</a></li>
+    <li class="breadcrumb-item active">{{$bank->name}} Çek Ekle</li>
 @endsection
 
 @section('content')
@@ -14,18 +14,12 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <form action="{{ route('bank_accounts.store', ['bankId' => $bank->id]) }}" method="POST">
+                <form action="{{ route('bank_checks.store', ['bankId' => $bank->id]) }}" method="POST">
                     <div class="card-body">
                         @csrf
                         <div class="form-group">
-                            <label>Hesap Adı</label>
+                            <label>Çek Adı</label>
                             <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label>IBAN</label>
-                            <input type="text" class="form-control" name="iban" value="{{ old('iban') }}"
-                                   maxlength="34">
                         </div>
 
                         <div class="form-group">
@@ -39,9 +33,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label>Bakiye</label>
-                            <input type="text" class="form-control money-format-mask" name="balance"
-                                   value="{{ old('balance') }}">
+                            <label>Tutar</label>
+                            <input type="text" class="form-control money-format-mask" name="total"
+                                   value="{{ old('total') }}">
                         </div>
 
                         <div class="form-group">

@@ -1,12 +1,12 @@
 @extends('layouts.admin')
 
-@section('title', $bank->name.' Hesap Ekle')
+@section('title', $bank->name.' Çek Düzenle '.'#'.$bankCheck->id)
 
 @section('breadcrumb')
     <li class="breadcrumb-item"><a href="{{ route('banks.index') }}">Bankalar</a></li>
-    <li class="breadcrumb-item"><a href="{{ route('bank_accounts.index', ['bankId' => $bank->id]) }}">{{$bank->name}}
-            Hesaplar</a></li>
-    <li class="breadcrumb-item active">{{$bank->name}} Hesap Ekle</li>
+    <li class="breadcrumb-item"><a href="{{ route('bank_checks.index', ['bankId' => $bank->id]) }}">{{$bank->name}}
+            Çekler</a></li>
+    <li class="breadcrumb-item active">{{$bank->name}} Çek Düzenle</li>
 @endsection
 
 @section('content')
@@ -14,18 +14,14 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <form action="{{ route('bank_accounts.store', ['bankId' => $bank->id]) }}" method="POST">
+                <form action="{{ route('bank_checks.update', ['bankId' => $bank->id, 'id' => $bankCheck->id]) }}"
+                      method="POST">
+                    @method('PUT')
                     <div class="card-body">
                         @csrf
                         <div class="form-group">
-                            <label>Hesap Adı</label>
-                            <input type="text" class="form-control" name="name" value="{{ old('name') }}">
-                        </div>
-
-                        <div class="form-group">
-                            <label>IBAN</label>
-                            <input type="text" class="form-control" name="iban" value="{{ old('iban') }}"
-                                   maxlength="34">
+                            <label>Çek Adı</label>
+                            <input type="text" class="form-control" name="name" value="{{ $bankCheck->name }}">
                         </div>
 
                         <div class="form-group">
@@ -33,29 +29,30 @@
                             <select class="form-control select2" name="currency_type_id">
                                 @foreach($currencyTypes as $currencyType)
                                     <option value="{{ $currencyType->id }}"
-                                            @if(old('currency_type_id') == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
+                                            @if($bankCheck->currency_type_id == $currencyType->id) selected @endif>{{ $currencyType->name }}</option>
                                 @endforeach
                             </select>
                         </div>
 
                         <div class="form-group">
-                            <label>Bakiye</label>
-                            <input type="text" class="form-control money-format-mask" name="balance"
-                                   value="{{ old('balance') }}">
+                            <label>Tutar</label>
+                            <input type="text" class="form-control money-format-mask" name="total"
+                                   value="{{ $bankCheck->total }}">
                         </div>
 
                         <div class="form-group">
                             <label>Açıklama</label>
                             <textarea class="form-control" name="description" rows="4" placeholder=""
-                                      maxlength="2500">{{ old('description') }}</textarea>
+                                      maxlength="2500">{{ $bankCheck->description }}</textarea>
                         </div>
                     </div>
 
                     <div class="card-footer">
-                        <button type="submit" class="btn btn-success float-right">Kaydet</button>
+                        <button type="submit" class="btn btn-success float-right">Güncelle</button>
                     </div>
                 </form>
             </div>
         </div>
     </div>
+
 @endsection

@@ -16,6 +16,7 @@ class BankObserver
             foreach ($bank->bankAccounts()->get() as $bankAccount) {
                 $bankAccount->delete();
             }
+            $bank->bankChecks()->delete();
         }
     }
 
@@ -28,5 +29,6 @@ class BankObserver
         foreach ($bank->bankAccounts()->onlyTrashed()->get() as $bankAccount) {
             $bankAccount->restore();
         }
+        $bank->bankChecks()->onlyTrashed()->restore();
     }
 }

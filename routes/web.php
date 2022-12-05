@@ -3,6 +3,7 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\BankAccountController;
 use App\Http\Controllers\BankAccountHistoryController;
+use App\Http\Controllers\BankCheckController;
 use App\Http\Controllers\BankController;
 use App\Http\Controllers\CompanyController;
 use App\Http\Controllers\CurrencyTypeController;
@@ -131,6 +132,20 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
                 Route::post('/{id}/restore', [BankAccountHistoryController::class, 'restore'])->name('bank_account_history.restore');
                 Route::delete('/{id}/force-delete', [BankAccountHistoryController::class, 'forceDelete'])->name('bank_account_history.force_delete');
             });
+        });
+
+        Route::group(['prefix' => '{bankId}/checks'], function () {
+            Route::get('/', [BankCheckController::class, 'index'])->name('bank_checks.index');
+            Route::get('/create', [BankCheckController::class, 'create'])->name('bank_checks.create');
+            Route::post('/', [BankCheckController::class, 'store'])->name('bank_checks.store');
+            Route::get('/{id}/edit', [BankCheckController::class, 'edit'])->name('bank_checks.edit');
+            Route::put('/{id}', [BankCheckController::class, 'update'])->name('bank_checks.update');
+            Route::delete('/{id}', [BankCheckController::class, 'destroy'])->name('bank_checks.destroy');
+            Route::get('/datatables', [BankCheckController::class, 'datatables'])->name('bank_checks.datatables');
+            Route::get('/trashed', [BankCheckController::class, 'trashed'])->name('bank_checks.trashed');
+            Route::get('/trashed-datatables', [BankCheckController::class, 'trashedDatatables'])->name('bank_checks.trashed_datatables');
+            Route::post('/{id}/restore', [BankCheckController::class, 'restore'])->name('bank_checks.restore');
+            Route::delete('/{id}/force-delete', [BankCheckController::class, 'forceDelete'])->name('bank_checks.force_delete');
         });
     });
 });
