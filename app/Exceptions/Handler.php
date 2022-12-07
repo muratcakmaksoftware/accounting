@@ -2,12 +2,11 @@
 
 namespace App\Exceptions;
 
-use Flasher\Laravel\Facade\Flasher;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Validation\ValidationException;
 use Throwable;
 
@@ -59,6 +58,8 @@ class Handler extends ExceptionHandler
         if ($e instanceof ValidationException) {
             $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
             return redirect()->back();
+        } else {
+            $this->toSlack($e->getTraceAsString());
         }
     }
 
@@ -83,9 +84,18 @@ class Handler extends ExceptionHandler
         $html = '';
         foreach ($e->validator->getMessageBag()->getMessages() as $key => $errorMessages) {
             foreach ($errorMessages as $errorMessage) {
-                $html .= '<li>'.$key.': '.$errorMessage.'</li>';
+                $html .= '<li>' . $key . ': ' . $errorMessage . '</li>';
             }
         }
         return $html;
+    }
+
+    /**
+     * @param $errorMessage
+     * @return SlackMessage
+     */
+    public function toSlack($errorMessage): SlackMessage
+    {
+        return (new SlackMessage)->error()->content($errorMessage);
     }
 }
