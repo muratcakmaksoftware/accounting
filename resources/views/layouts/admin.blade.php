@@ -225,6 +225,13 @@
                                     <p>Ödeme Metotları</p>
                                 </a>
                             </li>
+
+                            <li class="nav-item">
+                                <a href="{{ route('payment_method_types.index') }}" class="nav-link">
+                                    <i class="fa-solid fa-money-bill-trend-up nav-icon"></i>
+                                    <p>TCMB Kurlar</p>
+                                </a>
+                            </li>
                         </ul>
                     </li>
 

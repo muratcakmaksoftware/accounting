@@ -48,14 +48,11 @@ class TCMBCurrencyService extends BaseService
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
-            ->addColumn('edit', function ($row) {
-                return '<a href="' . route('companies.edit', ['id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';
-            })
             ->addColumn('trashed', function ($row) {
-                return '<a onclick="trashed(this)" data-url="' . route('companies.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
+                return '<a onclick="trashed(this)" data-url="' . route('payment_method_types.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
-            ->rawColumns(['edit', 'trashed'])
-            ->only(['DT_RowIndex', 'name', 'description', 'created_at', 'edit', 'trashed'])
+            ->rawColumns(['trashed'])
+            ->only(['DT_RowIndex', 'name', 'code', 'unit', 'forex_buy', 'forex_sell', 'banknote_buy', 'banknote_sell', 'created_at', 'trashed'])
             ->toJson();
     }
 }
