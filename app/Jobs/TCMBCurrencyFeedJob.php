@@ -122,8 +122,8 @@ class TCMBCurrencyFeedJob implements ShouldQueue
      * @param Throwable $exception
      * @return void
      */
-    public function failed(Throwable $exception)
+    /*public function failed(Throwable $exception)
     {
         // Send user notification of failure, etc...
-    }
+    }*/
 }

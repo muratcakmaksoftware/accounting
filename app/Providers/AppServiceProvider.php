@@ -26,9 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         Queue::failing(function (JobFailed $event) {
-            // $event->connectionName
-            // $event->job
-            // $event->exception
+            throw $event->exception; //Handler a gonderilir.
         });
     }
 }
