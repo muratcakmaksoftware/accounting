@@ -24,7 +24,6 @@ RUN apk update \
     icu-dev \
     postgresql-libs \
     postgresql-dev \
-    openssh \
     ${PHPIZE_DEPS} \
     && pecl install \
     redis \

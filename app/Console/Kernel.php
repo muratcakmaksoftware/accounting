@@ -17,7 +17,6 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('tcmb:currency-feed')->dailyAt('02:30');
-        $schedule->command('server-monitor:run-checks')->withoutOverlapping()->everyMinute();
     }
 
     /**

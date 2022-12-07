@@ -15,7 +15,6 @@
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
         "php-flasher/flasher-laravel": "^1.7",
-        "spatie/laravel-server-monitor": "^1.9",
         "vladimir-yuldashev/laravel-queue-rabbitmq": "^13.0",
         "yajra/laravel-datatables-oracle": "^10.0"
     },
