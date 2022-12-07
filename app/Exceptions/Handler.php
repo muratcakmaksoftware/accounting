@@ -92,10 +92,10 @@ class Handler extends ExceptionHandler
 
     /**
      * @param $errorMessage
-     * @return SlackMessage
+     * @return void
      */
-    public function toSlack($errorMessage): SlackMessage
+    public function toSlack($errorMessage)
     {
-        return (new SlackMessage)->error()->content($errorMessage);
+        (new SlackMessage)->error()->content($errorMessage);
     }
 }
