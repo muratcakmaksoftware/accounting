@@ -13,6 +13,7 @@ FROM php:8.1.6-fpm-alpine3.16
 #&& apk del postgresql-dev
 
 COPY --from=composer /usr/bin/composer /usr/bin/composer
+COPY php.ini /usr/local/etc/php
 
 RUN apk update \
     && apk add --update --no-cache \
@@ -36,6 +37,7 @@ RUN apk update \
     pgsql \
     pdo_pgsql \
     sockets \
+    zip \
     && docker-php-ext-enable \
     redis \
     mongodb \
