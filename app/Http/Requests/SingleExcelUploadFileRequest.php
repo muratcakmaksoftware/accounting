@@ -10,6 +10,7 @@ class SingleExcelUploadFileRequest extends BaseRequest
     public function rules(): array
     {
         return [
+            'file' => 'required|mimes:xlsx,csv,xls|max:' . config('filesystems.max_size'),
         ];
     }
 }

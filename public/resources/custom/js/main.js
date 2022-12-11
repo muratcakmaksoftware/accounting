@@ -86,3 +86,63 @@ function openSpinner() {
 function closeSpinner() {
     $('#spinner').css('display', 'none');
 }
+
+const DROPZONE_MAX_FILE_SIZE = 1048576000;
+Dropzone.autoDiscover = false; //dropzone class ı yada form ile yapılan otomatik keşfetme kapalı yapar.
+function singleDropzone(url, acceptedFiles) {
+    $(".custom-dropzone").dropzone({
+        url: '',
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content'),
+        },
+        method: 'POST',
+        maxFiles: null,
+        uploadMultiple: false,
+        parallelUploads: 1,
+        timeout: null,
+        maxFilesize: DROPZONE_MAX_FILE_SIZE,
+        createImageThumbnails: false,
+        acceptedFiles: acceptedFiles,
+        autoProcessQueue: true, /*yuklemeyi otomatik baslatir*/
+        previewTemplate: $('#custom-html-dropzone-template1').html(),
+        //previewsContainer: $('#custom-html-dropzone-template1').html(),
+        clickable: ".custom-dropzone-button",
+        /*init: function() { //listen event
+            this.on("error", (file, message) => {
+            });
+        },*/
+        uploadprogress: (file, progress, bytesSent) => { //Upload Progress Event i override edilerek innerHtml eklendi.
+            if (file.previewElement) {
+                for (let node of file.previewElement.querySelectorAll(
+                    "[data-dz-uploadprogress]"
+                )) {
+                    node.nodeName === "PROGRESS"
+                        ? (node.value = progress)
+                        : (node.style.width = `${progress}%`);
+                    node.innerHTML = `${progress}%`;
+                }
+            }
+        },
+        error: (file, message) => { //Error Event i override edilerek customize edildi.
+            if (file.previewElement) {
+                file.previewElement.classList.add("dz-error");
+
+                if (typeof message !== "string" && message.data.errorMessages) {
+                    for (const errorMessage of message.data.errorMessages) {
+                        message += errorMessage + '<br/>';
+                    }
+                }
+
+                if (typeof message !== "string" && message.error) {
+                    message = message.error;
+                }
+
+                for (let node of file.previewElement.querySelectorAll(
+                    "[data-dz-errormessage]"
+                )) {
+                    node.innerHTML = message;
+                }
+            }
+        }
+    });
+}

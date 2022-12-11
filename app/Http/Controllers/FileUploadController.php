@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\SingleExcelUploadFileRequest;
 use App\Services\FileUploadService;
 use Flasher\Prime\FlasherInterface;
 
@@ -18,8 +17,10 @@ class FileUploadController extends BaseController
         $this->flasher = $flasher;
     }
 
-    public function update(SingleExcelUploadFileRequest $request)
+    /**
+     * Global dosya yuklemesi icin yazilmasi gerekirse yazilacak
+     */
+    /*public function update()
     {
-        $this->service->upload($request->onlyRuleData());
-    }
+    }*/
 }

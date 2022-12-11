@@ -77,7 +77,7 @@ class BankService extends BaseController
                 return $row->created_at_format;
             })
             ->addColumn('bank_accounts', function ($row) {
-                return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary"><i class="fa-solid fa-wallet"></i></a>';
+                return '<a href="' . route('bank_accounts.index', ['bankId' => $row->id]) . '" class="btn btn-primary btn-color-purple"><i class="fa-solid fa-wallet"></i></a>';
             })
             ->addColumn('bank_checks', function ($row) {
                 return '<a href="' . route('bank_checks.index', ['bankId' => $row->id]) . '" class="btn btn-info"><i class="fa-solid fa-money-check"></i></a>';

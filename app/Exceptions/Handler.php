@@ -2,17 +2,34 @@
 
 namespace App\Exceptions;
 
+use App\Helpers\ResponseHelper;
 use Flasher\Prime\FlasherInterface;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Validation\ValidationException;
+use Psr\Container\ContainerExceptionInterface;
+use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
     private FlasherInterface $flasher;
+    //private Request $request;
+
+    /**
+     * @throws ContainerExceptionInterface
+     * @throws BindingResolutionException
+     * @throws NotFoundExceptionInterface
+     */
+    public function __construct(Container $container)
+    {
+        parent::__construct($container);
+        $this->flasher = $this->container->make(FlasherInterface::class);
+        //$this->request = $this->container->get(Request::class);
+    }
 
     /**
      * A list of exception types with their corresponding custom log levels.
@@ -45,22 +62,12 @@ class Handler extends ExceptionHandler
 
     /**
      * @param Throwable $e
-     * @return RedirectResponse|void
+     * @return void
      * @throws Throwable
-     * @throws BindingResolutionException
      */
     public function report(Throwable $e)
     {
         parent::report($e);
-        //TODO: Ajax exception ayrimi yapilacak
-
-        $this->flasher = $this->container->make(FlasherInterface::class);
-        if ($e instanceof ValidationException) {
-            $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
-            return redirect()->back();
-        } else {
-            $this->toSlack($e->getTraceAsString());
-        }
     }
 
     /**
@@ -70,16 +77,27 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
-        $this->reportable(function (Throwable $e) {
+        $this->reportable(function (Throwable $e) { //Report fonksiyonu ile aynidir
+            if (!($e instanceof ValidationException)) { //Bu if de belirli istisnalar haricinde hata olusmus ise slack bildirimi gonder
+                $this->toSlack($e->getTraceAsString());
+            }
+        });
 
+        $this->renderable(function (ValidationException $e, Request $request) { //Render sirasinda hata donusu yapilacaksa bunun yerine render() fonksiyonuda kullanılabilir.
+            if ($request->wantsJson()) { //Ajax Detected
+                return ResponseHelper::badRequest(['errorMessages' => $this->getValidationErrorMessagesByAjax($e)], __('errorTitle'));
+            } else {
+                $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
+                return redirect()->back();
+            }
         });
     }
 
     /**
-     * @param Throwable $e
+     * @param ValidationException $e
      * @return string
      */
-    public function getValidationErrorMessages(Throwable $e): string
+    public function getValidationErrorMessages(ValidationException $e): string
     {
         $html = '';
         foreach ($e->validator->getMessageBag()->getMessages() as $key => $errorMessages) {
@@ -90,6 +108,18 @@ class Handler extends ExceptionHandler
         return $html;
     }
 
+
+    public function getValidationErrorMessagesByAjax(ValidationException $e): array
+    {
+        $ajaxErrorMessages = [];
+        foreach ($e->validator->getMessageBag()->getMessages() as $key => $errorMessages) {
+            foreach ($errorMessages as $errorMessage) {
+                $ajaxErrorMessages[] = $key . ': ' . $errorMessage;
+            }
+        }
+        return $ajaxErrorMessages;
+    }
+
     /**
      * @param $errorMessage
      * @return void
@@ -98,4 +128,6 @@ class Handler extends ExceptionHandler
     {
         (new SlackMessage)->error()->content($errorMessage);
     }
+
+
 }

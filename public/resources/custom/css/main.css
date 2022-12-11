@@ -108,7 +108,62 @@
     }
 }
 
-.btn-primary {
+.btn-color-purple {
     background-color: purple !important;
     border-color: purple !important;
+}
+
+/**
+ * Custom DROPZONE
+ */
+.custom-dropzone {
+    background: #f8fafd;
+    border-radius: 0.3125rem;
+    border: 2px dashed rgb(0, 135, 247);
+    border-image: none;
+    min-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 1rem;
+    cursor: pointer;
+}
+
+.dropzone .dz-file-preview {
+    margin: 0;
+    background-color: #FFF;
+    border-radius: 0.3125rem;
+    width: 100%;
+}
+
+.dropzone .dz-preview {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    padding: 0.5em;
+}
+
+.dropzone .dz-preview .dz-details {
+    text-align: left;
+    width: 100%;
+}
+
+.dropzone .dz-preview.dz-complete .dz-progress {
+    opacity: 1;
+}
+
+.dropzone .dz-preview .dz-details {
+    position: static;
+    padding: 1em;
+}
+
+.dropzone .dz-preview .dz-progress {
+    position: static;
+    margin: 0;
+    width: 100%;
+    line-height: 15px;
+    height: 15px;
+}
+
+.dropzone .dz-preview .dz-details .dz-size {
+    margin: 0;
+    font-size: 13px;
 }

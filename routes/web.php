@@ -147,6 +147,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
             Route::get('/trashed-datatables', [BankCheckController::class, 'trashedDatatables'])->name('bank_checks.trashed_datatables');
             Route::post('/{id}/restore', [BankCheckController::class, 'restore'])->name('bank_checks.restore');
             Route::delete('/{id}/force-delete', [BankCheckController::class, 'forceDelete'])->name('bank_checks.force_delete');
+            Route::post('/upload-check', [BankCheckController::class, 'uploadCheck'])->name('bank_checks.upload_check');
         });
     });
 

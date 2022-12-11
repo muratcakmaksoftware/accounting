@@ -120,7 +120,7 @@ class BankAccountService extends BaseController
                 return $row->created_at_format;
             })
             ->addColumn('extract', function ($row) {
-                return '<a href="' . route('bank_account_history.index', ['bankId' => $row->bank->id, 'bankAccountId' => $row->id]) . '" class="btn btn-primary"><i class="fa-solid fa-receipt"></i></a>';
+                return '<a href="' . route('bank_account_history.index', ['bankId' => $row->bank->id, 'bankAccountId' => $row->id]) . '" class="btn btn-primary btn-color-purple"><i class="fa-solid fa-receipt"></i></a>';
             })
             ->addColumn('edit', function ($row) use ($bankId) {
                 return '<a href="' . route('bank_accounts.edit', ['bankId' => $bankId, 'id' => $row->id]) . '" class="btn btn-warning"><i class="fa-solid fa-pen-to-square"></i></a>';

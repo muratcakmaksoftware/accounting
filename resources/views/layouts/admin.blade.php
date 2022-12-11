@@ -18,9 +18,10 @@
     <link rel="stylesheet" href="{{ asset('resources/datatables/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/select2/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/datepicker/css/daterangepicker.css') }}">
-    <link rel="stylesheet" href="{{ asset('resources/custom/css/main.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/admin-lte/css/adminlte.min.css') }}">
     <link rel="stylesheet" href="{{ asset('resources/sweetalert2/css/sweetalert2.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/dropzone/css/dropzone-5.9.3.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('resources/custom/css/main.css') }}">
 
     <!-- GLOBAL JS -->
     <script src="{{ asset('resources/jquery/js/jquery.min.js') }}"></script>
@@ -34,6 +35,7 @@
     <script src="{{ asset('resources/inputmask/js/jquery.inputmask.min.js') }}"></script>
     <script src="{{ asset('resources/datepicker/js/daterangepicker.js') }}"></script>
     <script src="{{ asset('resources/sweetalert2/js/sweetalert2.min.js') }}"></script>
+    <script src="{{ asset('resources/dropzone/js/dropzone-5.9.3.min.js') }}"></script>
     @yield('css')
     @yield('javascript-head')
 
@@ -304,6 +306,30 @@
         </div>
     </div>
 </div>
+
+<div id="custom-html-dropzone-template1" style="display: none">
+    <div class="dz-preview dz-file-preview">
+        <div class="d-flex justify-content-end dz-close-icon">
+            <small class="fa fa-times" data-dz-remove></small>
+        </div>
+        <div class="dz-details">
+            <div class="dz-filename">
+                <b>Dosya Adı:</b> <h5 data-dz-name></h5>
+            </div>
+            <div class="dz-size">
+                <b>Boyutu: </b><h5><span data-dz-size></span></h5>
+            </div>
+            <img data-dz-thumbnail/>
+            <div class="dz-progress">
+                <div class="progress-bar bg-info" role="progressbar" aria-valuenow="0" aria-valuemin="0"
+                     aria-valuemax="100" data-dz-uploadprogress><span data-dz-uploadprogress></span>%
+                </div>
+            </div>
+        </div>
+        <div class="dz-error-message" data-dz-errormessage></div>
+    </div>
+</div>
+
 @yield('javascript-footer')
 <script src="{{ asset('resources/custom/js/main.js') }}"></script>
 {{-- @vite(['resources/js/main.js']) --}}
