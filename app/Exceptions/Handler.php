@@ -4,32 +4,18 @@ namespace App\Exceptions;
 
 use App\Helpers\ResponseHelper;
 use Flasher\Prime\FlasherInterface;
-use Illuminate\Contracts\Container\BindingResolutionException;
-use Illuminate\Contracts\Container\Container;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\SlackMessage;
 use Illuminate\Validation\ValidationException;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
 use Throwable;
 
 class Handler extends ExceptionHandler
 {
-    private FlasherInterface $flasher;
-    //private Request $request;
-
     /**
-     * @throws ContainerExceptionInterface
-     * @throws BindingResolutionException
-     * @throws NotFoundExceptionInterface
+     * @var FlasherInterface
      */
-    public function __construct(Container $container)
-    {
-        parent::__construct($container);
-        $this->flasher = $this->container->make(FlasherInterface::class);
-        //$this->request = $this->container->get(Request::class);
-    }
+    private FlasherInterface $flasher;
 
     /**
      * A list of exception types with their corresponding custom log levels.
@@ -87,6 +73,7 @@ class Handler extends ExceptionHandler
             if ($request->wantsJson()) { //Ajax Detected
                 return ResponseHelper::badRequest(['errorMessages' => $this->getValidationErrorMessagesByAjax($e)], __('errorTitle'));
             } else {
+                $this->flasher = $this->container->make(FlasherInterface::class);
                 $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
                 return redirect()->back();
             }
