@@ -91,7 +91,7 @@ const DROPZONE_MAX_FILE_SIZE = 1048576000;
 Dropzone.autoDiscover = false; //dropzone class ı yada form ile yapılan otomatik keşfetme kapalı yapar.
 function singleDropzone(url, acceptedFiles) {
     $(".custom-dropzone").dropzone({
-        url: '',
+        url: url,
         headers: {
             'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content'),
         },

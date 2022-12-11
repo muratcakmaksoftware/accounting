@@ -49,7 +49,7 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title">İçeri Aktar</h5>
+                    <h5 class="modal-title">Çek İçeri Aktar</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -144,7 +144,7 @@
 
     <script>
         $(document).ready(function () {
-            singleDropzone({{ route('bank_checks.upload_check', ['bankId' => $bank->id]) }},
+            singleDropzone('{{ route('bank_checks.upload_check', ['bankId' => $bank->id]) }}',
                 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv');
         });
     </script>
