@@ -2,10 +2,14 @@
 
 namespace App\Services;
 
+use App\Enumerations\StorageFolderPath;
 use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\UploadedFile;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
 
 class BankService extends BaseController
@@ -137,5 +141,24 @@ class BankService extends BaseController
     public function forceDelete($id)
     {
         $this->repository->forceDelete($id);
+    }
+
+    /**
+     * @param array $attributes
+     * @return void
+     */
+    public function uploadBankChecks(array $attributes)
+    {
+        /** @var UploadedFile $file */
+        $file = $attributes['file'];
+        $uniqFileName = uniqid('excel_') . '.' . $file->getClientOriginalExtension();
+        $uploadedPath = Storage::putFileAs(StorageFolderPath::UPLOAD->value, $file, $uniqFileName);
+        if ($uploadedPath !== false) {
+            $collections = FastExcel::import(Storage::path($uploadedPath));
+            foreach ($collections as $row) {
+
+            }
+            Storage::delete($uploadedPath);
+        }
     }
 }

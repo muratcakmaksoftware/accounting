@@ -49,7 +49,7 @@ class TCMBCurrencyService extends BaseService
                 return $row->created_at_format;
             })
             ->addColumn('trashed', function ($row) {
-                return '<a onclick="trashed(this)" data-url="' . route('payment_method_types.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
+                return '<a onclick="trashed(this)" data-url="' . route('tcmb_currenies.destroy', ['id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['trashed'])
             ->only(['DT_RowIndex', 'name', 'code', 'unit', 'forex_buy', 'forex_sell', 'banknote_buy', 'banknote_sell', 'created_at', 'trashed'])

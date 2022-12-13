@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Şirket Ekle')
+@section('title', 'Firma Ekle')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Şirketler</a></li>
-    <li class="breadcrumb-item active">Şirket Ekle</li>
+    <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Firmalar</a></li>
+    <li class="breadcrumb-item active">Firma Ekle</li>
 @endsection
 
 @section('content')

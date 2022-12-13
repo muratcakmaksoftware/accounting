@@ -106,6 +106,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/trashed-datatables', [BankController::class, 'trashedDatatables'])->name('banks.trashed_datatables');
         Route::post('/{id}/restore', [BankController::class, 'restore'])->name('banks.restore');
         Route::delete('/{id}/force-delete', [BankController::class, 'forceDelete'])->name('banks.force_delete');
+        Route::post('/upload-bank-checks', [BankController::class, 'uploadBankChecks'])->name('banks.upload_bank_checks');
 
         Route::group(['prefix' => '{bankId}/accounts'], function () {
             Route::get('/', [BankAccountController::class, 'index'])->name('bank_accounts.index');
@@ -147,13 +148,12 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
             Route::get('/trashed-datatables', [BankCheckController::class, 'trashedDatatables'])->name('bank_checks.trashed_datatables');
             Route::post('/{id}/restore', [BankCheckController::class, 'restore'])->name('bank_checks.restore');
             Route::delete('/{id}/force-delete', [BankCheckController::class, 'forceDelete'])->name('bank_checks.force_delete');
-            Route::post('/upload-check', [BankCheckController::class, 'uploadCheck'])->name('bank_checks.upload_check');
         });
     });
 
     Route::group(['prefix' => '/tcmb-currencies'], function () {
-        Route::get('/', [TCMBCurrencyController::class, 'index'])->name('payment_method_types.index');
-        Route::delete('/{id}', [TCMBCurrencyController::class, 'destroy'])->name('payment_method_types.destroy');
-        Route::get('/datatables', [TCMBCurrencyController::class, 'datatables'])->name('payment_method_types.datatables');
+        Route::get('/', [TCMBCurrencyController::class, 'index'])->name('tcmb_currenies.index');
+        Route::delete('/{id}', [TCMBCurrencyController::class, 'destroy'])->name('tcmb_currenies.destroy');
+        Route::get('/datatables', [TCMBCurrencyController::class, 'datatables'])->name('tcmb_currenies.datatables');
     });
 });

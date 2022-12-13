@@ -212,7 +212,7 @@
                             <li class="nav-item">
                                 <a href="{{ route('companies.index') }}" class="nav-link">
                                     <i class="fas fa-building nav-icon"></i>
-                                    <p>Şirketler</p>
+                                    <p>Firmalar</p>
                                 </a>
                             </li>
                             <li class="nav-item">
@@ -229,7 +229,7 @@
                             </li>
 
                             <li class="nav-item">
-                                <a href="{{ route('payment_method_types.index') }}" class="nav-link">
+                                <a href="{{ route('tcmb_currenies.index') }}" class="nav-link">
                                     <i class="fa-solid fa-money-bill-trend-up nav-icon"></i>
                                     <p>TCMB Kurlar</p>
                                 </a>

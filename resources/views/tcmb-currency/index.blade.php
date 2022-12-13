@@ -38,7 +38,7 @@
             $('#main-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('payment_method_types.datatables') }}',
+                ajax: '{{ route('tcmb_currenies.datatables') }}',
                 columns: [
                     {data: 'DT_RowIndex'},
                     {data: 'name'},

@@ -1,10 +1,10 @@
 @extends('layouts.admin')
 
-@section('title', 'Şirketler Çöp Kutusu')
+@section('title', 'Firmalar Çöp Kutusu')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Şirketler</a></li>
-    <li class="breadcrumb-item active">Şirketler Çöp Kutusu</li>
+    <li class="breadcrumb-item"><a href="{{ route('companies.index') }}">Firmalar</a></li>
+    <li class="breadcrumb-item active">Firmalar Çöp Kutusu</li>
 @endsection
 
 @section('content')
@@ -16,7 +16,7 @@
                         <thead>
                         <tr>
                             <th>Sıra</th>
-                            <th>Şirket Adı</th>
+                            <th>Firma Adı</th>
                             <th>Açıklama</th>
                             <th>O.Tarihi</th>
                             <th>D.Tarihi</th>

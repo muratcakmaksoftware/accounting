@@ -19,11 +19,6 @@
                             <a style="float:right;" class="btn btn-danger"
                                href="{{ route('bank_checks.trashed', ['bankId' => $bank->id]) }}"
                                role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
-
-                            <a style="float:right;margin-right: 10px;" class="btn btn-success" data-toggle="modal"
-                               data-target="#dropzoneUpload"
-                               href="{{ route('bank_checks.upload_check', ['bankId' => $bank->id]) }}"
-                               role="button"><i class="fa-regular fa-file-excel"></i> İçe Aktar</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
@@ -40,22 +35,6 @@
                         </tr>
                         </thead>
                     </table>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="dropzoneUpload" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Çek İçeri Aktar</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <x-file-upload/>
                 </div>
             </div>
         </div>
@@ -130,14 +109,5 @@
                 }
             });
         }
-
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            customDropzone('{{ route('bank_checks.upload_check', ['bankId' => $bank->id]) }}', {
-                acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv'
-            });
-        });
     </script>
 @endsection

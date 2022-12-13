@@ -1,9 +1,9 @@
 @extends('layouts.admin')
 
-@section('title', 'Şirketler')
+@section('title', 'Firmalar')
 
 @section('breadcrumb')
-    <li class="breadcrumb-item">Şirketler</li>
+    <li class="breadcrumb-item">Firmalar</li>
 @endsection
 
 @section('content')
@@ -22,7 +22,7 @@
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
                         <thead>
                         <th>Sıra</th>
-                        <th>Şirket Adı</th>
+                        <th>Firma Adı</th>
                         <th>Açıklama</th>
                         <th>O.Tarihi</th>
                         <th style="text-align: center;">Düzenle</th>
