@@ -2,16 +2,30 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\BaseController;
+use Exception;
+use Illuminate\Support\Facades\Storage;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
-class FileUploadService extends BaseController
+class FileUploadService extends BaseService
 {
-    public function __construct()
+    /**
+     * @param string $storageFolderPath
+     * @param UploadedFile $uploadedFile
+     * @param string $uniqPrefix
+     * @param bool $throwException
+     * @return bool|string
+     * @throws Exception
+     */
+    public function upload(string $storageFolderPath, UploadedFile $uploadedFile, string $uniqPrefix = '', bool $throwException = false): bool|string
     {
-    }
-
-    public function upload($request)
-    {
-
+        $uniqFileName = uniqid($uniqPrefix) . '.' . $uploadedFile->getClientOriginalExtension();
+        $uploadedPath = Storage::putFileAs($storageFolderPath, $uploadedFile, $uniqFileName);
+        if ($uploadedPath === false) {
+            if ($throwException) {
+                throw new Exception(__('fileUploadError'));
+            }
+            return false;
+        }
+        return $uploadedPath;
     }
 }

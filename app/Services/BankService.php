@@ -3,16 +3,14 @@
 namespace App\Services;
 
 use App\Enumerations\StorageFolderPath;
-use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
 
-class BankService extends BaseController
+class BankService extends BaseService
 {
     /**
      * @var BankRepositoryInterface
@@ -146,13 +144,11 @@ class BankService extends BaseController
     /**
      * @param array $attributes
      * @return void
+     * @throws Exception
      */
     public function uploadBankChecks(array $attributes)
     {
-        /** @var UploadedFile $file */
-        $file = $attributes['file'];
-        $uniqFileName = uniqid('excel_') . '.' . $file->getClientOriginalExtension();
-        $uploadedPath = Storage::putFileAs(StorageFolderPath::UPLOAD->value, $file, $uniqFileName);
+        $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
         if ($uploadedPath !== false) {
             $collections = FastExcel::import(Storage::path($uploadedPath));
             foreach ($collections as $row) {

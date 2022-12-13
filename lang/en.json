@@ -10,5 +10,6 @@
     "notFound": "Not Found",
     "internalServerError": "Internal Server Error",
     "successTitle": "Success",
-    "errorTitle": "Error"
+    "errorTitle": "Error",
+    "fileUploadError": "An error occurred while uploading the file"
 }

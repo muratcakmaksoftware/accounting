@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\BankAccountHistoryRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankAccountRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
@@ -11,7 +10,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Facades\DataTables;
 
-class BankAccountHistoryService extends BaseController
+class BankAccountHistoryService extends BaseService
 {
     /**
      * @var BankAccountHistoryRepositoryInterface

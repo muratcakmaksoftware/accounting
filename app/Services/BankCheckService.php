@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\BankCheckRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
@@ -11,7 +10,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Facades\DataTables;
 
-class BankCheckService extends BaseController
+class BankCheckService extends BaseService
 {
     /**
      * @var BankCheckRepositoryInterface

@@ -10,5 +10,6 @@
     "notFound": "Bulunamadı",
     "internalServerError": "İç Sunucu Hatası",
     "successTitle": "Başarılı",
-    "errorTitle": "Hata"
+    "errorTitle": "Hata",
+    "fileUploadError": "Dosya yükleme sırasında hata oluştu"
 }

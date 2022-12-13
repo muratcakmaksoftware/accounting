@@ -2,7 +2,6 @@
 
 namespace App\Services;
 
-use App\Http\Controllers\BaseController;
 use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
@@ -12,7 +11,7 @@ use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
 use Yajra\DataTables\Facades\DataTables;
 
-class ReceivableService extends BaseController
+class ReceivableService extends BaseService
 {
     /**
      * @var ReceivableRepositoryInterface
