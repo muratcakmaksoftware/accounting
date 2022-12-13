@@ -87,26 +87,29 @@ function closeSpinner() {
     $('#spinner').css('display', 'none');
 }
 
+/**
+ * Dropzone Configuration
+ */
 const DROPZONE_MAX_FILE_SIZE = 1048576000;
 Dropzone.autoDiscover = false; //dropzone class ı yada form ile yapılan otomatik keşfetme kapalı yapar.
-function singleDropzone(url, acceptedFiles) {
+function customDropzone(url, options = null) {
     $(".custom-dropzone").dropzone({
         url: url,
         headers: {
             'X-CSRF-TOKEN': $('meta[name=csrf-token]').attr('content'),
         },
         method: 'POST',
-        maxFiles: null,
-        uploadMultiple: false,
-        parallelUploads: 1,
-        timeout: null,
-        maxFilesize: DROPZONE_MAX_FILE_SIZE,
-        createImageThumbnails: false,
-        acceptedFiles: acceptedFiles,
-        autoProcessQueue: true, /*yuklemeyi otomatik baslatir*/
-        previewTemplate: $('#custom-html-dropzone-template1').html(),
+        maxFiles: options.hasOwnProperty('maxFiles') ? options.maxFiles : null,
+        uploadMultiple: options.hasOwnProperty('uploadMultiple') ? options.uploadMultiple : false,
+        parallelUploads: options.hasOwnProperty('parallelUploads') ? options.parallelUploads : 1,
+        timeout: options.hasOwnProperty('timeout') ? options.timeout : null,
+        maxFilesize: options.hasOwnProperty('maxFilesize') ? options.maxFilesize : DROPZONE_MAX_FILE_SIZE,
+        createImageThumbnails: options.hasOwnProperty('createImageThumbnails') ? options.createImageThumbnails : false,
+        acceptedFiles: options.hasOwnProperty('acceptedFiles') ? options.acceptedFiles : null,
+        autoProcessQueue: options.hasOwnProperty('autoProcessQueue') ? options.autoProcessQueue : true, /*yuklemeyi otomatik baslatir*/
+        previewTemplate: options.hasOwnProperty('previewTemplate') ? options.previewTemplate : $('#custom-html-dropzone-template1').html(),
         //previewsContainer: $('#custom-html-dropzone-template1').html(),
-        clickable: ".custom-dropzone-button",
+        clickable: options.hasOwnProperty('clickable') ? options.clickable : ".custom-dropzone-button",
         /*init: function() { //listen event
             this.on("error", (file, message) => {
             });
