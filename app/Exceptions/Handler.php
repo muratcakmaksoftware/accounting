@@ -32,7 +32,7 @@ class Handler extends ExceptionHandler
      * @var array<int, class-string<\Throwable>>
      */
     protected $dontReport = [
-        //
+        ErrorMessageException::class //Mesaj olarak atilmis bir exceptioni reportable gonderilmemesini sagladik
     ];
 
     /**
@@ -63,18 +63,34 @@ class Handler extends ExceptionHandler
      */
     public function register()
     {
+        /**
+         * Throw atilmis veya sistem icinde olusan hatalari tespit ederiz.
+         * Bu akista return atilmaz. Gerekli loglama veya bildirim yapilir
+         * dontReport kismindan istenmeyen Exceptionlarin gelmesini eleriz boylelikle onemli olan hatalari bildirim ve loglalama yapariz.
+         */
         $this->reportable(function (Throwable $e) { //Report fonksiyonu ile aynidir
-            if (!($e instanceof ValidationException)) { //Bu if de belirli istisnalar haricinde hata olusmus ise slack bildirimi gonder
-                $this->toSlack($e->getTraceAsString());
-            }
+            $this->toSlack($e->getTraceAsString());
         });
 
-        $this->renderable(function (ValidationException $e, Request $request) { //Render sirasinda hata donusu yapilacaksa bunun yerine render() fonksiyonuda kullanılabilir.
+        /**
+         * Request akisindaki hatalari kontrol ederiz. Request akisinda throw atilirsa ilk reportable karsilar sonrasinda renderable gecer.
+         */
+        $this->renderable(function (Throwable $e, Request $request) { //Render sirasinda hata donusu yapilacaksa bunun yerine render() fonksiyonuda kullanılabilir.
+            $this->flasher = $this->container->make(FlasherInterface::class);
+            if ($e instanceof ValidationException) {
+                if ($request->wantsJson()) { //Ajax Detected
+                    return ResponseHelper::badRequest(['errorMessages' => $this->getValidationErrorMessagesByAjax($e)], __('errorTitle'));
+                } else {
+                    $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
+                    return redirect()->back();
+                }
+            }
+
+            //Tum hatalar icin standart donusun saglanmasi
             if ($request->wantsJson()) { //Ajax Detected
-                return ResponseHelper::badRequest(['errorMessages' => $this->getValidationErrorMessagesByAjax($e)], __('errorTitle'));
+                return ResponseHelper::badRequest(null, $e->getMessage());
             } else {
-                $this->flasher = $this->container->make(FlasherInterface::class);
-                $this->flasher->addError($this->getValidationErrorMessages($e), __('errorTitle'));
+                $this->flasher->addError($e->getMessage(), __('errorTitle'));
                 return redirect()->back();
             }
         });
