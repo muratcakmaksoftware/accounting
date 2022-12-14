@@ -11,5 +11,6 @@
     "internalServerError": "İç Sunucu Hatası",
     "successTitle": "Başarılı",
     "errorTitle": "Hata",
-    "fileUploadError": "Dosya yükleme sırasında hata oluştu"
+    "fileUploadError": "Dosya yükleme sırasında hata oluştu",
+    "authenticatedError": "Mail veya Şifreniz Yanlış"
 }

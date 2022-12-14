@@ -11,5 +11,6 @@
     "internalServerError": "Internal Server Error",
     "successTitle": "Success",
     "errorTitle": "Error",
-    "fileUploadError": "An error occurred while uploading the file"
+    "fileUploadError": "An error occurred while uploading the file",
+    "authenticatedError": "Your email or password is incorrect"
 }

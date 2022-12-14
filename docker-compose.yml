@@ -4,6 +4,7 @@ services:
     php:
         restart: always
         container_name: ac-php
+        user: 'www-data:www-data'
         build:
             context: ./docker/images/php
             dockerfile: Dockerfile

@@ -3,14 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\PostLoginRequest;
+use App\Services\AuthService;
+use Flasher\Prime\FlasherInterface;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Auth;
 
 class AuthController extends BaseController
 {
+    /**
+     * @param AuthService $service
+     * @param FlasherInterface $flasher
+     */
+    public function __construct(AuthService $service, FlasherInterface $flasher)
+    {
+        $this->service = $service;
+        $this->flasher = $flasher;
+    }
+
     /**
      * @return Application|Factory|View
      */
@@ -25,13 +36,10 @@ class AuthController extends BaseController
      */
     public function login(PostLoginRequest $request): RedirectResponse
     {
-
-        if (Auth::attempt($request->only([
-            'email', 'password'
-        ]))) {
-            $request->session()->regenerate();
+        if ($this->service->login($request->onlyRuleData())) {
             return redirect()->route('home');
         }
+        $this->addFlashError(__('authenticatedError'));
         return redirect()->back();
     }
 
@@ -40,7 +48,7 @@ class AuthController extends BaseController
      */
     public function logout(): RedirectResponse
     {
-        Auth::logout();
+        $this->service->logout();
         return redirect()->route('login');
     }
 }

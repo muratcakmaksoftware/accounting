@@ -4,6 +4,7 @@ namespace App\Exceptions;
 
 use App\Helpers\ResponseHelper;
 use Flasher\Prime\FlasherInterface;
+use Illuminate\Auth\AuthenticationException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\SlackMessage;
@@ -86,12 +87,14 @@ class Handler extends ExceptionHandler
                 }
             }
 
-            //Tum hatalar icin standart donusun saglanmasi
-            if ($request->wantsJson()) { //Ajax Detected
-                return ResponseHelper::badRequest(null, $e->getMessage());
-            } else {
-                $this->flasher->addError($e->getMessage(), __('errorTitle'));
-                return redirect()->back();
+            if (!($e instanceof AuthenticationException)) { // && genel hata ayakalamada istisna olarak atlama yapilir.
+                //Tum hatalar icin standart donusun saglanmasi
+                if ($request->wantsJson()) { //Ajax Detected
+                    return ResponseHelper::badRequest(null, $e->getMessage());
+                } else {
+                    $this->flasher->addError($e->getMessage(), __('errorTitle'));
+                    return redirect()->back();
+                }
             }
         });
     }
