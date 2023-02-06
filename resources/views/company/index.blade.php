@@ -17,6 +17,9 @@
                         <div class="col-md-12">
                             <a style="float:right;" class="btn btn-danger" href="{{ route('companies.trashed') }}"
                                role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
+                            <a style="float:right;margin-right: 10px;" class="btn btn-success" data-toggle="modal"
+                               data-target="#dropzoneUpload"
+                               role="button"><i class="fa-regular fa-file-excel"></i> Firmaları İçe Aktar</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
@@ -29,6 +32,22 @@
                         <th style="text-align: center;">Sil</th>
                         </thead>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dropzoneUpload" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Firmaları İçeri Aktar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <x-file-upload/>
                 </div>
             </div>
         </div>
@@ -66,6 +85,10 @@
                     [100, 300, 500, -1],
                     [100, 300, 500, 'Hepsi'],
                 ],
+            });
+
+            customDropzone('{{ route('companies.upload_companies') }}', {
+                acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv'
             });
         });
 

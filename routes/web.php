@@ -63,6 +63,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/trashed-datatables', [CompanyController::class, 'trashedDatatables'])->name('companies.trashed_datatables');
         Route::post('/{id}/restore', [CompanyController::class, 'restore'])->name('companies.restore');
         Route::delete('/{id}/force-delete', [CompanyController::class, 'forceDelete'])->name('companies.force_delete');
+        Route::post('/upload-companies', [CompanyController::class, 'uploadCompanies'])->name('companies.upload_companies');
         //Route::get('/select2Ajax', [CompanyController::class, 'select2Ajax'])->name('companies.select2Ajax');
     });
 

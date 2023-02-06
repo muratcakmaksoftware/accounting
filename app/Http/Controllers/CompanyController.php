@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
 use App\Http\Requests\QueryCompanyRequest;
+use App\Http\Requests\SingleExcelUploadFileRequest;
 use App\Http\Requests\StoreCompanyRequest;
 use App\Http\Requests\UpdateCompanyRequest;
 use App\Services\CompanyService;
@@ -129,6 +130,17 @@ class CompanyController extends BaseController
     {
         $this->service->forceDelete($id);
         return ResponseHelper::forceDelete();
+    }
+
+    /**
+     * @param SingleExcelUploadFileRequest $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function uploadCompanies(SingleExcelUploadFileRequest $request): JsonResponse
+    {
+        $this->service->uploadCompanies($request->onlyRuleData());
+        return ResponseHelper::success();
     }
 
     /**

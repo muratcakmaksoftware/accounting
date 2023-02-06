@@ -35,6 +35,6 @@ class CompanyRepository extends BaseRepository implements CompanyRepositoryInter
      */
     public function getSelect2Ajax(string $name): Collection
     {
-        return $this->model->select(['id', 'name as text'])->where('name', 'LIKE', '%'.$name.'%')->get();
+        return $this->model->select(['id', 'name as text'])->where('name', 'LIKE', '%' . $name . '%')->get();
     }
 }

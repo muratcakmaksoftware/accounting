@@ -2,11 +2,14 @@
 
 namespace App\Services;
 
+use App\Enumerations\StorageFolderPath;
 use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
 
 class CompanyService extends BaseService
@@ -136,6 +139,29 @@ class CompanyService extends BaseService
     public function forceDelete($id)
     {
         $this->repository->forceDelete($id);
+    }
+
+    /**
+     * @param array $attributes
+     * @return void
+     * @throws Exception
+     */
+    public function uploadCompanies(array $attributes): void
+    {
+        $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
+        $companyService = app()->make(CompanyService::class);
+        if ($uploadedPath !== false) {
+            $collections = FastExcel::import(Storage::path($uploadedPath));
+            $collections = $collections->skip(1);
+            foreach ($collections as $row) {
+                if (!$this->repository->getModel()->where('name', $row['Hesap Adı'])->exists()) {
+                    $companyService->store([
+                        'name' => $row['Hesap Adı']
+                    ]);
+                }
+            }
+            Storage::delete($uploadedPath);
+        }
     }
 
     /**
