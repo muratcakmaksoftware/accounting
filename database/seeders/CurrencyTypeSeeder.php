@@ -17,6 +17,7 @@ class CurrencyTypeSeeder extends Seeder
         $currencies = [
             ['name' => 'Türk Lirası', 'code' => 'TRY', 'sembol' => '₺'],
             ['name' => 'Dolar', 'code' => 'USD', 'sembol' => '$'],
+            ['name' => 'Euro', 'code' => 'EUR', 'sembol' => '€'],
         ];
 
         foreach ($currencies as $currency) {

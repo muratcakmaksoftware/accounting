@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Enumerations\StorageFolderPath;
 use App\Interfaces\RepositoryInterfaces\CompanyRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\PaymentMethodTypeRepositoryInterface;
@@ -9,6 +10,10 @@ use App\Interfaces\RepositoryInterfaces\ReceivableRepositoryInterface;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
 
 class ReceivableService extends BaseService
@@ -183,5 +188,63 @@ class ReceivableService extends BaseService
     public function forceDelete($id)
     {
         $this->repository->forceDelete($id);
+    }
+
+    /**
+     * @param array $attributes
+     * @return void
+     * @throws Exception
+     */
+    public function uploadReceivables(array $attributes): void
+    {
+        DB::transaction(function ($attributes) {
+            $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
+            $companyRepository = app()->make(CompanyRepositoryInterface::class);
+            $currencyTypeRepository = app()->make(CurrencyTypeRepositoryInterface::class);
+            if ($uploadedPath !== false) {
+                $collections = FastExcel::withoutHeaders()->import(Storage::path($uploadedPath));
+                foreach ($collections as $row) {
+                    /**
+                     * 0 = companyName
+                     * 2 = VadeTarihi
+                     * 4 = belgeno
+                     * 6 = borc
+                     * 8 = doviz
+                     */
+                    if ($row[0] != 'Cari Hesap') { //ayni sutun adina sahip olmayan satirlar tekrarlandigi icin eklendi.
+                        $companyName = trim(explode('/', $row[0])[1]);
+                        $expires_at = Carbon::parse($row[2])->format('Y-m-d');
+
+                        $uploadHash = md5($companyName . $expires_at . $row[4] . $row[6] . $row[8]);
+
+                        if (!$this->repository->getModel()->where('upload_hash', $uploadHash)->exists()) { //ayni kayit daha onceden yapilmis mi kontroludur.
+                            $company = $companyRepository->getModel()->where('name', $companyName)->first();
+                            if (is_null($company)) {
+                                $company = $companyRepository->store(['name' => $companyName]);
+                            }
+
+                            if ($row[8] == 'TL') {
+                                $row[8] = 'TRY';
+                            }
+
+                            $currencyType = $currencyTypeRepository->getModel()->where('code', $row[8])->first();
+                            if (is_null($currencyType)) {
+                                $currencyType = $currencyTypeRepository->getModel()->where('code', 'TRY')->first();
+                            }
+
+                            $this->repository->store([
+                                'company_id' => $company->id,
+                                'currency_type_id' => $currencyType->id,
+                                'price' => $row[6],
+                                'expires_at' => $expires_at,
+                                'description' => $row[4] . ' - ' . $row[5],
+                                'upload_hash' => $uploadHash
+                            ]);
+                        }
+                    }
+                }
+                Storage::delete($uploadedPath);
+            }
+        });
     }
 }

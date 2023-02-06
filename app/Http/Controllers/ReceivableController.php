@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\SingleExcelUploadFileRequest;
 use App\Http\Requests\StoreReceivableRequest;
 use App\Http\Requests\UpdateReceivableRequest;
 use App\Services\ReceivableService;
@@ -131,5 +132,16 @@ class ReceivableController extends BaseController
     {
         $this->service->forceDelete($id);
         return ResponseHelper::forceDelete();
+    }
+
+    /**
+     * @param SingleExcelUploadFileRequest $request
+     * @return JsonResponse
+     * @throws Exception
+     */
+    public function uploadReceivables(SingleExcelUploadFileRequest $request): JsonResponse
+    {
+        $this->service->uploadReceivables($request->onlyRuleData());
+        return ResponseHelper::success();
     }
 }

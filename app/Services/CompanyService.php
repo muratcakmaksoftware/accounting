@@ -149,13 +149,11 @@ class CompanyService extends BaseService
     public function uploadCompanies(array $attributes): void
     {
         $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
-        $companyService = app()->make(CompanyService::class);
         if ($uploadedPath !== false) {
             $collections = FastExcel::import(Storage::path($uploadedPath));
-            $collections = $collections->skip(1);
             foreach ($collections as $row) {
                 if (!$this->repository->getModel()->where('name', $row['Hesap Adı'])->exists()) {
-                    $companyService->store([
+                    $this->store([
                         'name' => $row['Hesap Adı']
                     ]);
                 }

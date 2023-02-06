@@ -134,6 +134,7 @@ class BankController extends BaseController
     /**
      * @param SingleExcelUploadFileRequest $request
      * @return JsonResponse
+     * @throws Exception
      */
     public function uploadBankChecks(SingleExcelUploadFileRequest $request): JsonResponse
     {

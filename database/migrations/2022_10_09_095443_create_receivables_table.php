@@ -21,6 +21,7 @@ return new class extends Migration
             $table->decimal('price', '13', '2');
             $table->date('expires_at');
             $table->string('description', 2500)->nullable();
+            $table->string('upload_hash', 35)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });
