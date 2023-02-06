@@ -28,6 +28,7 @@
                         <div class="form-group">
                             <label>Ödeme Yöntemi</label>
                             <select class="form-control select2" name="payment_method_type_id">
+                                <option value="">Seçiniz</option>
                                 @foreach($paymentMethodTypes as $paymentMethodType)
                                     <option value="{{ $paymentMethodType->id }}" @if($receivable->payment_method_type_id == $paymentMethodType->id) selected @endif>{{ $paymentMethodType->name }}</option>
                                 @endforeach

@@ -100,7 +100,7 @@ class ReceivableService extends BaseService
                 return $row->currencyType->name;
             })
             ->editColumn('payment_method_type', function ($row) {
-                return $row->paymentMethodType->name;
+                return $row->paymentMethodType->name ?? '';
             })
             ->editColumn('price', function ($row) {
                 return $row->getPriceFormat($row->currencyType->code);
@@ -142,7 +142,7 @@ class ReceivableService extends BaseService
                 return $row->currencyType->name;
             })
             ->editColumn('payment_method_type', function ($row) {
-                return $row->paymentMethodType->name;
+                return $row->paymentMethodType->name ?? '';
             })
             ->editColumn('price', function ($row) {
                 return $row->getPriceFormat($row->currencyType->code);

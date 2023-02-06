@@ -17,10 +17,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('company_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('currency_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
-            $table->foreignId('payment_method_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('payment_method_type_id')->nullable()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->decimal('price', '13', '2');
             $table->date('expires_at');
-            $table->string('description', 2500)->nullable(true);
+            $table->string('description', 2500)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -12,7 +12,7 @@ class StoreReceivableRequest extends BaseRequest
         return [
             'company_id' => 'required|integer',
             'currency_type_id' => 'required|integer',
-            'payment_method_type_id' => 'required|integer',
+            'payment_method_type_id' => 'nullable|integer',
             'price' => 'required|numeric',
             'expires_at' => 'required|date',
             'description' => 'string|nullable',
