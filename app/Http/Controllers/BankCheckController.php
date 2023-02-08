@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\ResponseHelper;
+use App\Http\Requests\SingleExcelUploadFileRequest;
 use App\Http\Requests\StoreBankCheckRequest;
 use App\Http\Requests\UpdateBankCheckRequest;
 use App\Services\BankCheckService;
@@ -145,5 +146,16 @@ class BankCheckController extends BaseController
     {
         $this->service->forceDelete($id);
         return ResponseHelper::forceDelete();
+    }
+
+    /**
+     * @param $bankId
+     * @param SingleExcelUploadFileRequest $request
+     * @return JsonResponse
+     */
+    public function uploadBankChecks($bankId, SingleExcelUploadFileRequest $request): JsonResponse
+    {
+        $this->service->uploadBankChecks($bankId, $request->onlyRuleData());
+        return ResponseHelper::success();
     }
 }

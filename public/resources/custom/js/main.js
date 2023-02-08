@@ -145,7 +145,39 @@ function customDropzone(url, options = null) {
                 )) {
                     node.innerHTML = message;
                 }
+
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Yükleme Hatası',
+                    html: message,
+                });
             }
-        }
+        },
+        success: function success(file) {
+            Toast.fire({
+                icon: 'warning',
+                title: 'Dosya Yüklendi',
+                html: 'Lütfen dosyanın işlenmesini bekleyiniz!',
+            });
+
+            if (file.previewElement) {
+                return file.previewElement.classList.add("dz-success");
+            }
+        },
+        complete: function complete(file) {
+            Toast.fire({
+                icon: 'success',
+                title: 'Başarılıyla Yüklendi',
+                html: file.upload.filename,
+            });
+
+            if (file._removeLink) {
+                file._removeLink.innerHTML = this.options.dictRemoveFile;
+            }
+
+            if (file.previewElement) {
+                return file.previewElement.classList.add("dz-complete");
+            }
+        },
     });
 }

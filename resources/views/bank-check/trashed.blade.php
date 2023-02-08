@@ -21,6 +21,7 @@
                             <th>Çek Adı</th>
                             <th>Para Birimi</th>
                             <th>Tutar</th>
+                            <th>Vade</th>
                             <th>O.Tarihi</th>
                             <th>D.Tarihi</th>
                             <th style="text-align: center;">Geri Al</th>
@@ -44,6 +45,7 @@
                     {data: 'name'},
                     {data: 'currency_type_name'},
                     {data: 'total'},
+                    {data: 'expires_at'},
                     {data: 'created_at', className: "text-center", width: "5%"},
                     {data: 'deleted_at', className: "text-center", width: "5%"},
                     {

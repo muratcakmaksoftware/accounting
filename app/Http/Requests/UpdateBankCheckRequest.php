@@ -13,6 +13,7 @@ class UpdateBankCheckRequest extends BaseRequest
             'name' => 'required|string',
             'currency_type_id' => 'required|integer|exists:currency_types,id',
             'total' => 'required|numeric',
+            'expires_at' => 'required|date',
             'description' => 'string|nullable',
         ];
     }

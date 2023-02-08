@@ -39,6 +39,17 @@
                         </div>
 
                         <div class="form-group">
+                            <label>Vade Tarihi</label>
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                </div>
+                                <input type="text" name="expires_at" class="form-control single-datepicker"
+                                       value="{{ old('expires_at') }}">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
                             <label>Açıklama</label>
                             <textarea class="form-control" name="description" rows="4" placeholder=""
                                       maxlength="2500">{{ old('description') }}</textarea>

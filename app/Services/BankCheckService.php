@@ -2,12 +2,17 @@
 
 namespace App\Services;
 
+use App\Enumerations\StorageFolderPath;
 use App\Interfaces\RepositoryInterfaces\BankCheckRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\BankRepositoryInterface;
 use App\Interfaces\RepositoryInterfaces\CurrencyTypeRepositoryInterface;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+use Rap2hpoutre\FastExcel\Facades\FastExcel;
 use Yajra\DataTables\Facades\DataTables;
 
 class BankCheckService extends BaseService
@@ -115,6 +120,9 @@ class BankCheckService extends BaseService
             ->editColumn('total', function ($row) {
                 return $row->getPriceFormat($row->currencyType->code, 'total');
             })
+            ->editColumn('expires_at', function ($row) {
+                return $row->expires_at_format;
+            })
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
@@ -125,7 +133,7 @@ class BankCheckService extends BaseService
                 return '<a onclick="trashed(this)" data-url="' . route('bank_checks.destroy', ['bankId' => $bankId, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['edit', 'trashed'])
-            ->only(['DT_RowIndex', 'name', 'iban', 'currency_type_name', 'total', 'description', 'created_at', 'edit', 'trashed'])
+            ->only(['DT_RowIndex', 'name', 'iban', 'currency_type_name', 'total', 'expires_at', 'description', 'created_at', 'edit', 'trashed'])
             ->toJson();
     }
 
@@ -159,6 +167,9 @@ class BankCheckService extends BaseService
             ->editColumn('total', function ($row) {
                 return $row->getPriceFormat($row->currencyType->code, 'total');
             })
+            ->editColumn('expires_at', function ($row) {
+                return $row->expires_at_format;
+            })
             ->editColumn('created_at', function ($row) {
                 return $row->created_at_format;
             })
@@ -172,7 +183,7 @@ class BankCheckService extends BaseService
                 return '<a onclick="forceDelete(this)" data-url="' . route('bank_checks.force_delete', ['bankId' => $row->bank->id, 'id' => $row->id]) . '" class="btn btn-danger"><i class="fa-solid fa-trash"></i></a>';
             })
             ->rawColumns(['restore', 'force_delete'])
-            ->only(['DT_RowIndex', 'name', 'currency_type_name', 'total', 'created_at', 'deleted_at', 'restore', 'force_delete'])
+            ->only(['DT_RowIndex', 'name', 'currency_type_name', 'total', 'expires_at', 'created_at', 'deleted_at', 'restore', 'force_delete'])
             ->toJson();
     }
 
@@ -192,5 +203,39 @@ class BankCheckService extends BaseService
     public function forceDelete($id)
     {
         $this->repository->forceDelete($id);
+    }
+
+    /**
+     * @param $bankId
+     * @param array $attributes
+     * @return void
+     */
+    public function uploadBankChecks($bankId, array $attributes): void
+    {
+        DB::transaction(function () use ($bankId, $attributes) {
+            $currencyType = app()->make(CurrencyTypeRepositoryInterface::class)->getModel()->where('code', 'TRY')->first();
+            if (isset($currencyType)) {
+                $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
+                if ($uploadedPath !== false) {
+                    $collections = FastExcel::import(Storage::path($uploadedPath));
+                    foreach ($collections as $row) {
+                        $expiresAt = Carbon::parse($row['Vade'])->format('Y-m-d');
+                        $uploadHash = md5($row['Borçlu'] . $expiresAt . $row['Tutarı'] . $row['Seri No.'] . $row['Portföy No.']);
+                        if (!$this->repository->getModel()->where('upload_hash', $uploadHash)->exists()) { //ayni kayit daha onceden yapilmis mi kontroludur.
+                            $this->repository->store([
+                                'bank_id' => $bankId,
+                                'currency_type_id' => $currencyType->id,
+                                'name' => $row['Borçlu'] . ' - ' . $row['Seri No.'],
+                                'total' => $row['Tutarı'],
+                                'expires_at' => $row['Vade'],
+                                'description' => 'Portföy No: ' . $row['Portföy No.'] . ' - Seri No: ' . $row['Seri No.'] . ' - Türü: ' . $row['Türü'] . ' - Durumu: ' . $row['Durumu'],
+                                'upload_hash' => $uploadHash
+                            ]);
+                        }
+                    }
+                    Storage::delete($uploadedPath);
+                }
+            }
+        });
     }
 }

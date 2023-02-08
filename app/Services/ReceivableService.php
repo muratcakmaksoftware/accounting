@@ -197,7 +197,7 @@ class ReceivableService extends BaseService
      */
     public function uploadReceivables(array $attributes): void
     {
-        DB::transaction(function ($attributes) {
+        DB::transaction(function () use ($attributes) {
             $uploadedPath = app()->make(FileUploadService::class)->upload(StorageFolderPath::UPLOAD->value, $attributes['file'], 'excel_', true);
             $companyRepository = app()->make(CompanyRepositoryInterface::class);
             $currencyTypeRepository = app()->make(CurrencyTypeRepositoryInterface::class);
@@ -213,9 +213,9 @@ class ReceivableService extends BaseService
                      */
                     if ($row[0] != 'Cari Hesap') { //ayni sutun adina sahip olmayan satirlar tekrarlandigi icin eklendi.
                         $companyName = trim(explode('/', $row[0])[1]);
-                        $expires_at = Carbon::parse($row[2])->format('Y-m-d');
+                        $expiresAt = Carbon::parse($row[2])->format('Y-m-d');
 
-                        $uploadHash = md5($companyName . $expires_at . $row[4] . $row[6] . $row[8]);
+                        $uploadHash = md5($companyName . $expiresAt . $row[4] . $row[6] . $row[8]);
 
                         if (!$this->repository->getModel()->where('upload_hash', $uploadHash)->exists()) { //ayni kayit daha onceden yapilmis mi kontroludur.
                             $company = $companyRepository->getModel()->where('name', $companyName)->first();
@@ -236,7 +236,7 @@ class ReceivableService extends BaseService
                                 'company_id' => $company->id,
                                 'currency_type_id' => $currencyType->id,
                                 'price' => $row[6],
-                                'expires_at' => $expires_at,
+                                'expires_at' => $expiresAt,
                                 'description' => $row[4] . ' - ' . $row[5],
                                 'upload_hash' => $uploadHash
                             ]);

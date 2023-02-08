@@ -108,7 +108,6 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
         Route::get('/trashed-datatables', [BankController::class, 'trashedDatatables'])->name('banks.trashed_datatables');
         Route::post('/{id}/restore', [BankController::class, 'restore'])->name('banks.restore');
         Route::delete('/{id}/force-delete', [BankController::class, 'forceDelete'])->name('banks.force_delete');
-        Route::post('/upload-bank-checks', [BankController::class, 'uploadBankChecks'])->name('banks.upload_bank_checks');
 
         Route::group(['prefix' => '{bankId}/accounts'], function () {
             Route::get('/', [BankAccountController::class, 'index'])->name('bank_accounts.index');
@@ -150,6 +149,7 @@ Route::group(['prefix' => '/', 'middleware' => 'auth'], function () {
             Route::get('/trashed-datatables', [BankCheckController::class, 'trashedDatatables'])->name('bank_checks.trashed_datatables');
             Route::post('/{id}/restore', [BankCheckController::class, 'restore'])->name('bank_checks.restore');
             Route::delete('/{id}/force-delete', [BankCheckController::class, 'forceDelete'])->name('bank_checks.force_delete');
+            Route::post('/upload-bank-checks', [BankCheckController::class, 'uploadBankChecks'])->name('bank_checks.upload_bank_checks');
         });
     });
 

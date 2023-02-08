@@ -19,6 +19,9 @@
                             <a style="float:right;" class="btn btn-danger"
                                href="{{ route('bank_checks.trashed', ['bankId' => $bank->id]) }}"
                                role="button"><i class="fa-solid fa-trash"></i> Çöp Kutusu</a>
+                            <a style="float:right;margin-right: 10px;" class="btn btn-success" data-toggle="modal"
+                               data-target="#dropzoneUpload"
+                               role="button"><i class="fa-regular fa-file-excel"></i> Çekleri İçe Aktar</a>
                         </div>
                     </div>
                     <table id="main-table" class="table table-bordered table-hover" style="width: 100%!important;">
@@ -28,6 +31,7 @@
                             <th>Çek Adı</th>
                             <th>Para Birimi</th>
                             <th>Tutar</th>
+                            <th>Vade</th>
                             <th>Açıklama</th>
                             <th>O.Tarihi</th>
                             <th style="text-align: center;">Düzenle</th>
@@ -35,6 +39,22 @@
                         </tr>
                         </thead>
                     </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="dropzoneUpload" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Çek İçeri Aktar</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <x-file-upload/>
                 </div>
             </div>
         </div>
@@ -51,6 +71,7 @@
                     {data: 'name'},
                     {data: 'currency_type_name'},
                     {data: 'total'},
+                    {data: 'expires_at'},
                     {data: 'description'},
                     {data: 'created_at', className: "text-center", width: "5%"},
                     {
@@ -74,6 +95,10 @@
                     [100, 300, 500, -1],
                     [100, 300, 500, 'Hepsi'],
                 ]
+            });
+
+            customDropzone('{{ route('bank_checks.upload_bank_checks', ['bankId' => $bank->id]) }}', {
+                acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,text/csv'
             });
         });
 

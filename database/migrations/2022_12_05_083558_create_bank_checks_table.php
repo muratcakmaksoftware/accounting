@@ -17,8 +17,10 @@ return new class extends Migration {
             $table->foreignId('bank_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('currency_type_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('name');
-            $table->string('description', 2500)->nullable(true);
+            $table->date('expires_at');
             $table->decimal('total', 13, 2);
+            $table->string('description', 2500)->nullable(true);
+            $table->string('upload_hash', 35)->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

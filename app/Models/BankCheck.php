@@ -29,7 +29,7 @@ class BankCheck extends BaseModel
     /**
      * @var string[]
      */
-    protected $dates = ['created_at', 'updated_at', 'deleted_at'];
+    protected $dates = ['created_at', 'updated_at', 'deleted_at', 'expires_at'];
 
     /**
      * @return BelongsTo
